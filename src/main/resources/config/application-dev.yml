@@ -1,0 +1,185 @@
+# ===================================================================
+# Spring Boot configuration for the "dev" profile.
+#
+# This configuration overrides the application.yml file.
+#
+# More information on profiles: https://jhipster.github.io/profiles/
+# More information on configuration properties: https://jhipster.github.io/common-application-properties/
+# ===================================================================
+
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
+spring:
+    profiles:
+        active: dev
+        include: swagger
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: false # we use gulp + BrowserSync for livereload
+    jackson:
+        serialization.indent_output: true
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:h2:file:./target/h2db/db/holley_ims;DB_CLOSE_DELAY=-1
+        username: holley_ims
+        password:
+    h2:
+        console:
+            enabled: false
+    jpa:
+        database-platform: io.github.jhipster.domain.util.FixedH2Dialect
+        database: H2
+        show-sql: true
+        properties:
+            hibernate.id.new_generator_mappings: true
+            hibernate.cache.use_second_level_cache: true
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+            hibernate.javax.cache.provider: org.ehcache.jsr107.EhcacheCachingProvider
+            hibernate.javax.cache.uri: ${spring.cache.jcache.config}
+            hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.SpringCacheRegionFactory
+    cache:
+        jcache:
+            config: config/ehcache/ehcache-dev.xml
+    mail:
+        host: localhost
+        port: 25
+        username:
+        password:
+    messages:
+        cache-seconds: 1
+    thymeleaf:
+        cache: false
+
+    http:
+        multipart:
+            maxFileSize: 30MB
+            maxRequestSize: 30MB
+
+redis:
+    host: 127.0.0.1
+    port: 6379
+
+liquibase:
+    contexts: dev
+
+server:
+    port: 8080
+
+# ===================================================================
+# JHipster specific properties
+#
+# Full reference is available at: https://jhipster.github.io/common-application-properties/
+# ===================================================================
+
+jhipster:
+    security:
+        authentication:
+            jwt:
+                secret: my-secret-token-to-change-in-production
+                # Token is valid 24 hours
+                token-validity-in-seconds: 86400
+                token-validity-in-seconds-for-remember-me: 2592000
+    mail: # specific JHipster mail property, for standard properties see MailProperties
+        from: holley_ims@localhost
+        base-url: http://127.0.0.1:8080
+    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
+        jmx.enabled: true
+        graphite: # Use the "graphite" Maven profile to have the Graphite dependencies
+            enabled: false
+            host: localhost
+            port: 2003
+            prefix: holley_ims
+        prometheus: # Use the "prometheus" Maven profile to have the Prometheus dependencies
+            enabled: false
+            endpoint: /prometheusMetrics
+        logs: # Reports Dropwizard metrics in the logs
+            enabled: false
+            reportFrequency: 60 # in seconds
+    logging:
+        logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
+            enabled: false
+            host: localhost
+            port: 5000
+            queue-size: 512
+
+
+# ===================================================================
+# Rabbitmq properties
+# ===================================================================
+rabbitmq:
+    hostname: localhost
+    port: 5672
+    username: rabbitmq
+    password: rabbitmq
+    queueName: whirlpool
+    defaultTopicExchange: whirlpool-exchange
+
+
+# ===================================================================
+# Httpclient specific properties
+# ===================================================================
+
+httpclient:
+    pool:
+        # 连接池连接总数
+        maxTotal: 200
+        # 每个地址的并发数
+        defaultMaxPerRoute: 100
+    request:
+        # 连接超时时间
+        connectTimeout: 2000
+        # 数据传输超时时间
+        readTimeout: 1000
+        # 连接不够用的等待时间
+        connectionRequestTimeout: 200
+    retry:
+        # 重试次数
+        retryCount: 3
+        requestSentRetryEnabled: true
+    mes:
+        # 第三方接口地址
+        host: 192.168.1.19
+        # 第三方接口端口
+        port: 8080
+
+# =====================================================================================
+# OpcUa properties
+# 配置OpcUa订阅节点需注意：
+# 1、同一类别对应于一个onDataChange处理事件
+# 2、同一设备出现多台，可参考下面格式书写配置，注意缩进，且必须写在类别的最前面，
+#    其中NodeBase 为所有节点的共有部分，No为设备编号，SubsribeNode为节点的变量名，No可以不写
+# 3、也可以单独配置单一节点
+# ======================================================================================
+opcua:
+    address: opc.tcp://172.16.31.23:55105
+#    address: opc.tcp://10.152.101.161:52520/OPCUA/HaierOPCUAServer
+#
+##   监听仓位纸箱数量
+#    cartonQuantitySubscribeNodes:
+#          - Channel_1.Device_1.Tag_3
+#          - CartonSpace.CartonSpace_A2.grab
+#          - CartonSpace.CartonSpace_A3.grab
+#          - CartonSpace.CartonSpace_A4.grab
+#          - CartonSpace.CartonSpace_A5.grab
+#          - CartonSpace.CartonSpace_A6.grab
+#          - CartonSpace.CartonSpace_A7.grab
+#          - CartonSpace.CartonSpace_A8.grab
+
+
+# ===================================================================
+# Application specific properties
+# Add your own application properties here, see the ApplicationProperties class
+# to have type-safe configuration, like in the JHipsterProperties above
+#
+# More documentation is available at:
+# https://jhipster.github.io/common-application-properties/
+# ===================================================================
+
+application:
