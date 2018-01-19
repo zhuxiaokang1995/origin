@@ -27,6 +27,6 @@ public class MesSubmitService {
         MesApiAccessResult result = httpTemplateMes.postForObject(url + SUBMIT_LINE_STOP, dto, MesApiAccessResult.class);
         if (result.isSuccess()) log.info("MesLineStopDto[{}]{}提交成功", dto.getPK(),dto.getOperationTime(),dto.getSectionID());
         else
-            log.error("Sn[{}]{}提交失败，错误信息：{}", dto.getPK(),dto.getOperationTime(),dto.getSectionID());
+            log.error("MesLineStopDto[{}]{}提交失败，错误信息：{}", dto.getPK(),dto.getOperationTime(),dto.getSectionID());
     }
 }
