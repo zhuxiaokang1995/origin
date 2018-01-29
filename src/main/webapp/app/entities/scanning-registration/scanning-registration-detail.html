@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span data-translate="holleyImsApp.scanningRegistration.detail.title">Scanning Registration</span> {{vm.scanningRegistration.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="holleyImsApp.scanningRegistration.pk">Pk</span></dt>
+        <dd>
+            <span>{{vm.scanningRegistration.pk}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.scanningRegistration.serialNumber">Serial Number</span></dt>
+        <dd>
+            <span>{{vm.scanningRegistration.serialNumber}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.scanningRegistration.stationID">Station ID</span></dt>
+        <dd>
+            <span>{{vm.scanningRegistration.stationID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.scanningRegistration.scanType">Scan Type</span></dt>
+        <dd>
+            <span>{{vm.scanningRegistration.scanType}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.scanningRegistration.defectCode">Defect Code</span></dt>
+        <dd>
+            <span>{{vm.scanningRegistration.defectCode}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.scanningRegistration.result">Result</span></dt>
+        <dd>
+            <span>{{vm.scanningRegistration.result}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.scanningRegistration.subSn">Sub Sn</span></dt>
+        <dd>
+            <span>{{vm.scanningRegistration.subSn}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="scanning-registration-detail.edit({id:vm.scanningRegistration.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
