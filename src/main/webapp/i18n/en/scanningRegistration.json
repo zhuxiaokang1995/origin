@@ -1,0 +1,27 @@
+{
+    "holleyImsApp": {
+        "scanningRegistration" : {
+            "home": {
+                "title": "Scanning Registrations",
+                "createLabel": "Create a new Scanning Registration",
+                "createOrEditLabel": "Create or edit a Scanning Registration"
+            },
+            "created": "A new Scanning Registration is created with identifier {{ param }}",
+            "updated": "A Scanning Registration is updated with identifier {{ param }}",
+            "deleted": "A Scanning Registration is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Scanning Registration {{ id }}?"
+            },
+            "detail": {
+                "title": "Scanning Registration"
+            },
+            "pk": "Pk",
+            "serialNumber": "Serial Number",
+            "stationID": "Station ID",
+            "scanType": "Scan Type",
+            "defectCode": "Defect Code",
+            "result": "Result",
+            "subSn": "Sub Sn"
+        }
+    }
+}

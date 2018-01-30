@@ -1,0 +1,39 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "pk",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "serialNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "stationID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "scanType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "defectCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "result",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "subSn",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180126073633",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "scanning_registration",
+    "pagination": "no"
+}

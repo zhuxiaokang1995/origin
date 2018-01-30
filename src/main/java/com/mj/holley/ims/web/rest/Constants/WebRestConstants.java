@@ -6,4 +6,7 @@ package com.mj.holley.ims.web.rest.Constants;
 public class WebRestConstants {
 
     public static final String MES_LINE_STOP = "redis_line_stop_pk";
+
+    public static final String MES_SCANNING_REGISTRATION = "redis_scanning_registration_pk";
+
 }
