@@ -1,0 +1,68 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myScanningRegistrationLabel" data-translate="holleyImsApp.scanningRegistration.home.createOrEditLabel">Create or edit a Scanning Registration</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.scanningRegistration.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.scanningRegistration.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.scanningRegistration.pk" for="field_pk">Pk</label>
+            <input type="number" class="form-control" name="pk" id="field_pk"
+                    ng-model="vm.scanningRegistration.pk"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.scanningRegistration.serialNumber" for="field_serialNumber">Serial Number</label>
+            <input type="text" class="form-control" name="serialNumber" id="field_serialNumber"
+                    ng-model="vm.scanningRegistration.serialNumber"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.scanningRegistration.stationID" for="field_stationID">Station ID</label>
+            <input type="text" class="form-control" name="stationID" id="field_stationID"
+                    ng-model="vm.scanningRegistration.stationID"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.scanningRegistration.scanType" for="field_scanType">Scan Type</label>
+            <input type="text" class="form-control" name="scanType" id="field_scanType"
+                    ng-model="vm.scanningRegistration.scanType"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.scanningRegistration.defectCode" for="field_defectCode">Defect Code</label>
+            <input type="text" class="form-control" name="defectCode" id="field_defectCode"
+                    ng-model="vm.scanningRegistration.defectCode"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.scanningRegistration.result" for="field_result">Result</label>
+            <input type="text" class="form-control" name="result" id="field_result"
+                    ng-model="vm.scanningRegistration.result"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.scanningRegistration.subSn" for="field_subSn">Sub Sn</label>
+            <input type="text" class="form-control" name="subSn" id="field_subSn"
+                    ng-model="vm.scanningRegistration.subSn"
+                    />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
