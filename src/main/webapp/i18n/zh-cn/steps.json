@@ -1,0 +1,25 @@
+{
+    "holleyImsApp": {
+        "steps" : {
+            "home": {
+                "title": "Steps",
+                "createLabel": "Create a new Steps",
+                "createOrEditLabel": "Create or edit a Steps"
+            },
+            "created": "A new Steps is created with identifier {{ param }}",
+            "updated": "A Steps is updated with identifier {{ param }}",
+            "deleted": "A Steps is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Steps {{ id }}?"
+            },
+            "detail": {
+                "title": "Steps"
+            },
+            "stepID": "Step ID",
+            "stepName": "Step Name",
+            "sequence": "Sequence",
+            "stepAttrID": "Step Attr ID",
+            "stationID": "Station ID"
+        }
+    }
+}

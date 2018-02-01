@@ -1,0 +1,35 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "orderID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "defID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "defDescript",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lineID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bOPID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "pPRName",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180126100933",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "order_info",
+    "pagination": "no"
+}

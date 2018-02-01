@@ -1,0 +1,66 @@
+<div>
+    <h2 data-translate="holleyImsApp.orderInfo.home.title">Order Infos</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="order-info.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="holleyImsApp.orderInfo.home.createLabel">
+                        Create new Order Info
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.orderID">Order ID</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.defID">Def ID</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.defDescript">Def Descript</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.lineID">Line ID</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.bOPID">B OPID</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.pPRName">P PR Name</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="orderInfo in vm.orderInfos track by orderInfo.id">
+                    <td><a ui-sref="order-info-detail({id:orderInfo.id})">{{orderInfo.id}}</a></td>
+                    <td>{{orderInfo.orderID}}</td>
+                    <td>{{orderInfo.defID}}</td>
+                    <td>{{orderInfo.defDescript}}</td>
+                    <td>{{orderInfo.lineID}}</td>
+                    <td>{{orderInfo.bOPID}}</td>
+                    <td>{{orderInfo.pPRName}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="order-info-detail({id:orderInfo.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="order-info.edit({id:orderInfo.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="order-info.delete({id:orderInfo.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

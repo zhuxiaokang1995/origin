@@ -1,0 +1,26 @@
+{
+    "holleyImsApp": {
+        "orderInfo" : {
+            "home": {
+                "title": "Order Infos",
+                "createLabel": "Create a new Order Info",
+                "createOrEditLabel": "Create or edit a Order Info"
+            },
+            "created": "A new Order Info is created with identifier {{ param }}",
+            "updated": "A Order Info is updated with identifier {{ param }}",
+            "deleted": "A Order Info is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Order Info {{ id }}?"
+            },
+            "detail": {
+                "title": "Order Info"
+            },
+            "orderID": "Order ID",
+            "defID": "Def ID",
+            "defDescript": "Def Descript",
+            "lineID": "Line ID",
+            "bOPID": "B OPID",
+            "pPRName": "P PR Name"
+        }
+    }
+}

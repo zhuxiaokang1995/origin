@@ -1,0 +1,23 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "subBopID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "processID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "generalSopPath",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180126095906",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "processes",
+    "pagination": "no"
+}
