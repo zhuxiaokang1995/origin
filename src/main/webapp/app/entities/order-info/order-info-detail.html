@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span data-translate="holleyImsApp.orderInfo.detail.title">Order Info</span> {{vm.orderInfo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="holleyImsApp.orderInfo.orderID">Order ID</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.orderID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.orderInfo.defID">Def ID</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.defID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.orderInfo.defDescript">Def Descript</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.defDescript}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.orderInfo.lineID">Line ID</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.lineID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.orderInfo.bOPID">B OPID</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.bOPID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.orderInfo.pPRName">P PR Name</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.pPRName}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="order-info-detail.edit({id:vm.orderInfo.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

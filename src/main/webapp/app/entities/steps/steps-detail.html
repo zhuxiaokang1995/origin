@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span data-translate="holleyImsApp.steps.detail.title">Steps</span> {{vm.steps.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="holleyImsApp.steps.stepID">Step ID</span></dt>
+        <dd>
+            <span>{{vm.steps.stepID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.steps.stepName">Step Name</span></dt>
+        <dd>
+            <span>{{vm.steps.stepName}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.steps.sequence">Sequence</span></dt>
+        <dd>
+            <span>{{vm.steps.sequence}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.steps.stepAttrID">Step Attr ID</span></dt>
+        <dd>
+            <span>{{vm.steps.stepAttrID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.steps.stationID">Station ID</span></dt>
+        <dd>
+            <span>{{vm.steps.stationID}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="steps-detail.edit({id:vm.steps.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

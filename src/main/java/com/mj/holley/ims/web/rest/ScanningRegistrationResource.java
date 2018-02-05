@@ -2,7 +2,6 @@ package com.mj.holley.ims.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mj.holley.ims.domain.ScanningRegistration;
-
 import com.mj.holley.ims.repository.ScanningRegistrationRepository;
 import com.mj.holley.ims.service.MesSubmitService;
 import com.mj.holley.ims.service.RedisService;
@@ -20,8 +19,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-
-import static com.sun.xml.internal.ws.api.message.Packet.Status.Request;
 
 /**
  * REST controller for managing ScanningRegistration.

@@ -2,7 +2,6 @@ package com.mj.holley.ims.service;
 
 import com.mj.holley.ims.config.httpClient.HttpTemplateMes;
 import com.mj.holley.ims.config.httpClient.MesApiAccessResult;
-import com.mj.holley.ims.domain.ScanningRegistration;
 import com.mj.holley.ims.service.dto.MesLineStopDto;
 import com.mj.holley.ims.service.dto.ScanningResgistrationDTO;
 import lombok.extern.slf4j.Slf4j;

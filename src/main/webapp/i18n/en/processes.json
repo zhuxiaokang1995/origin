@@ -1,0 +1,23 @@
+{
+    "holleyImsApp": {
+        "processes" : {
+            "home": {
+                "title": "Processes",
+                "createLabel": "Create a new Processes",
+                "createOrEditLabel": "Create or edit a Processes"
+            },
+            "created": "A new Processes is created with identifier {{ param }}",
+            "updated": "A Processes is updated with identifier {{ param }}",
+            "deleted": "A Processes is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Processes {{ id }}?"
+            },
+            "detail": {
+                "title": "Processes"
+            },
+            "subBopID": "Sub Bop ID",
+            "processID": "Process ID",
+            "generalSopPath": "General Sop Path"
+        }
+    }
+}
