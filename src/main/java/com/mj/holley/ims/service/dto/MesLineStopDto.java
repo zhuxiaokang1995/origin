@@ -14,9 +14,9 @@ public class MesLineStopDto {
 
     private int PK;
 
-    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
-    @JsonSerialize(using = ZonedDateTimeSerializer.class)
-    private ZonedDateTime OperationTime;
+//    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
+//    @JsonSerialize(using = ZonedDateTimeSerializer.class)
+    private String OperationTime;
 
     private String SectionID;
 
@@ -28,11 +28,11 @@ public class MesLineStopDto {
         this.PK = PK;
     }
 
-    public ZonedDateTime getOperationTime() {
+    public String getOperationTime() {
         return OperationTime;
     }
 
-    public void setOperationTime(ZonedDateTime operationTime) {
+    public void setOperationTime(String operationTime) {
         OperationTime = operationTime;
     }
 
@@ -44,7 +44,7 @@ public class MesLineStopDto {
         SectionID = sectionID;
     }
 
-    public MesLineStopDto(int PK, ZonedDateTime operationTime, String sectionID) {
+    public MesLineStopDto(int PK, String operationTime, String sectionID) {
         this.PK = PK;
         OperationTime = operationTime;
         SectionID = sectionID;
