@@ -1,5 +1,7 @@
 package com.mj.holley.ims.service;
 
+import com.mj.holley.ims.service.dto.MesOrderInfoDto;
+import com.mj.holley.ims.service.dto.MesReturnDto;
 import com.mj.holley.ims.web.rest.Constants.WebRestConstants;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +25,9 @@ public class CommonServiceImp implements CommonService {
     @Inject
     private RedisService redisService;
 
+    @Inject
+    private MesSubmitService mesSubmitService;
+
 	@Override
 	public String sayHello(String name) {
         redisService.saveValue(WebRestConstants.MES_LINE_STOP, name);
@@ -34,5 +39,9 @@ public class CommonServiceImp implements CommonService {
 		return "LOVE Hello 8888," + name;
 	}
 
+    @Override
+    public String saveMesOrder(MesOrderInfoDto mesOrderInfoDto){
 
+        return mesSubmitService.saveMesOrder(mesOrderInfoDto).toString();
+    }
 }

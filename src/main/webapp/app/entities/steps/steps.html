@@ -24,6 +24,7 @@
                     <th><span data-translate="holleyImsApp.steps.sequence">Sequence</span></th>
                     <th><span data-translate="holleyImsApp.steps.stepAttrID">Step Attr ID</span></th>
                     <th><span data-translate="holleyImsApp.steps.stationID">Station ID</span></th>
+                    <th><span data-translate="holleyImsApp.steps.orderInfo">Order Info</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -35,6 +36,9 @@
                     <td>{{steps.sequence}}</td>
                     <td>{{steps.stepAttrID}}</td>
                     <td>{{steps.stationID}}</td>
+                    <td>
+                        <a ui-sref="order-info-detail({id:steps.orderInfo.id})">{{steps.orderInfo.id}}</a>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

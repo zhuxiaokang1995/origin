@@ -17,19 +17,19 @@ public class ScanningResgistrationDTO {
 
     private String result;
 
-    private String subSn;
+    private String subSns;
 
     public ScanningResgistrationDTO() {
     }
 
-    public ScanningResgistrationDTO(Integer pk, String serialNumber, String stationID, String scanType, String defectCode, String result, String subSn) {
+    public ScanningResgistrationDTO(Integer pk, String serialNumber, String stationID, String scanType, String defectCode, String result, String subSns) {
         this.pk = pk;
         this.serialNumber = serialNumber;
         this.stationID = stationID;
         this.scanType = scanType;
         this.defectCode = defectCode;
         this.result = result;
-        this.subSn = subSn;
+        this.subSns = subSns;
     }
 
     public Integer getPk() {
@@ -80,24 +80,24 @@ public class ScanningResgistrationDTO {
         this.result = result;
     }
 
-    public String getSubSn() {
-        return subSn;
+    public String getSubSns() {
+        return subSns;
     }
 
-    public void setSubSn(String subSn) {
-        this.subSn = subSn;
+    public void setSubSn(String subSns) {
+        this.subSns = subSns;
     }
 
     @Override
     public String toString() {
-        return "ScanningResgistrationDTO{" +
-            "pk=" + pk +
-            ", serialNumber='" + serialNumber + '\'' +
-            ", stationID='" + stationID + '\'' +
-            ", scanType='" + scanType + '\'' +
-            ", defectCode='" + defectCode + '\'' +
-            ", result='" + result + '\'' +
-            ", subSn='" + subSn + '\'' +
+        return "{" +
+            "pk:" + pk +
+            ", serialNumber:'" + serialNumber + '\'' +
+            ", stationID:'" + stationID + '\'' +
+            ", scanType:'" + scanType + '\'' +
+            ", defectCode:'" + defectCode + '\'' +
+            ", result:'" + result + '\'' +
+            ", subSns:'" + subSns + '\'' +
             '}';
     }
 }

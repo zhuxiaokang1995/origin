@@ -5,14 +5,15 @@
         .module('holleyImsApp')
         .controller('ProcessesDialogController', ProcessesDialogController);
 
-    ProcessesDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Processes'];
+    ProcessesDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Processes', 'OrderInfo'];
 
-    function ProcessesDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Processes) {
+    function ProcessesDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Processes, OrderInfo) {
         var vm = this;
 
         vm.processes = entity;
         vm.clear = clear;
         vm.save = save;
+        vm.orderinfos = OrderInfo.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

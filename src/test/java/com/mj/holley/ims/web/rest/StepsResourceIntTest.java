@@ -74,7 +74,7 @@ public class StepsResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        StepsResource stepsResource = new StepsResource(stepsRepository);
+            StepsResource stepsResource = new StepsResource(stepsRepository);
         this.restStepsMockMvc = MockMvcBuilders.standaloneSetup(stepsResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -89,11 +89,11 @@ public class StepsResourceIntTest {
      */
     public static Steps createEntity(EntityManager em) {
         Steps steps = new Steps()
-            .stepID(DEFAULT_STEP_ID)
-            .stepName(DEFAULT_STEP_NAME)
-            .sequence(DEFAULT_SEQUENCE)
-            .stepAttrID(DEFAULT_STEP_ATTR_ID)
-            .stationID(DEFAULT_STATION_ID);
+                .stepID(DEFAULT_STEP_ID)
+                .stepName(DEFAULT_STEP_NAME)
+                .sequence(DEFAULT_SEQUENCE)
+                .stepAttrID(DEFAULT_STEP_ATTR_ID)
+                .stationID(DEFAULT_STATION_ID);
         return steps;
     }
 
@@ -108,6 +108,7 @@ public class StepsResourceIntTest {
         int databaseSizeBeforeCreate = stepsRepository.findAll().size();
 
         // Create the Steps
+
         restStepsMockMvc.perform(post("/api/steps")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(steps)))
@@ -130,12 +131,13 @@ public class StepsResourceIntTest {
         int databaseSizeBeforeCreate = stepsRepository.findAll().size();
 
         // Create the Steps with an existing ID
-        steps.setId(1L);
+        Steps existingSteps = new Steps();
+        existingSteps.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restStepsMockMvc.perform(post("/api/steps")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(steps)))
+            .content(TestUtil.convertObjectToJsonBytes(existingSteps)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -197,11 +199,11 @@ public class StepsResourceIntTest {
         // Update the steps
         Steps updatedSteps = stepsRepository.findOne(steps.getId());
         updatedSteps
-            .stepID(UPDATED_STEP_ID)
-            .stepName(UPDATED_STEP_NAME)
-            .sequence(UPDATED_SEQUENCE)
-            .stepAttrID(UPDATED_STEP_ATTR_ID)
-            .stationID(UPDATED_STATION_ID);
+                .stepID(UPDATED_STEP_ID)
+                .stepName(UPDATED_STEP_NAME)
+                .sequence(UPDATED_SEQUENCE)
+                .stepAttrID(UPDATED_STEP_ATTR_ID)
+                .stationID(UPDATED_STATION_ID);
 
         restStepsMockMvc.perform(put("/api/steps")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -255,7 +257,6 @@ public class StepsResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Steps.class);
     }

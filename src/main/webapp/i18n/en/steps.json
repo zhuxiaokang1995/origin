@@ -19,7 +19,8 @@
             "stepName": "Step Name",
             "sequence": "Sequence",
             "stepAttrID": "Step Attr ID",
-            "stationID": "Station ID"
+            "stationID": "Station ID",
+            "orderInfo": "Order Info"
         }
     }
 }

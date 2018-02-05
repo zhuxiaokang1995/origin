@@ -36,6 +36,9 @@ public class Steps implements Serializable {
     @Column(name = "station_id")
     private String stationID;
 
+    @ManyToOne
+    private OrderInfo orderInfo;
+
     public Long getId() {
         return id;
     }
@@ -107,6 +110,19 @@ public class Steps implements Serializable {
 
     public void setStationID(String stationID) {
         this.stationID = stationID;
+    }
+
+    public OrderInfo getOrderInfo() {
+        return orderInfo;
+    }
+
+    public Steps orderInfo(OrderInfo orderInfo) {
+        this.orderInfo = orderInfo;
+        return this;
+    }
+
+    public void setOrderInfo(OrderInfo orderInfo) {
+        this.orderInfo = orderInfo;
     }
 
     @Override

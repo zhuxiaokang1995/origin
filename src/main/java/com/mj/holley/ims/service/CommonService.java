@@ -1,5 +1,7 @@
 package com.mj.holley.ims.service;
 
+import com.mj.holley.ims.service.dto.MesOrderInfoDto;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -22,5 +24,10 @@ public interface CommonService {
 	@WebMethod
     @WebResult(name = "String", targetNamespace = "")
 	public String sayHelloLove(@WebParam(name = "userName") String name);
+
+    @WebMethod
+    @WebResult(name = "Orderinfo", targetNamespace = "")
+    public String saveMesOrder(@WebParam(name = "userName") MesOrderInfoDto mesOrderInfoDto);
+
 
 }

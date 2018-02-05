@@ -8,7 +8,6 @@
     StepsController.$inject = ['Steps'];
 
     function StepsController(Steps) {
-
         var vm = this;
 
         vm.steps = [];

@@ -195,12 +195,16 @@ public class TestResource {
         return redisService.popFirst(key);
     }
 
-    @GetMapping("/testLineStop")
+    @PostMapping("/testLineStop")
     @Timed
-    public void mesLineStop(@RequestParam String SectionID) {
-        redisService.incr(WebRestConstants.MES_LINE_STOP);
-        int pk = Integer.parseInt(redisService.readObject(WebRestConstants.MES_LINE_STOP).toString());
-        mesSubmitService.submitLineStop(new MesLineStopDto(pk, ZonedDateTime.now(TimeZone.ASIA_SHANGHAI.getId()).toString(), SectionID));
+    public void mesLineStop(@RequestBody MesLineStopDto dto) throws IOException {
+        mesSubmitService.submitLineStop(dto);
+    }
+
+    @PostMapping("/testScanningResgistration")
+    @Timed
+    public void mesScanningResgistration(@RequestBody ScanningResgistrationDTO dto) throws IOException {
+        mesSubmitService.submitScanningRegistration(dto);
     }
 
     @PostMapping("/test111")

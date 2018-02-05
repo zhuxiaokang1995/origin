@@ -3,7 +3,7 @@
     <h2><span data-translate="holleyImsApp.steps.detail.title">Steps</span> {{vm.steps.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="dl-horizontal jh-entity-details">
+    <dl class="row jh-entity-details">
         <dt><span data-translate="holleyImsApp.steps.stepID">Step ID</span></dt>
         <dd>
             <span>{{vm.steps.stepID}}</span>
@@ -23,6 +23,10 @@
         <dt><span data-translate="holleyImsApp.steps.stationID">Station ID</span></dt>
         <dd>
             <span>{{vm.steps.stationID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.steps.orderInfo">Order Info</span></dt>
+        <dd>
+            <a ui-sref="order-info-detail({id:vm.steps.orderInfo.id})">{{vm.steps.orderInfo.id}}</a>
         </dd>
     </dl>
 

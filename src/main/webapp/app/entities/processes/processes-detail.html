@@ -3,7 +3,7 @@
     <h2><span data-translate="holleyImsApp.processes.detail.title">Processes</span> {{vm.processes.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="dl-horizontal jh-entity-details">
+    <dl class="row jh-entity-details">
         <dt><span data-translate="holleyImsApp.processes.subBopID">Sub Bop ID</span></dt>
         <dd>
             <span>{{vm.processes.subBopID}}</span>
@@ -15,6 +15,10 @@
         <dt><span data-translate="holleyImsApp.processes.generalSopPath">General Sop Path</span></dt>
         <dd>
             <span>{{vm.processes.generalSopPath}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.processes.orderInfo">Order Info</span></dt>
+        <dd>
+            <a ui-sref="order-info-detail({id:vm.processes.orderInfo.id})">{{vm.processes.orderInfo.id}}</a>
         </dd>
     </dl>
 

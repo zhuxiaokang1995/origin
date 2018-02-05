@@ -5,9 +5,9 @@
         .module('holleyImsApp')
         .controller('StepsDetailController', StepsDetailController);
 
-    StepsDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Steps'];
+    StepsDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Steps', 'OrderInfo'];
 
-    function StepsDetailController($scope, $rootScope, $stateParams, previousState, entity, Steps) {
+    function StepsDetailController($scope, $rootScope, $stateParams, previousState, entity, Steps, OrderInfo) {
         var vm = this;
 
         vm.steps = entity;

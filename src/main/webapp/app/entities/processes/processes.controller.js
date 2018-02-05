@@ -8,7 +8,6 @@
     ProcessesController.$inject = ['Processes'];
 
     function ProcessesController(Processes) {
-
         var vm = this;
 
         vm.processes = [];

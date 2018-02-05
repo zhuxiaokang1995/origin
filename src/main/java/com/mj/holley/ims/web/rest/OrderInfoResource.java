@@ -32,8 +32,8 @@ public class OrderInfoResource {
 
     private final OrderInfoRepository orderInfoRepository;
 
-    @Autowired
-    private ProcessInformationService processInformationService;
+//    @Autowired
+//    private ProcessInformationService processInformationService;
 
     public OrderInfoResource(OrderInfoRepository orderInfoRepository) {
         this.orderInfoRepository = orderInfoRepository;
@@ -130,12 +130,12 @@ public class OrderInfoResource {
      * @param processesDTO
      * @throws URISyntaxException
      */
-    @PostMapping("/")
-    @Timed
-    public void ProcessInformationBase(@RequestBody Optional<OrderInfo> orderInfo , List<StepsDTO> stepsDTO , List<ProcessesDTO> processesDTO) throws URISyntaxException {
-        log.debug("REST request to save materialIn : {}", orderInfo , stepsDTO , processesDTO);
-        processInformationService.ProcessInformation(orderInfo , stepsDTO , processesDTO);
-
-    }
+//    @PostMapping("/")
+//    @Timed
+//    public void ProcessInformationBase(@RequestBody Optional<OrderInfo> orderInfo , List<StepsDTO> stepsDTO , List<ProcessesDTO> processesDTO) throws URISyntaxException {
+//        log.debug("REST request to save materialIn : {}", orderInfo , stepsDTO , processesDTO);
+//        processInformationService.ProcessInformation(orderInfo , stepsDTO , processesDTO);
+//
+//    }
 
 }

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.mj.holley.ims.domain.util.ZonedDateTimeDeserializer;
 import com.mj.holley.ims.domain.util.ZonedDateTimeSerializer;
 
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 /**
  * Created by Wanghui on 2018/1/19.
@@ -14,11 +16,13 @@ public class MesLineStopDto {
 
     private int PK;
 
+    private int ErrorType;
+
 //    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
 //    @JsonSerialize(using = ZonedDateTimeSerializer.class)
-    private String OperationTime;
+    private Date OperationTime;
 
-    private String SectionID;
+    private String StationID;
 
     public int getPK() {
         return PK;
@@ -28,34 +32,39 @@ public class MesLineStopDto {
         this.PK = PK;
     }
 
-    public String getOperationTime() {
+    public int getErrorType() {
+        return ErrorType;
+    }
+
+    public void setErrorType(int errorType) {
+        ErrorType = errorType;
+    }
+
+    public Date getOperationTime() {
         return OperationTime;
     }
 
-    public void setOperationTime(String operationTime) {
+    public void setOperationTime(Date operationTime) {
         OperationTime = operationTime;
     }
 
-    public String getSectionID() {
-        return SectionID;
+    public String getStationID() {
+        return StationID;
     }
 
-    public void setSectionID(String sectionID) {
-        SectionID = sectionID;
-    }
-
-    public MesLineStopDto(int PK, String operationTime, String sectionID) {
-        this.PK = PK;
-        OperationTime = operationTime;
-        SectionID = sectionID;
+    public void setStationID(String stationID) {
+        StationID = stationID;
     }
 
     @Override
     public String toString() {
-        return "MesLineStopDto{" +
-            "PK=" + PK +
-            ", OperationTime=" + OperationTime +
-            ", SectionID='" + SectionID + '\'' +
+        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        return "{" +
+            "PK:" + PK +
+            ", ErrorType:" + ErrorType +
+            ", OperationTime:'" + sdf3.format(OperationTime) +'\'' +
+            ", StationID:'" + StationID + '\'' +
             '}';
     }
 

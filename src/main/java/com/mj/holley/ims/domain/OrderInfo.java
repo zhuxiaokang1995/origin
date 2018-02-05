@@ -39,32 +39,6 @@ public class OrderInfo implements Serializable {
     @Column(name = "p_pr_name")
     private String pPRName;
 
-    @ManyToOne
-    private Steps steps;
-
-    @ManyToOne
-    private Processes processes;
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public Steps getSteps() {
-        return steps;
-    }
-
-    public void setSteps(Steps steps) {
-        this.steps = steps;
-    }
-
-    public Processes getProcesses() {
-        return processes;
-    }
-
-    public void setProcesses(Processes processes) {
-        this.processes = processes;
-    }
-
     public Long getId() {
         return id;
     }

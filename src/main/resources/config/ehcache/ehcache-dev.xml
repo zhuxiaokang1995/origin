@@ -20,5 +20,9 @@
 
     <cache alias="com.mj.holley.ims.domain.User.persistentTokens" uses-template="simple"/>
 
+    <cache alias="com.mj.holley.ims.domain.Processes" uses-template="simple"/>
+
+    <cache alias="com.mj.holley.ims.domain.Steps" uses-template="simple"/>
+
     <!-- jhipster-needle-ehcache-add-entry -->
 </config>

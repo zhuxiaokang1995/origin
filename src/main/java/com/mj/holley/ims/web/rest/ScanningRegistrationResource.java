@@ -127,13 +127,13 @@ public class ScanningRegistrationResource {
     }
 
 
-    //扫描组装登记缺陷
-    @PostMapping("/mesScanningRegistration")
-    @Timed
-    public void mesScanningRegistration(@RequestBody ScanningResgistrationDTO sr) {
-        redisService.incr(WebRestConstants.MES_SCANNING_REGISTRATION);
-        int pk = Integer.parseInt(redisService.readObject(WebRestConstants.MES_SCANNING_REGISTRATION).toString());
-        mesSubmitService.submitScanningRegistration(new ScanningResgistrationDTO(pk,sr.getSerialNumber(),sr.getStationID(),sr.getScanType(),sr.getDefectCode(),sr.getResult(),sr.getSubSn()));
-    }
+//    //扫描组装登记缺陷
+//    @PostMapping("/mesScanningRegistration")
+//    @Timed
+//    public void mesScanningRegistration(@RequestBody ScanningResgistrationDTO sr) {
+//        redisService.incr(WebRestConstants.MES_SCANNING_REGISTRATION);
+//        int pk = Integer.parseInt(redisService.readObject(WebRestConstants.MES_SCANNING_REGISTRATION).toString());
+//        mesSubmitService.submitScanningRegistration(new ScanningResgistrationDTO(pk,sr.getSerialNumber(),sr.getStationID(),sr.getScanType(),sr.getDefectCode(),sr.getResult(),sr.getSubSn()));
+//    }
 
 }

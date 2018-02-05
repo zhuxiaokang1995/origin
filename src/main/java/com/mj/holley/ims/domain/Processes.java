@@ -30,6 +30,9 @@ public class Processes implements Serializable {
     @Column(name = "general_sop_path")
     private String generalSopPath;
 
+    @ManyToOne
+    private OrderInfo orderInfo;
+
     public Long getId() {
         return id;
     }
@@ -75,6 +78,19 @@ public class Processes implements Serializable {
 
     public void setGeneralSopPath(String generalSopPath) {
         this.generalSopPath = generalSopPath;
+    }
+
+    public OrderInfo getOrderInfo() {
+        return orderInfo;
+    }
+
+    public Processes orderInfo(OrderInfo orderInfo) {
+        this.orderInfo = orderInfo;
+        return this;
+    }
+
+    public void setOrderInfo(OrderInfo orderInfo) {
+        this.orderInfo = orderInfo;
     }
 
     @Override
