@@ -27,34 +27,34 @@ public class ProcessInformationService {
     @Inject
     private StepsRepository stepsRepository;
 
-    public void ProcessInformation(Optional<OrderInfo> orderInfo , List<StepsDTO> stepsDTO , List<ProcessesDTO> processesDTO){
+//    public void ProcessInformation(Optional<OrderInfo> orderInfo , List<StepsDTO> stepsDTO , List<ProcessesDTO> processesDTO){
+//
+//        OrderInfo OI = new OrderInfo()
+//            .orderID(orderInfo.get().getOrderID())
+//            .defID(orderInfo.get().getDefID())
+//            .defDescript(orderInfo.get().getDefDescript())
+//            .lineID(orderInfo.get().getLineID())
+//            .bOPID(orderInfo.get().getbOPID())
+//            .pPRName(orderInfo.get().getpPRName());
+//        orderInfoRepository.saveAndFlush(OI);
+//
+//        stepsDTO.stream().forEach(s -> {
+//            Steps steps = new Steps()
+//                .stepID(s.getStepID())
+//                .stepName(s.getStepName())
+//                .sequence(s.getSequence())
+//                .stepAttrID(s.getStepAttrID())
+//                .stationID(s.getStationID());
+//            stepsRepository.saveAndFlush(steps);
+//        });
+//
+//        processesDTO.stream().forEach(p -> {
+//            Processes processes = new Processes()
+//                .subBopID(p.getSubBopID())
+//                .processID(p.getProcessID())
+//                .generalSopPath(p.getGeneralSopPath());
+//            processesRepository.saveAndFlush(processes);
+//        });
 
-        OrderInfo OI = new OrderInfo()
-            .orderID(orderInfo.get().getOrderID())
-            .defID(orderInfo.get().getDefID())
-            .defDescript(orderInfo.get().getDefDescript())
-            .lineID(orderInfo.get().getLineID())
-            .bOPID(orderInfo.get().getbOPID())
-            .pPRName(orderInfo.get().getpPRName());
-        orderInfoRepository.saveAndFlush(OI);
-
-        stepsDTO.stream().forEach(s -> {
-            Steps steps = new Steps()
-                .stepID(s.getStepID())
-                .stepName(s.getStepName())
-                .sequence(s.getSequence())
-                .stepAttrID(s.getStepAttrID())
-                .stationID(s.getStationID());
-            stepsRepository.saveAndFlush(steps);
-        });
-
-        processesDTO.stream().forEach(p -> {
-            Processes processes = new Processes()
-                .subBopID(p.getSubBopID())
-                .processID(p.getProcessID())
-                .generalSopPath(p.getGeneralSopPath());
-            processesRepository.saveAndFlush(processes);
-        });
-
-    }
+//    }
 }

@@ -12,18 +12,18 @@ import java.util.List;
  */
 public class MesOrderInfoDto {
 
-    private OrderInfo orderInfo;
+    private OrderInfo OrderInfo;
 
     private List<Steps> Steps;
 
     private List<Processes> Processes;
 
     public OrderInfo getOrderInfo() {
-        return orderInfo;
+        return OrderInfo;
     }
 
     public void setOrderInfo(OrderInfo orderInfo) {
-        this.orderInfo = orderInfo;
+        this.OrderInfo = orderInfo;
     }
 
     public List<Steps> getSteps() {

@@ -39,6 +39,15 @@ public class OrderInfo implements Serializable {
     @Column(name = "p_pr_name")
     private String pPRName;
 
+//    public OrderInfo(String orderID, String defID, String defDescript, String lineID, String bOPID, String pPRName) {
+//        this.orderID = orderID;
+//        this.defID = defID;
+//        this.defDescript = defDescript;
+//        this.lineID = lineID;
+//        this.bOPID = bOPID;
+//        this.pPRName = pPRName;
+//    }
+
     public Long getId() {
         return id;
     }

@@ -36,6 +36,15 @@ public class Steps implements Serializable {
     @Column(name = "station_id")
     private String stationID;
 
+//    public Steps(String stepID, String stepName, String sequence, String stepAttrID, String stationID, OrderInfo orderInfo) {
+//        this.stepID = stepID;
+//        this.stepName = stepName;
+//        this.sequence = sequence;
+//        this.stepAttrID = stepAttrID;
+//        this.stationID = stationID;
+//        this.orderInfo = orderInfo;
+//    }
+
     @ManyToOne
     private OrderInfo orderInfo;
 

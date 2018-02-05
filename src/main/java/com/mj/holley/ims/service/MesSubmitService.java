@@ -10,6 +10,10 @@ import com.mj.holley.ims.repository.ProcessesRepository;
 import com.mj.holley.ims.repository.StepsRepository;
 import com.mj.holley.ims.service.dto.*;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,9 +27,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Created by Wanghui on 2018/1/19.
@@ -51,6 +53,66 @@ public class MesSubmitService {
 
     @Inject
     private ProcessesRepository processesRepository;
+
+//    @SuppressWarnings("unchecked")
+    public static MesOrderInfoDto transStringToDto(String input) {
+        MesOrderInfoDto mesOrderInfoDto = new MesOrderInfoDto();
+        JSONObject jsonObject = JSONObject.fromObject(input);
+        Map<String, Object> map = (Map<String, Object>) jsonObject;
+        if (map.containsKey("OrderInfo")) {
+            Map<String, Object> OrderInfo = (Map<String, Object>) map.get("OrderInfo");
+            OrderInfo ol = new OrderInfo()
+                .orderID(OrderInfo.get("OrderID").toString())
+                .defID(OrderInfo.get("DefID").toString())
+                .defDescript(OrderInfo.get("DefDescript").toString())
+                .lineID(OrderInfo.get("LineID").toString())
+                .bOPID(OrderInfo.get("BOPID").toString())
+                .pPRName(OrderInfo.get("PPRName").toString());
+            mesOrderInfoDto.setOrderInfo(ol);
+
+        }
+        if (map.containsKey("Steps")) {
+            Object steps = map.get("Steps");
+            if (steps instanceof JSONArray) {
+                ArrayList<Steps> stepsList = new ArrayList<>();
+                JSONArray family = jsonObject.getJSONArray("Steps");
+
+//                List<StepsDTO> list2 = JSONArray.toList((JSONArray) steps, new StepsDTO(), new JsonConfig());
+                for (int i = 0; i < family.size(); i++) {
+                    Map<String, Object> o = (Map<String, Object>) family.get(i);
+
+                    Steps st = new Steps()
+                        .stepID(o.get("StepID").toString())
+                        .stepName(o.get("StepName").toString())
+                        .sequence(o.get("Sequence").toString())
+                        .stepAttrID(o.get("StepAttrID").toString())
+                        .stationID(o.get("StationID").toString());
+                    stepsList.add(st);
+                }
+                mesOrderInfoDto.setSteps(stepsList);
+            }
+        }
+
+        if (map.containsKey("Processes")) {
+            Object steps = map.get("Processes");
+            if (steps instanceof JSONArray) {
+                ArrayList<Processes> processesList = new ArrayList<>();
+                JSONArray family = jsonObject.getJSONArray("Processes");
+                for (int i = 0; i < family.size(); i++) {
+                    Map<String, Object> o = (Map<String, Object>) family.get(i);
+                    Processes st = new Processes()
+                        .subBopID(o.get("SubBopID").toString())
+                        .processID(o.get("ProcessID").toString())
+                        .generalSopPath(o.get("GeneralSopPath").toString());
+                    processesList.add(st);
+                }
+                mesOrderInfoDto.setProcesses(processesList);
+            }
+        }
+        return mesOrderInfoDto;
+    }
+
+
 
     public MesReturnDto saveMesOrder(MesOrderInfoDto mesOrderInfoDto){
         OrderInfo result = orderInfoRepository.save(mesOrderInfoDto.getOrderInfo());

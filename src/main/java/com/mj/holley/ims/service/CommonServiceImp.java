@@ -1,12 +1,22 @@
 package com.mj.holley.ims.service;
 
+import com.mj.holley.ims.domain.OrderInfo;
 import com.mj.holley.ims.service.dto.MesOrderInfoDto;
 import com.mj.holley.ims.service.dto.MesReturnDto;
 import com.mj.holley.ims.web.rest.Constants.WebRestConstants;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import javax.jws.WebParam;
 import javax.jws.WebService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 接口实现
@@ -40,8 +50,14 @@ public class CommonServiceImp implements CommonService {
 	}
 
     @Override
-    public String saveMesOrder(MesOrderInfoDto mesOrderInfoDto){
+    public String receiveMesOrders(MesOrderInfoDto mesOrderInfoDto){
 
+        return mesSubmitService.saveMesOrder(mesOrderInfoDto).toString();
+    }
+
+    @Override
+    public String testMesOrder(String mes){
+        MesOrderInfoDto mesOrderInfoDto = MesSubmitService.transStringToDto(mes);
         return mesSubmitService.saveMesOrder(mesOrderInfoDto).toString();
     }
 }

@@ -368,10 +368,13 @@
             <!--<artifactId>spring-core</artifactId>-->
             <!--<version>3.2.4.RELEASE</version>-->
         <!--</dependency>-->
+
+        <!--json-lib-->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-asm</artifactId>
-            <version>3.1.4.RELEASE</version>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>2.4</version>
+            <classifier>jdk15</classifier>
         </dependency>
 
         <!-- Http Client -->

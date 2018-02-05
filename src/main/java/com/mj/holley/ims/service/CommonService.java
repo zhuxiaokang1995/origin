@@ -6,6 +6,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
+import java.util.HashMap;
 
 /**
  * 接口
@@ -27,7 +28,10 @@ public interface CommonService {
 
     @WebMethod
     @WebResult(name = "Orderinfo", targetNamespace = "")
-    public String saveMesOrder(@WebParam(name = "userName") MesOrderInfoDto mesOrderInfoDto);
+    public String receiveMesOrders(@WebParam(name = "tem") MesOrderInfoDto mesOrderInfoDto);
 
+    @WebMethod
+    @WebResult(name = "Orderinfo", targetNamespace = "")
+    public String testMesOrder(@WebParam(name = "tem") String mes);
 
 }
