@@ -28,10 +28,10 @@ public interface CommonService {
 
     @WebMethod
     @WebResult(name = "Orderinfo", targetNamespace = "")
-    public String receiveMesOrders(@WebParam(name = "tem") MesOrderInfoDto mesOrderInfoDto);
+    public String testMesOrder(@WebParam(name = "tem") MesOrderInfoDto mesOrderInfoDto);
 
     @WebMethod
     @WebResult(name = "Orderinfo", targetNamespace = "")
-    public String testMesOrder(@WebParam(name = "tem") String mes);
+    public String receiveMesOrders(@WebParam(name = "tem") String mes);
 
 }

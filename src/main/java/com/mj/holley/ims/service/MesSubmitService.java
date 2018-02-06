@@ -76,8 +76,6 @@ public class MesSubmitService {
             if (steps instanceof JSONArray) {
                 ArrayList<Steps> stepsList = new ArrayList<>();
                 JSONArray family = jsonObject.getJSONArray("Steps");
-
-//                List<StepsDTO> list2 = JSONArray.toList((JSONArray) steps, new StepsDTO(), new JsonConfig());
                 for (int i = 0; i < family.size(); i++) {
                     Map<String, Object> o = (Map<String, Object>) family.get(i);
 
@@ -204,9 +202,8 @@ public class MesSubmitService {
         HashMap result = requestSoapService(param, "text/xml");
         if (!result.get("resultCode").equals(200)){
             log.error("MesLineStopDto[{}]{}提交失败，错误信息：{}", dto.getPK(),dto.getOperationTime(),dto.getStationID(),dto.getErrorType());
-
-        }
-        log.info("MesLineStopDto[{}]{}提交成功", dto.getPK(),dto.getOperationTime(),dto.getStationID(),dto.getErrorType());
+        }else{
+            log.info("MesLineStopDto[{}]{}提交成功", dto.getPK(),dto.getOperationTime(),dto.getStationID(),dto.getErrorType());}
     }
 
     public void submitScanningRegistration (ScanningResgistrationDTO scanningResgistrationDTO ) throws IOException {
@@ -224,8 +221,8 @@ public class MesSubmitService {
         HashMap result = requestSoapService(param, "application/soap+xml");
         if (!result.get("resultCode").equals(200)){
             log.error("MesLineStopDto[{}]{}提交失败，错误信息：{}", scanningResgistrationDTO);
-        }
-        log.info("MesLineStopDto[{}]{}提交成功", scanningResgistrationDTO);
+        }else{
+            log.info("MesLineStopDto[{}]{}提交成功", scanningResgistrationDTO);}
     }
 
 }

@@ -50,13 +50,13 @@ public class CommonServiceImp implements CommonService {
 	}
 
     @Override
-    public String receiveMesOrders(MesOrderInfoDto mesOrderInfoDto){
+    public String testMesOrder(MesOrderInfoDto mesOrderInfoDto){
 
         return mesSubmitService.saveMesOrder(mesOrderInfoDto).toString();
     }
 
     @Override
-    public String testMesOrder(String mes){
+    public String receiveMesOrders(String mes){
         MesOrderInfoDto mesOrderInfoDto = MesSubmitService.transStringToDto(mes);
         return mesSubmitService.saveMesOrder(mesOrderInfoDto).toString();
     }
