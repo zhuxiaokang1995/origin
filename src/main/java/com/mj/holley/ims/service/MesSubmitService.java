@@ -114,14 +114,19 @@ public class MesSubmitService {
 
     public MesReturnDto saveMesOrder(MesOrderInfoDto mesOrderInfoDto){
         OrderInfo result = orderInfoRepository.save(mesOrderInfoDto.getOrderInfo());
-        for(Steps steps : mesOrderInfoDto.getSteps()){
-            steps.setOrderInfo(result);
+        if(mesOrderInfoDto.getSteps()!=null){
+            for(Steps steps : mesOrderInfoDto.getSteps()){
+                steps.setOrderInfo(result);
+            }
+            stepsRepository.save(mesOrderInfoDto.getSteps());
         }
-        stepsRepository.save(mesOrderInfoDto.getSteps());
-        for(Processes processes:mesOrderInfoDto.getProcesses()){
-            processes.setOrderInfo(result);
+
+        if(mesOrderInfoDto.getProcesses()!=null) {
+            for (Processes processes : mesOrderInfoDto.getProcesses()) {
+                processes.setOrderInfo(result);
+            }
+            processesRepository.save(mesOrderInfoDto.getProcesses());
         }
-        processesRepository.save(mesOrderInfoDto.getProcesses());
         return new MesReturnDto(Boolean.TRUE,"Success","");
     }
 
