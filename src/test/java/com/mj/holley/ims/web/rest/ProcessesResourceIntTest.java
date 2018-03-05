@@ -46,6 +46,9 @@ public class ProcessesResourceIntTest {
     private static final String DEFAULT_GENERAL_SOP_PATH = "AAAAAAAAAA";
     private static final String UPDATED_GENERAL_SOP_PATH = "BBBBBBBBBB";
 
+    private static final String DEFAULT_SUB_BOP_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_SUB_BOP_NAME = "BBBBBBBBBB";
+
     @Autowired
     private ProcessesRepository processesRepository;
 
@@ -68,7 +71,7 @@ public class ProcessesResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ProcessesResource processesResource = new ProcessesResource(processesRepository);
+            ProcessesResource processesResource = new ProcessesResource(processesRepository);
         this.restProcessesMockMvc = MockMvcBuilders.standaloneSetup(processesResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -83,9 +86,10 @@ public class ProcessesResourceIntTest {
      */
     public static Processes createEntity(EntityManager em) {
         Processes processes = new Processes()
-            .subBopID(DEFAULT_SUB_BOP_ID)
-            .processID(DEFAULT_PROCESS_ID)
-            .generalSopPath(DEFAULT_GENERAL_SOP_PATH);
+                .subBopID(DEFAULT_SUB_BOP_ID)
+                .processID(DEFAULT_PROCESS_ID)
+                .generalSopPath(DEFAULT_GENERAL_SOP_PATH)
+                .subBopName(DEFAULT_SUB_BOP_NAME);
         return processes;
     }
 
@@ -100,6 +104,7 @@ public class ProcessesResourceIntTest {
         int databaseSizeBeforeCreate = processesRepository.findAll().size();
 
         // Create the Processes
+
         restProcessesMockMvc.perform(post("/api/processes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(processes)))
@@ -112,6 +117,7 @@ public class ProcessesResourceIntTest {
         assertThat(testProcesses.getSubBopID()).isEqualTo(DEFAULT_SUB_BOP_ID);
         assertThat(testProcesses.getProcessID()).isEqualTo(DEFAULT_PROCESS_ID);
         assertThat(testProcesses.getGeneralSopPath()).isEqualTo(DEFAULT_GENERAL_SOP_PATH);
+        assertThat(testProcesses.getSubBopName()).isEqualTo(DEFAULT_SUB_BOP_NAME);
     }
 
     @Test
@@ -120,12 +126,13 @@ public class ProcessesResourceIntTest {
         int databaseSizeBeforeCreate = processesRepository.findAll().size();
 
         // Create the Processes with an existing ID
-        processes.setId(1L);
+        Processes existingProcesses = new Processes();
+        existingProcesses.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restProcessesMockMvc.perform(post("/api/processes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(processes)))
+            .content(TestUtil.convertObjectToJsonBytes(existingProcesses)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -146,7 +153,8 @@ public class ProcessesResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(processes.getId().intValue())))
             .andExpect(jsonPath("$.[*].subBopID").value(hasItem(DEFAULT_SUB_BOP_ID.toString())))
             .andExpect(jsonPath("$.[*].processID").value(hasItem(DEFAULT_PROCESS_ID.toString())))
-            .andExpect(jsonPath("$.[*].generalSopPath").value(hasItem(DEFAULT_GENERAL_SOP_PATH.toString())));
+            .andExpect(jsonPath("$.[*].generalSopPath").value(hasItem(DEFAULT_GENERAL_SOP_PATH.toString())))
+            .andExpect(jsonPath("$.[*].subBopName").value(hasItem(DEFAULT_SUB_BOP_NAME.toString())));
     }
 
     @Test
@@ -162,7 +170,8 @@ public class ProcessesResourceIntTest {
             .andExpect(jsonPath("$.id").value(processes.getId().intValue()))
             .andExpect(jsonPath("$.subBopID").value(DEFAULT_SUB_BOP_ID.toString()))
             .andExpect(jsonPath("$.processID").value(DEFAULT_PROCESS_ID.toString()))
-            .andExpect(jsonPath("$.generalSopPath").value(DEFAULT_GENERAL_SOP_PATH.toString()));
+            .andExpect(jsonPath("$.generalSopPath").value(DEFAULT_GENERAL_SOP_PATH.toString()))
+            .andExpect(jsonPath("$.subBopName").value(DEFAULT_SUB_BOP_NAME.toString()));
     }
 
     @Test
@@ -183,9 +192,10 @@ public class ProcessesResourceIntTest {
         // Update the processes
         Processes updatedProcesses = processesRepository.findOne(processes.getId());
         updatedProcesses
-            .subBopID(UPDATED_SUB_BOP_ID)
-            .processID(UPDATED_PROCESS_ID)
-            .generalSopPath(UPDATED_GENERAL_SOP_PATH);
+                .subBopID(UPDATED_SUB_BOP_ID)
+                .processID(UPDATED_PROCESS_ID)
+                .generalSopPath(UPDATED_GENERAL_SOP_PATH)
+                .subBopName(UPDATED_SUB_BOP_NAME);
 
         restProcessesMockMvc.perform(put("/api/processes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -199,6 +209,7 @@ public class ProcessesResourceIntTest {
         assertThat(testProcesses.getSubBopID()).isEqualTo(UPDATED_SUB_BOP_ID);
         assertThat(testProcesses.getProcessID()).isEqualTo(UPDATED_PROCESS_ID);
         assertThat(testProcesses.getGeneralSopPath()).isEqualTo(UPDATED_GENERAL_SOP_PATH);
+        assertThat(testProcesses.getSubBopName()).isEqualTo(UPDATED_SUB_BOP_NAME);
     }
 
     @Test
@@ -237,7 +248,6 @@ public class ProcessesResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(Processes.class);
     }

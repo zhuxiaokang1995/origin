@@ -2,15 +2,12 @@ package com.mj.holley.ims.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mj.holley.ims.domain.OrderInfo;
+
 import com.mj.holley.ims.repository.OrderInfoRepository;
-import com.mj.holley.ims.service.ProcessInformationService;
-import com.mj.holley.ims.service.dto.ProcessesDTO;
-import com.mj.holley.ims.service.dto.StepsDTO;
 import com.mj.holley.ims.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,11 +26,8 @@ public class OrderInfoResource {
     private final Logger log = LoggerFactory.getLogger(OrderInfoResource.class);
 
     private static final String ENTITY_NAME = "orderInfo";
-
+        
     private final OrderInfoRepository orderInfoRepository;
-
-//    @Autowired
-//    private ProcessInformationService processInformationService;
 
     public OrderInfoResource(OrderInfoRepository orderInfoRepository) {
         this.orderInfoRepository = orderInfoRepository;
@@ -121,21 +115,5 @@ public class OrderInfoResource {
         orderInfoRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
-
-    /**
-     *  工艺基础信息下发
-     *
-     * @param orderInfo
-     * @param stepsDTO
-     * @param processesDTO
-     * @throws URISyntaxException
-     */
-//    @PostMapping("/")
-//    @Timed
-//    public void ProcessInformationBase(@RequestBody Optional<OrderInfo> orderInfo , List<StepsDTO> stepsDTO , List<ProcessesDTO> processesDTO) throws URISyntaxException {
-//        log.debug("REST request to save materialIn : {}", orderInfo , stepsDTO , processesDTO);
-//        processInformationService.ProcessInformation(orderInfo , stepsDTO , processesDTO);
-//
-//    }
 
 }

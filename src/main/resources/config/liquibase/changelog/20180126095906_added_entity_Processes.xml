@@ -34,6 +34,10 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="sub_bop_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <column name="order_info_id" type="bigint">
                 <constraints nullable="true" />
             </column>

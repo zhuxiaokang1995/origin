@@ -110,6 +110,8 @@
                                 lineID: null,
                                 bOPID: null,
                                 pPRName: null,
+                                departID: null,
+                                quantity: null,
                                 id: null
                             };
                         }

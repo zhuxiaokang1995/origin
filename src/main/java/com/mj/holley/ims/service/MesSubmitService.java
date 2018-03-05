@@ -67,7 +67,9 @@ public class MesSubmitService {
                 .defDescript(OrderInfo.get("DefDescript").toString())
                 .lineID(OrderInfo.get("LineID").toString())
                 .bOPID(OrderInfo.get("BOPID").toString())
-                .pPRName(OrderInfo.get("PPRName").toString());
+                .pPRName(OrderInfo.get("PPRName").toString())
+                .departID(OrderInfo.get("DepartID").toString())
+                .quantity(Integer.parseInt(OrderInfo.get("Quantity").toString()));
             mesOrderInfoDto.setOrderInfo(ol);
 
         }
@@ -101,7 +103,8 @@ public class MesSubmitService {
                     Processes st = new Processes()
                         .subBopID(o.get("SubBopID").toString())
                         .processID(o.get("ProcessID").toString())
-                        .generalSopPath(o.get("GeneralSopPath").toString());
+                        .generalSopPath(o.get("GeneralSopPath").toString())
+                        .subBopName(o.get("SubBopName").toString());
                     processesList.add(st);
                 }
                 mesOrderInfoDto.setProcesses(processesList);

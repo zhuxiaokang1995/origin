@@ -25,6 +25,14 @@
         {
             "fieldName": "pPRName",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "departID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "quantity",
+            "fieldType": "Integer"
         }
     ],
     "changelogDate": "20180126100933",

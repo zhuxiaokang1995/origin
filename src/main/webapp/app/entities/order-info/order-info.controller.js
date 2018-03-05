@@ -8,7 +8,6 @@
     OrderInfoController.$inject = ['OrderInfo'];
 
     function OrderInfoController(OrderInfo) {
-
         var vm = this;
 
         vm.orderInfos = [];

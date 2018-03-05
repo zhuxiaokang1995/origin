@@ -18,6 +18,7 @@
             "subBopID": "Sub Bop ID",
             "processID": "Process ID",
             "generalSopPath": "General Sop Path",
+            "subBopName": "Sub Bop Name",
             "orderInfo": "Order Info"
         }
     }

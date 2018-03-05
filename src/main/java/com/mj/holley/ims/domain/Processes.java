@@ -30,6 +30,9 @@ public class Processes implements Serializable {
     @Column(name = "general_sop_path")
     private String generalSopPath;
 
+    @Column(name = "sub_bop_name")
+    private String subBopName;
+
     @ManyToOne
     private OrderInfo orderInfo;
 
@@ -80,6 +83,19 @@ public class Processes implements Serializable {
         this.generalSopPath = generalSopPath;
     }
 
+    public String getSubBopName() {
+        return subBopName;
+    }
+
+    public Processes subBopName(String subBopName) {
+        this.subBopName = subBopName;
+        return this;
+    }
+
+    public void setSubBopName(String subBopName) {
+        this.subBopName = subBopName;
+    }
+
     public OrderInfo getOrderInfo() {
         return orderInfo;
     }
@@ -120,6 +136,7 @@ public class Processes implements Serializable {
             ", subBopID='" + subBopID + "'" +
             ", processID='" + processID + "'" +
             ", generalSopPath='" + generalSopPath + "'" +
+            ", subBopName='" + subBopName + "'" +
             '}';
     }
 }

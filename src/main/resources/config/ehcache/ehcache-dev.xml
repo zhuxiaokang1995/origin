@@ -24,5 +24,7 @@
 
     <cache alias="com.mj.holley.ims.domain.Steps" uses-template="simple"/>
 
+    <cache alias="com.mj.holley.ims.domain.OrderInfo" uses-template="simple"/>
+
     <!-- jhipster-needle-ehcache-add-entry -->
 </config>

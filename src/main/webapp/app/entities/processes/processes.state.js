@@ -107,6 +107,7 @@
                                 subBopID: null,
                                 processID: null,
                                 generalSopPath: null,
+                                subBopName: null,
                                 id: null
                             };
                         }

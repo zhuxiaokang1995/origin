@@ -20,6 +20,10 @@
         {
             "fieldName": "generalSopPath",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "subBopName",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20180126095906",

@@ -55,6 +55,12 @@ public class OrderInfoResourceIntTest {
     private static final String DEFAULT_P_PR_NAME = "AAAAAAAAAA";
     private static final String UPDATED_P_PR_NAME = "BBBBBBBBBB";
 
+    private static final String DEFAULT_DEPART_ID = "AAAAAAAAAA";
+    private static final String UPDATED_DEPART_ID = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_QUANTITY = 1;
+    private static final Integer UPDATED_QUANTITY = 2;
+
     @Autowired
     private OrderInfoRepository orderInfoRepository;
 
@@ -77,7 +83,7 @@ public class OrderInfoResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        OrderInfoResource orderInfoResource = new OrderInfoResource(orderInfoRepository);
+            OrderInfoResource orderInfoResource = new OrderInfoResource(orderInfoRepository);
         this.restOrderInfoMockMvc = MockMvcBuilders.standaloneSetup(orderInfoResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -92,12 +98,14 @@ public class OrderInfoResourceIntTest {
      */
     public static OrderInfo createEntity(EntityManager em) {
         OrderInfo orderInfo = new OrderInfo()
-            .orderID(DEFAULT_ORDER_ID)
-            .defID(DEFAULT_DEF_ID)
-            .defDescript(DEFAULT_DEF_DESCRIPT)
-            .lineID(DEFAULT_LINE_ID)
-            .bOPID(DEFAULT_B_OPID)
-            .pPRName(DEFAULT_P_PR_NAME);
+                .orderID(DEFAULT_ORDER_ID)
+                .defID(DEFAULT_DEF_ID)
+                .defDescript(DEFAULT_DEF_DESCRIPT)
+                .lineID(DEFAULT_LINE_ID)
+                .bOPID(DEFAULT_B_OPID)
+                .pPRName(DEFAULT_P_PR_NAME)
+                .departID(DEFAULT_DEPART_ID)
+                .quantity(DEFAULT_QUANTITY);
         return orderInfo;
     }
 
@@ -112,6 +120,7 @@ public class OrderInfoResourceIntTest {
         int databaseSizeBeforeCreate = orderInfoRepository.findAll().size();
 
         // Create the OrderInfo
+
         restOrderInfoMockMvc.perform(post("/api/order-infos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(orderInfo)))
@@ -127,6 +136,8 @@ public class OrderInfoResourceIntTest {
         assertThat(testOrderInfo.getLineID()).isEqualTo(DEFAULT_LINE_ID);
         assertThat(testOrderInfo.getbOPID()).isEqualTo(DEFAULT_B_OPID);
         assertThat(testOrderInfo.getpPRName()).isEqualTo(DEFAULT_P_PR_NAME);
+        assertThat(testOrderInfo.getDepartID()).isEqualTo(DEFAULT_DEPART_ID);
+        assertThat(testOrderInfo.getQuantity()).isEqualTo(DEFAULT_QUANTITY);
     }
 
     @Test
@@ -135,12 +146,13 @@ public class OrderInfoResourceIntTest {
         int databaseSizeBeforeCreate = orderInfoRepository.findAll().size();
 
         // Create the OrderInfo with an existing ID
-        orderInfo.setId(1L);
+        OrderInfo existingOrderInfo = new OrderInfo();
+        existingOrderInfo.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restOrderInfoMockMvc.perform(post("/api/order-infos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(orderInfo)))
+            .content(TestUtil.convertObjectToJsonBytes(existingOrderInfo)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -164,7 +176,9 @@ public class OrderInfoResourceIntTest {
             .andExpect(jsonPath("$.[*].defDescript").value(hasItem(DEFAULT_DEF_DESCRIPT.toString())))
             .andExpect(jsonPath("$.[*].lineID").value(hasItem(DEFAULT_LINE_ID.toString())))
             .andExpect(jsonPath("$.[*].bOPID").value(hasItem(DEFAULT_B_OPID.toString())))
-            .andExpect(jsonPath("$.[*].pPRName").value(hasItem(DEFAULT_P_PR_NAME.toString())));
+            .andExpect(jsonPath("$.[*].pPRName").value(hasItem(DEFAULT_P_PR_NAME.toString())))
+            .andExpect(jsonPath("$.[*].departID").value(hasItem(DEFAULT_DEPART_ID.toString())))
+            .andExpect(jsonPath("$.[*].quantity").value(hasItem(DEFAULT_QUANTITY)));
     }
 
     @Test
@@ -183,7 +197,9 @@ public class OrderInfoResourceIntTest {
             .andExpect(jsonPath("$.defDescript").value(DEFAULT_DEF_DESCRIPT.toString()))
             .andExpect(jsonPath("$.lineID").value(DEFAULT_LINE_ID.toString()))
             .andExpect(jsonPath("$.bOPID").value(DEFAULT_B_OPID.toString()))
-            .andExpect(jsonPath("$.pPRName").value(DEFAULT_P_PR_NAME.toString()));
+            .andExpect(jsonPath("$.pPRName").value(DEFAULT_P_PR_NAME.toString()))
+            .andExpect(jsonPath("$.departID").value(DEFAULT_DEPART_ID.toString()))
+            .andExpect(jsonPath("$.quantity").value(DEFAULT_QUANTITY));
     }
 
     @Test
@@ -204,12 +220,14 @@ public class OrderInfoResourceIntTest {
         // Update the orderInfo
         OrderInfo updatedOrderInfo = orderInfoRepository.findOne(orderInfo.getId());
         updatedOrderInfo
-            .orderID(UPDATED_ORDER_ID)
-            .defID(UPDATED_DEF_ID)
-            .defDescript(UPDATED_DEF_DESCRIPT)
-            .lineID(UPDATED_LINE_ID)
-            .bOPID(UPDATED_B_OPID)
-            .pPRName(UPDATED_P_PR_NAME);
+                .orderID(UPDATED_ORDER_ID)
+                .defID(UPDATED_DEF_ID)
+                .defDescript(UPDATED_DEF_DESCRIPT)
+                .lineID(UPDATED_LINE_ID)
+                .bOPID(UPDATED_B_OPID)
+                .pPRName(UPDATED_P_PR_NAME)
+                .departID(UPDATED_DEPART_ID)
+                .quantity(UPDATED_QUANTITY);
 
         restOrderInfoMockMvc.perform(put("/api/order-infos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -226,6 +244,8 @@ public class OrderInfoResourceIntTest {
         assertThat(testOrderInfo.getLineID()).isEqualTo(UPDATED_LINE_ID);
         assertThat(testOrderInfo.getbOPID()).isEqualTo(UPDATED_B_OPID);
         assertThat(testOrderInfo.getpPRName()).isEqualTo(UPDATED_P_PR_NAME);
+        assertThat(testOrderInfo.getDepartID()).isEqualTo(UPDATED_DEPART_ID);
+        assertThat(testOrderInfo.getQuantity()).isEqualTo(UPDATED_QUANTITY);
     }
 
     @Test
@@ -264,7 +284,6 @@ public class OrderInfoResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(OrderInfo.class);
     }

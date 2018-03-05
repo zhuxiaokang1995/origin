@@ -39,14 +39,11 @@ public class OrderInfo implements Serializable {
     @Column(name = "p_pr_name")
     private String pPRName;
 
-//    public OrderInfo(String orderID, String defID, String defDescript, String lineID, String bOPID, String pPRName) {
-//        this.orderID = orderID;
-//        this.defID = defID;
-//        this.defDescript = defDescript;
-//        this.lineID = lineID;
-//        this.bOPID = bOPID;
-//        this.pPRName = pPRName;
-//    }
+    @Column(name = "depart_id")
+    private String departID;
+
+    @Column(name = "quantity")
+    private Integer quantity;
 
     public Long getId() {
         return id;
@@ -134,6 +131,32 @@ public class OrderInfo implements Serializable {
         this.pPRName = pPRName;
     }
 
+    public String getDepartID() {
+        return departID;
+    }
+
+    public OrderInfo departID(String departID) {
+        this.departID = departID;
+        return this;
+    }
+
+    public void setDepartID(String departID) {
+        this.departID = departID;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public OrderInfo quantity(Integer quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -164,6 +187,8 @@ public class OrderInfo implements Serializable {
             ", lineID='" + lineID + "'" +
             ", bOPID='" + bOPID + "'" +
             ", pPRName='" + pPRName + "'" +
+            ", departID='" + departID + "'" +
+            ", quantity='" + quantity + "'" +
             '}';
     }
 }

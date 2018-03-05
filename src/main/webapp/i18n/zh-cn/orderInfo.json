@@ -20,7 +20,9 @@
             "defDescript": "Def Descript",
             "lineID": "Line ID",
             "bOPID": "B OPID",
-            "pPRName": "P PR Name"
+            "pPRName": "P PR Name",
+            "departID": "Depart ID",
+            "quantity": "Quantity"
         }
     }
 }

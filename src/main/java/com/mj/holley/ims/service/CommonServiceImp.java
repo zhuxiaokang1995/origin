@@ -1,6 +1,10 @@
 package com.mj.holley.ims.service;
 
 import com.mj.holley.ims.domain.OrderInfo;
+import com.mj.holley.ims.domain.Steps;
+import com.mj.holley.ims.repository.OrderInfoRepository;
+import com.mj.holley.ims.repository.ProcessesRepository;
+import com.mj.holley.ims.repository.StepsRepository;
 import com.mj.holley.ims.service.dto.MesOrderInfoDto;
 import com.mj.holley.ims.service.dto.MesReturnDto;
 import com.mj.holley.ims.web.rest.Constants.WebRestConstants;
@@ -38,6 +42,15 @@ public class CommonServiceImp implements CommonService {
     @Inject
     private MesSubmitService mesSubmitService;
 
+    @Inject
+    private OrderInfoRepository orderInfoRepository;
+
+    @Inject
+    private ProcessesRepository processesRepository;
+
+    @Inject
+    private StepsRepository stepsRepository;
+
 	@Override
 	public String sayHello(String name) {
         redisService.saveValue(WebRestConstants.MES_LINE_STOP, name);
@@ -57,7 +70,20 @@ public class CommonServiceImp implements CommonService {
 
     @Override
     public String receiveMesOrders(String mes){
+        //soap webservice接收的String类型解析成对应的json对象
         MesOrderInfoDto mesOrderInfoDto = MesSubmitService.transStringToDto(mes);
-        return mesSubmitService.saveMesOrder(mesOrderInfoDto).toString();
+        if (mesOrderInfoDto.getOrderInfo().getDepartID().equals("ASY")){   //ASY类型为组装车间生产订单
+            List<OrderInfo> orderInfoList = orderInfoRepository.findAllByOrderID(mesOrderInfoDto.getOrderInfo().getOrderID());
+            if (orderInfoList.size() != 0){                //当前下发的订单系统中已经存在则覆盖
+                orderInfoList.forEach(order ->{
+                    processesRepository.deleteByOrderInfo(order);   //删除之前存在的订单、及订单对应的数据
+                    stepsRepository.deleteByOrderInfo(order);       //删除之前存在的订单、及订单对应的数据
+                    orderInfoRepository.delete(order);              //删除之前存在的订单、及订单对应的数据
+                    }
+                    );
+            }
+            return mesSubmitService.saveMesOrder(mesOrderInfoDto).toString();
+        }
+        return new MesReturnDto(Boolean.TRUE,"Success","").toString();
     }
 }

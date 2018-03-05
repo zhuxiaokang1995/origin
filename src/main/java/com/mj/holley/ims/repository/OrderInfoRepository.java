@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface OrderInfoRepository extends JpaRepository<OrderInfo,Long> {
 
+    List<OrderInfo> findAllByOrderID(String OrderID);
 }
