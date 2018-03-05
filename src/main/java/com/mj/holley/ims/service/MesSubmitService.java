@@ -59,8 +59,8 @@ public class MesSubmitService {
         MesOrderInfoDto mesOrderInfoDto = new MesOrderInfoDto();
         JSONObject jsonObject = JSONObject.fromObject(input);
         Map<String, Object> map = (Map<String, Object>) jsonObject;
-        if (map.containsKey("OrderInfo")) {
-            Map<String, Object> OrderInfo = (Map<String, Object>) map.get("OrderInfo");
+        if (map.containsKey("Order")) {
+            Map<String, Object> OrderInfo = (Map<String, Object>) map.get("Order");
             OrderInfo ol = new OrderInfo()
                 .orderID(OrderInfo.get("OrderID").toString())
                 .defID(OrderInfo.get("DefID").toString())
