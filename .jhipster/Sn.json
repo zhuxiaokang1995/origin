@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "serialNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "hutID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "orderID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "isBinding",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20180324053707",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "sn",
+    "pagination": "no"
+}

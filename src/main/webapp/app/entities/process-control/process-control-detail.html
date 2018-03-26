@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span data-translate="holleyImsApp.processControl.detail.title">Process Control</span> {{vm.processControl.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="holleyImsApp.processControl.serialNumber">Serial Number</span></dt>
+        <dd>
+            <span>{{vm.processControl.serialNumber}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.processControl.hutID">Hut ID</span></dt>
+        <dd>
+            <span>{{vm.processControl.hutID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.processControl.orderID">Order ID</span></dt>
+        <dd>
+            <span>{{vm.processControl.orderID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.processControl.stationID">Station ID</span></dt>
+        <dd>
+            <span>{{vm.processControl.stationID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.processControl.result">Result</span></dt>
+        <dd>
+            <span>{{vm.processControl.result}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="process-control-detail.edit({id:vm.processControl.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -2,6 +2,7 @@ package com.mj.holley.ims.service.dto;
 
 import com.mj.holley.ims.domain.OrderInfo;
 import com.mj.holley.ims.domain.Processes;
+import com.mj.holley.ims.domain.Sn;
 import com.mj.holley.ims.domain.Steps;
 
 import javax.validation.constraints.AssertTrue;
@@ -17,6 +18,16 @@ public class MesOrderInfoDto {
     private List<Steps> Steps;
 
     private List<Processes> Processes;
+
+    private List<String> SnDetails;
+
+    public List<String> getSnDetails() {
+        return SnDetails;
+    }
+
+    public void setSnDetails(List<String> snDetails) {
+        SnDetails = snDetails;
+    }
 
     public OrderInfo getOrderInfo() {
         return OrderInfo;

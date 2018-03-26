@@ -4,6 +4,7 @@ import com.mj.holley.ims.config.httpClient.HttpTemplateMes;
 import com.mj.holley.ims.config.httpClient.MesApiAccessResult;
 import com.mj.holley.ims.domain.OrderInfo;
 import com.mj.holley.ims.domain.Processes;
+import com.mj.holley.ims.domain.Sn;
 import com.mj.holley.ims.domain.Steps;
 import com.mj.holley.ims.repository.OrderInfoRepository;
 import com.mj.holley.ims.repository.ProcessesRepository;
@@ -110,6 +111,22 @@ public class MesSubmitService {
                 mesOrderInfoDto.setProcesses(processesList);
             }
         }
+
+        if (map.containsKey("SnDetails")) {
+            Object obj = map.get("SnDetails");
+            if (obj instanceof JSONArray) {
+                ArrayList<String > snList = new ArrayList<>();
+                JSONArray family = jsonObject.getJSONArray("SnDetails");
+                for (int i = 0; i < family.size(); i++) {
+                    Map<String, Object> o = (Map<String, Object>) family.get(i);
+                    String  sn = o.get("SerialNumber").toString();
+                    snList.add(sn);
+                }
+                mesOrderInfoDto.setSnDetails(snList);
+            }
+        }
+
+
         return mesOrderInfoDto;
     }
 

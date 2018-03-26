@@ -1,0 +1,24 @@
+{
+    "holleyImsApp": {
+        "sn" : {
+            "home": {
+                "title": "Sns",
+                "createLabel": "Create a new Sn",
+                "createOrEditLabel": "Create or edit a Sn"
+            },
+            "created": "A new Sn is created with identifier {{ param }}",
+            "updated": "A Sn is updated with identifier {{ param }}",
+            "deleted": "A Sn is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Sn {{ id }}?"
+            },
+            "detail": {
+                "title": "Sn"
+            },
+            "serialNumber": "Serial Number",
+            "hutID": "Hut ID",
+            "orderID": "Order ID",
+            "isBinding": "Is Binding"
+        }
+    }
+}
