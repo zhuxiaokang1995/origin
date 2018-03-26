@@ -1,0 +1,33 @@
+{
+    "holleyImsApp": {
+        "transportTask" : {
+            "home": {
+                "title": "Transport Tasks",
+                "createLabel": "Create a new Transport Task",
+                "createOrEditLabel": "Create or edit a Transport Task"
+            },
+            "created": "A new Transport Task is created with identifier {{ param }}",
+            "updated": "A Transport Task is updated with identifier {{ param }}",
+            "deleted": "A Transport Task is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Transport Task {{ id }}?"
+            },
+            "detail": {
+                "title": "Transport Task"
+            },
+            "funID": "Fun ID",
+            "serialID": "Serial ID",
+            "taskID": "Task ID",
+            "taskType": "Task Type",
+            "taskPrty": "Task Prty",
+            "taskFlag": "Task Flag",
+            "lPN": "L PN",
+            "frmPos": "Frm Pos",
+            "frmPosType": "Frm Pos Type",
+            "toPos": "To Pos",
+            "toPosType": "To Pos Type",
+            "opFlag": "Op Flag",
+            "remark": "Remark"
+        }
+    }
+}

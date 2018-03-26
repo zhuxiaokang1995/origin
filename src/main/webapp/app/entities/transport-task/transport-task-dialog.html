@@ -1,0 +1,104 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myTransportTaskLabel" data-translate="holleyImsApp.transportTask.home.createOrEditLabel">Create or edit a Transport Task</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.transportTask.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.transportTask.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.funID" for="field_funID">Fun ID</label>
+            <input type="text" class="form-control" name="funID" id="field_funID"
+                    ng-model="vm.transportTask.funID"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.serialID" for="field_serialID">Serial ID</label>
+            <input type="number" class="form-control" name="serialID" id="field_serialID"
+                    ng-model="vm.transportTask.serialID"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.taskID" for="field_taskID">Task ID</label>
+            <input type="number" class="form-control" name="taskID" id="field_taskID"
+                    ng-model="vm.transportTask.taskID"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.taskType" for="field_taskType">Task Type</label>
+            <input type="text" class="form-control" name="taskType" id="field_taskType"
+                    ng-model="vm.transportTask.taskType"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.taskPrty" for="field_taskPrty">Task Prty</label>
+            <input type="text" class="form-control" name="taskPrty" id="field_taskPrty"
+                    ng-model="vm.transportTask.taskPrty"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.taskFlag" for="field_taskFlag">Task Flag</label>
+            <input type="text" class="form-control" name="taskFlag" id="field_taskFlag"
+                    ng-model="vm.transportTask.taskFlag"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.lPN" for="field_lPN">L PN</label>
+            <input type="text" class="form-control" name="lPN" id="field_lPN"
+                    ng-model="vm.transportTask.lPN"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.frmPos" for="field_frmPos">Frm Pos</label>
+            <input type="text" class="form-control" name="frmPos" id="field_frmPos"
+                    ng-model="vm.transportTask.frmPos"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.frmPosType" for="field_frmPosType">Frm Pos Type</label>
+            <input type="text" class="form-control" name="frmPosType" id="field_frmPosType"
+                    ng-model="vm.transportTask.frmPosType"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.toPos" for="field_toPos">To Pos</label>
+            <input type="text" class="form-control" name="toPos" id="field_toPos"
+                    ng-model="vm.transportTask.toPos"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.toPosType" for="field_toPosType">To Pos Type</label>
+            <input type="text" class="form-control" name="toPosType" id="field_toPosType"
+                    ng-model="vm.transportTask.toPosType"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.opFlag" for="field_opFlag">Op Flag</label>
+            <input type="text" class="form-control" name="opFlag" id="field_opFlag"
+                    ng-model="vm.transportTask.opFlag"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.transportTask.remark" for="field_remark">Remark</label>
+            <input type="text" class="form-control" name="remark" id="field_remark"
+                    ng-model="vm.transportTask.remark"
+                    />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

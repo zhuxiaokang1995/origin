@@ -1,49 +1,28 @@
 package com.mj.holley.ims.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-
 import com.mj.holley.ims.config.httpClient.HttpTemplateMes;
-import com.mj.holley.ims.config.httpClient.MesApiAccessResult;
 import com.mj.holley.ims.service.MesSubmitService;
 import com.mj.holley.ims.service.MessagePushService;
 import com.mj.holley.ims.service.OpcuaService;
 import com.mj.holley.ims.service.RedisService;
 import com.mj.holley.ims.service.dto.MesLineStopDto;
-import com.mj.holley.ims.domain.util.TimeZone;
 import com.mj.holley.ims.service.dto.ScanningResgistrationDTO;
-import com.mj.holley.ims.web.rest.Constants.WebRestConstants;
-import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.endpoint.Endpoint;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.apache.cxf.service.model.*;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.security.x509.SerialNumber;
-
 
 import javax.inject.Inject;
 import javax.xml.namespace.QName;
-import java.beans.PropertyDescriptor;
-import java.io.*;
-import java.lang.reflect.Method;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Wanghui on 2017/4/20.
