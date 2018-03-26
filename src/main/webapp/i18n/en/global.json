@@ -10,6 +10,9 @@
                 "processes": "Processes",
                 "steps": "Steps",
                 "orderInfo": "Order Info",
+                "transportTask": "Transport Task",
+                "sn": "Sn",
+                "processControl": "Process Control",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
