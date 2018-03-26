@@ -19,7 +19,7 @@ public class OpcUaSubscribeNodes {
 //    private List<String> cartonBarcodeSubscribeNodes;
 //    private List<String> warningSubscribeNodes;
 //    private List<String> printerExceptionSubscribeNodes;
-//    private List<String> cartonQuantitySubscribeNodes;///////
+    private List<String> scanSignalSubscribeNodes;///////
 
     private List<String> getRealSubscribeNodesList(List<String> opcUaPropertiesList) {
         if (opcUaPropertiesList != null && opcUaPropertiesList.size() != 0 && opcUaPropertiesList.get(0).contains("NodeBase")) {
@@ -50,7 +50,7 @@ public class OpcUaSubscribeNodes {
 //        this.employeeSubscribeNodes = opcUaProperties.getEmployeeSubscribeNodes();
 //        this.printerSubscribeNodes = opcUaProperties.getPrinterSubscribeNodes();
 //        this.branchSelectSubscribeNodes = opcUaProperties.getBranchSelectSubscribeNodes();
-//        this.cartonSpaceSubscribeNodes = getRealSubscribeNodesList(opcUaProperties.getCartonSpaceSubscribeNodes());
+        this.scanSignalSubscribeNodes = getRealSubscribeNodesList(opcUaProperties.getScanSignalSubscribeNodes());
 //        this.fridgeListSubscribeNodes = opcUaProperties.getFridgeListSubscribeNodes();
 //        this.cartonBarcodeSubscribeNodes = opcUaProperties.getCartonBarcodeSubscribeNodes();
 //        this.warningSubscribeNodes = opcUaProperties.getWarningSubscribeNodes();

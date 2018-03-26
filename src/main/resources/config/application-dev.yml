@@ -182,16 +182,16 @@ opcua:
     address: opc.tcp://172.16.31.23:55105
 #    address: opc.tcp://10.152.101.161:52520/OPCUA/HaierOPCUAServer
 #
-##   监听仓位纸箱数量
-#    cartonQuantitySubscribeNodes:
-#          - Channel_1.Device_1.Tag_3
-#          - CartonSpace.CartonSpace_A2.grab
-#          - CartonSpace.CartonSpace_A3.grab
-#          - CartonSpace.CartonSpace_A4.grab
-#          - CartonSpace.CartonSpace_A5.grab
-#          - CartonSpace.CartonSpace_A6.grab
-#          - CartonSpace.CartonSpace_A7.grab
-#          - CartonSpace.CartonSpace_A8.grab
+#   监听仓位纸箱数量
+    scanSignalSubscribeNodes:
+          - Channel_1.Device_1.Tag_3
+          - CartonSpace.CartonSpace_A2.grab
+          - CartonSpace.CartonSpace_A3.grab
+          - CartonSpace.CartonSpace_A4.grab
+          - CartonSpace.CartonSpace_A5.grab
+          - CartonSpace.CartonSpace_A6.grab
+          - CartonSpace.CartonSpace_A7.grab
+          - CartonSpace.CartonSpace_A8.grab
 
 
 # ===================================================================

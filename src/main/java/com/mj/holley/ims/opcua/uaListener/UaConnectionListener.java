@@ -31,7 +31,7 @@ public class UaConnectionListener implements OpcUaClientConnectionListener {
 
     // TODO: [All] add all subscribeListener here
     @Inject
-    private CartonQuantityListener cartonQuantityListener;
+    private ScanSignalListener scanSignalListener;
 
     public OpcUaClientTemplate getOpcUaClientTemplate() {
         return opcUaClientTemplate;
@@ -56,7 +56,7 @@ public class UaConnectionListener implements OpcUaClientConnectionListener {
         //从plc读取各个仓位的纸箱信息
 //        packingBoxService.readProductNoFromPlc();
 
-//        subscribeNodesValue(opcUaSubscribeNodes.getCartonQuantitySubscribeNodes(), cartonQuantityListener);
+        subscribeNodesValue(opcUaSubscribeNodes.getScanSignalSubscribeNodes(), scanSignalListener);
 
 
     }

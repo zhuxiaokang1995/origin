@@ -91,6 +91,11 @@ public class RedisService {
         redisTemplate.opsForValue().increment(key, 1);
     }
 
+    //自加1并读取
+    public Object readAndInc(String key){
+        return redisTemplate.opsForValue().increment(key, 1);
+    }
+
     public void saveList(String key, List<?> list) {
         log.debug("save a list in redis, key:{}", key);
         redisTemplate.delete(key);

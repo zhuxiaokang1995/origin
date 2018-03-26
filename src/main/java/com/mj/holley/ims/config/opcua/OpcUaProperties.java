@@ -34,7 +34,7 @@ public class OpcUaProperties {
 //    private List<String> cartonBarcodeSubscribeNodes;
 //    private List<String> warningSubscribeNodes;
 //    private List<String> printerExceptionSubscribeNodes;
-    private List<String> cartonQuantitySubscribeNodes;
+    private List<String> scanSignalSubscribeNodes;
 
     public static class Retry {
         private long connBackOffPeriod = 10000L;

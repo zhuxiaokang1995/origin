@@ -214,7 +214,7 @@ public class MesSubmitService {
             log.info("MesLineStopDto[{}]{}提交成功", dto.getPK(),dto.getOperationTime(),dto.getStationID(),dto.getErrorType());}
     }
 
-    public void submitScanningRegistration (ScanningResgistrationDTO scanningResgistrationDTO ) throws IOException {
+    public HashMap submitScanningRegistration (ScanningResgistrationDTO scanningResgistrationDTO ) throws IOException {
         String param = "<soap:Envelope xmlns:soap=\"http://www.w3.org/2003/05/soap-envelope\" xmlns:tem=\"http://tempuri.org/\">\n" +
             "   <soap:Header/>\n" +
             "   <soap:Body>\n" +
@@ -231,6 +231,7 @@ public class MesSubmitService {
             log.error("MesLineStopDto[{}]{}提交失败，错误信息：{}", scanningResgistrationDTO);
         }else{
             log.info("MesLineStopDto[{}]{}提交成功", scanningResgistrationDTO);}
+        return result;
     }
 
 }

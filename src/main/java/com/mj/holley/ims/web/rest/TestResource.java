@@ -97,7 +97,7 @@ public class TestResource {
     @GetMapping("/getRedis")
     @Timed
     public Object getRedisByKey(@RequestParam String key) {
-        return redisService.readObject(key);
+        return redisService.readAndInc(key);
     }
 
     //删除redis的一对数据
