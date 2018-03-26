@@ -1,0 +1,80 @@
+<div>
+    <h2 data-translate="holleyImsApp.transportTask.home.title">Transport Tasks</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="transport-task.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="holleyImsApp.transportTask.home.createLabel">
+                        Create new Transport Task
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.funID">Fun ID</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.serialID">Serial ID</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.taskID">Task ID</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.taskType">Task Type</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.taskPrty">Task Prty</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.taskFlag">Task Flag</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.lPN">L PN</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.frmPos">Frm Pos</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.frmPosType">Frm Pos Type</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.toPos">To Pos</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.toPosType">To Pos Type</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.opFlag">Op Flag</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.remark">Remark</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="transportTask in vm.transportTasks track by transportTask.id">
+                    <td><a ui-sref="transport-task-detail({id:transportTask.id})">{{transportTask.id}}</a></td>
+                    <td>{{transportTask.funID}}</td>
+                    <td>{{transportTask.serialID}}</td>
+                    <td>{{transportTask.taskID}}</td>
+                    <td>{{transportTask.taskType}}</td>
+                    <td>{{transportTask.taskPrty}}</td>
+                    <td>{{transportTask.taskFlag}}</td>
+                    <td>{{transportTask.lPN}}</td>
+                    <td>{{transportTask.frmPos}}</td>
+                    <td>{{transportTask.frmPosType}}</td>
+                    <td>{{transportTask.toPos}}</td>
+                    <td>{{transportTask.toPosType}}</td>
+                    <td>{{transportTask.opFlag}}</td>
+                    <td>{{transportTask.remark}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="transport-task-detail({id:transportTask.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="transport-task.edit({id:transportTask.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="transport-task.delete({id:transportTask.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

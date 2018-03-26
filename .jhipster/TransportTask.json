@@ -1,0 +1,63 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "funID",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "serialID",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "taskID",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "taskType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "taskPrty",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "taskFlag",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lPN",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "frmPos",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "frmPosType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "toPos",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "toPosType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "opFlag",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "remark",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180324015027",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "transport_task",
+    "pagination": "no"
+}
