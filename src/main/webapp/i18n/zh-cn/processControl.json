@@ -1,0 +1,25 @@
+{
+    "holleyImsApp": {
+        "processControl" : {
+            "home": {
+                "title": "Process Controls",
+                "createLabel": "Create a new Process Control",
+                "createOrEditLabel": "Create or edit a Process Control"
+            },
+            "created": "A new Process Control is created with identifier {{ param }}",
+            "updated": "A Process Control is updated with identifier {{ param }}",
+            "deleted": "A Process Control is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Process Control {{ id }}?"
+            },
+            "detail": {
+                "title": "Process Control"
+            },
+            "serialNumber": "Serial Number",
+            "hutID": "Hut ID",
+            "orderID": "Order ID",
+            "stationID": "Station ID",
+            "result": "Result"
+        }
+    }
+}

@@ -1,26 +1,19 @@
 package com.mj.holley.ims.service;
 
 import com.mj.holley.ims.domain.OrderInfo;
-import com.mj.holley.ims.domain.Steps;
 import com.mj.holley.ims.repository.OrderInfoRepository;
 import com.mj.holley.ims.repository.ProcessesRepository;
 import com.mj.holley.ims.repository.StepsRepository;
 import com.mj.holley.ims.service.dto.MesOrderInfoDto;
 import com.mj.holley.ims.service.dto.MesReturnDto;
+import com.mj.holley.ims.service.dto.WmsTransportTaskDTO;
 import com.mj.holley.ims.web.rest.Constants.WebRestConstants;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import org.springframework.core.annotation.Order;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
-import javax.jws.WebParam;
 import javax.jws.WebService;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 接口实现
@@ -41,6 +34,9 @@ public class CommonServiceImp implements CommonService {
 
     @Inject
     private MesSubmitService mesSubmitService;
+
+    @Autowired
+    private WmsSubmitService wmsSubmitService;
 
     @Inject
     private OrderInfoRepository orderInfoRepository;
@@ -84,6 +80,13 @@ public class CommonServiceImp implements CommonService {
             }
             return mesSubmitService.saveMesOrder(mesOrderInfoDto).toString();
         }
+        return new MesReturnDto(Boolean.TRUE,"Success","").toString();
+    }
+
+    @Override
+    public String stationSendsTask(String wms){
+        WmsTransportTaskDTO wmsTransportTaskDTO = WmsSubmitService.transportTaskToDTO(wms);
+        wmsSubmitService.saveWmsTransportTask(wmsTransportTaskDTO).toString();
         return new MesReturnDto(Boolean.TRUE,"Success","").toString();
     }
 }

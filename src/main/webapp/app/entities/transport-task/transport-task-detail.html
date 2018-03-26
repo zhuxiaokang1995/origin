@@ -1,0 +1,71 @@
+
+<div>
+    <h2><span data-translate="holleyImsApp.transportTask.detail.title">Transport Task</span> {{vm.transportTask.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="holleyImsApp.transportTask.funID">Fun ID</span></dt>
+        <dd>
+            <span>{{vm.transportTask.funID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.serialID">Serial ID</span></dt>
+        <dd>
+            <span>{{vm.transportTask.serialID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.taskID">Task ID</span></dt>
+        <dd>
+            <span>{{vm.transportTask.taskID}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.taskType">Task Type</span></dt>
+        <dd>
+            <span>{{vm.transportTask.taskType}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.taskPrty">Task Prty</span></dt>
+        <dd>
+            <span>{{vm.transportTask.taskPrty}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.taskFlag">Task Flag</span></dt>
+        <dd>
+            <span>{{vm.transportTask.taskFlag}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.lPN">L PN</span></dt>
+        <dd>
+            <span>{{vm.transportTask.lPN}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.frmPos">Frm Pos</span></dt>
+        <dd>
+            <span>{{vm.transportTask.frmPos}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.frmPosType">Frm Pos Type</span></dt>
+        <dd>
+            <span>{{vm.transportTask.frmPosType}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.toPos">To Pos</span></dt>
+        <dd>
+            <span>{{vm.transportTask.toPos}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.toPosType">To Pos Type</span></dt>
+        <dd>
+            <span>{{vm.transportTask.toPosType}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.opFlag">Op Flag</span></dt>
+        <dd>
+            <span>{{vm.transportTask.opFlag}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.remark">Remark</span></dt>
+        <dd>
+            <span>{{vm.transportTask.remark}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="transport-task-detail.edit({id:vm.transportTask.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
