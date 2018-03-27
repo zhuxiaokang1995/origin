@@ -17,4 +17,5 @@ public interface StepsRepository extends JpaRepository<Steps,Long> {
     @Transactional
     int deleteByOrderInfo(OrderInfo orderInfo);
 
+    List<Steps> findByOrderInfo(OrderInfo orderInfo);
 }
