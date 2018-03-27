@@ -1,7 +1,6 @@
 package com.mj.holley.ims.service;
 
 import com.mj.holley.ims.service.dto.MesOrderInfoDto;
-import com.mj.holley.ims.service.dto.WmsTransportTaskDTO;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -36,5 +35,5 @@ public interface CommonService {
 
     @WebMethod
     @WebResult(name = "TransportTask", targetNamespace = "")
-    public String stationSendsTask(@WebParam(name = "tem") WmsTransportTaskDTO wmsTransportTaskDTO);
+    public String stationSendsTask(@WebParam(name = "tem") String wms);
 }

@@ -23,32 +23,6 @@ public class WmsSubmitService {
     @Inject
     private TransportTaskRepository transportTaskRepository;
 
-//    public MesReturnDto transportTaskToDTO(String input) {
-//        //WmsTransportTaskDTO wmsTransportTaskDTO = new WmsTransportTaskDTO();
-//        TransportTask tasks = new TransportTask();
-//        JSONObject jsonObject = JSONObject.fromObject(input);
-//        Map<String, Object> map = (Map<String, Object>) jsonObject;
-//        if (map.containsKey("TransportTask")) {
-//            Map<String, Object> transportTask = (Map<String, Object>) map.get("TransportTask");
-//            //TransportTask tt = new TransportTask()
-//            tasks.setFunID(transportTask.get("FunID").toString());
-//            tasks.setSerialID(Integer.parseInt(transportTask.get("SerialID").toString()));
-//            tasks.setTaskID(Integer.parseInt(transportTask.get("TaskID").toString()));
-//            tasks.setTaskType(transportTask.get("TaskType").toString());
-//            tasks.setTaskPrty(transportTask.get("TaskPrty").toString());
-//            tasks.setTaskFlag(transportTask.get("TaskFlag").toString());
-//            tasks.setlPN(transportTask.get("LPN").toString());
-//            tasks.setFrmPos(transportTask.get("FrmPos").toString());
-//            tasks.setFrmPosType(transportTask.get("FrmPosType").toString());
-//            tasks.setToPos(transportTask.get("ToPos").toString());
-//            tasks.setToPosType(transportTask.get("ToPosType").toString());
-//            tasks.setOpFlag(transportTask.get("OpFlag").toString());
-//            tasks.setRemark(transportTask.get("Remark").toString());
-//        }
-//        //return tasks;
-//        TransportTask result = transportTaskRepository.save(tasks);
-//        return new MesReturnDto(Boolean.TRUE,"Success","");
-//    }
     public static WmsTransportTaskDTO transportTaskToDTO(String input) {
         WmsTransportTaskDTO wmsTransportTaskDTO = new WmsTransportTaskDTO();
         TransportTask tasks = new TransportTask();

@@ -84,7 +84,9 @@ public class CommonServiceImp implements CommonService {
     }
 
     @Override
-    public String stationSendsTask(WmsTransportTaskDTO wmsTransportTaskDTO){
-        return wmsSubmitService.saveWmsTransportTask(wmsTransportTaskDTO).toString();
+    public String stationSendsTask(String wms){
+        WmsTransportTaskDTO wmsTransportTaskDTO = WmsSubmitService.transportTaskToDTO(wms);
+        wmsSubmitService.saveWmsTransportTask(wmsTransportTaskDTO).toString();
+        return new MesReturnDto(Boolean.TRUE,"Success","").toString();
     }
 }
