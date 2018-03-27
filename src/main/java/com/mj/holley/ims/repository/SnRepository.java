@@ -13,6 +13,6 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 public interface SnRepository extends JpaRepository<Sn,Long> {
 
-    Optional<Sn> findFirstByHutIdAndIsBindingTrueOrderByIdDesc(String hutId);
+    Optional<Sn> findFirstByHutIDAndIsBindingTrueOrderByIdDesc(String hutID);
 
 }

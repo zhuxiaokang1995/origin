@@ -100,7 +100,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         if (mesSubmitService.submitScanningRegistration(dto).get("resultValue").toString().contains("-1")) {  //MES 接口返回-1则该产品存在缺陷
             isFault = Boolean.TRUE;
         }
-        Optional<Sn> snOptional = snRepository.findFirstByHutIdAndIsBindingTrueOrderByIdDesc(barCode);
+        Optional<Sn> snOptional = snRepository.findFirstByHutIDAndIsBindingTrueOrderByIdDesc(barCode);
         if (snOptional.isPresent()) {
             Sn sn = snOptional.get();
             if (redisService.hasKey(sn.getOrderID())) {                                           //redis中是否存在该订单的工艺流程
@@ -156,7 +156,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
      */
     private Boolean isProcessRepeatStation(String stationId,String serialNumber){
         if (ConstantValue.REPEAT_STATION_LIST.contains(stationId)){
-            if (processControlRepository.findOneBySerialNumberAndStationId(serialNumber,stationId).isPresent()){
+            if (processControlRepository.findOneBySerialNumberAndStationID(serialNumber,stationId).isPresent()){
                 return Boolean.TRUE;
             }
         }

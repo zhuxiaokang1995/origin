@@ -13,6 +13,6 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 public interface ProcessControlRepository extends JpaRepository<ProcessControl,Long> {
 
-    Optional<ProcessControl> findOneBySerialNumberAndStationId(String serialNumber,String stationId);
+    Optional<ProcessControl> findOneBySerialNumberAndStationID(String serialNumber,String stationI);
 
 }
