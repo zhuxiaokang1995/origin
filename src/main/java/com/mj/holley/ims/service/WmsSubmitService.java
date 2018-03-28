@@ -1,6 +1,7 @@
 package com.mj.holley.ims.service;
 
 import com.mj.holley.ims.domain.TransportTask;
+import com.mj.holley.ims.domain.util.TimeZone;
 import com.mj.holley.ims.repository.TransportTaskRepository;
 import com.mj.holley.ims.service.dto.MesReturnDto;
 import com.mj.holley.ims.service.dto.WmsTransportTaskDTO;
@@ -43,8 +44,7 @@ public class WmsSubmitService {
                 .toPosType(map.get("TO_POS_TYPE").toString())
                 .opFlag(map.get("OP_FLAG").toString())
                 .remark(map.get("REMARK").toString())
-                .issuedTaskTime(ZonedDateTime.parse(map.get("ISSUED_TASK_TIME").toString()))
-                .completionTime(ZonedDateTime.parse(map.get("COMPLETION_TIME").toString()));
+                .issuedTaskTime(ZonedDateTime.now(TimeZone.ASIA_SHANGHAI.getId()));
             wmsTransportTaskDTO.setTransportTask(tt);
         return wmsTransportTaskDTO;
     }
