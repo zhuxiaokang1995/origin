@@ -9,6 +9,7 @@ import com.mj.holley.ims.repository.OrderInfoRepository;
 import com.mj.holley.ims.repository.ProcessControlRepository;
 import com.mj.holley.ims.repository.SnRepository;
 import com.mj.holley.ims.repository.StepsRepository;
+import com.mj.holley.ims.service.BindingService;
 import com.mj.holley.ims.service.MesSubmitService;
 import com.mj.holley.ims.service.RedisService;
 import com.mj.holley.ims.service.dto.ScanningResgistrationDTO;
@@ -36,6 +37,9 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class ScanSignalListener implements MonitoredDataItemListener {
+
+    @Inject
+    private BindingService bindingService;
 
     @Inject
     private OpcUaClientTemplate opcUaClientTemplate;
@@ -130,6 +134,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
             log.error("opc ua exception when write brineCheck model" + e.getMessage());
         }
         // TODO: 2018/3/27 保存过站信息
+        bindingService.saveProcessControlInfo(snOptional,dto);
 
     }
 

@@ -4,6 +4,7 @@ import com.mj.holley.ims.domain.OrderInfo;
 import com.mj.holley.ims.repository.OrderInfoRepository;
 import com.mj.holley.ims.repository.ProcessesRepository;
 import com.mj.holley.ims.repository.StepsRepository;
+import com.mj.holley.ims.service.dto.BingdingDto;
 import com.mj.holley.ims.service.dto.MesOrderInfoDto;
 import com.mj.holley.ims.service.dto.MesReturnDto;
 import com.mj.holley.ims.service.dto.WmsTransportTaskDTO;
@@ -28,6 +29,9 @@ import java.util.List;
 )
 @Component
 public class CommonServiceImp implements CommonService {
+
+    @Inject
+    private BindingService bindingService;
 
     @Inject
     private RedisService redisService;
@@ -88,5 +92,18 @@ public class CommonServiceImp implements CommonService {
         WmsTransportTaskDTO wmsTransportTaskDTO = WmsSubmitService.transportTaskToDTO(wms);
         wmsSubmitService.saveWmsTransportTask(wmsTransportTaskDTO).toString();
         return new MesReturnDto(Boolean.TRUE,"Success","").toString();
+    }
+
+    @Override
+    public String bingdingSn(String mes) {
+        String result = null;
+        //字符转换
+        BingdingDto bingdingDto = bindingService.transStringToBingdingDto(mes);
+        // 绑定解绑
+        if (null != bingdingDto){
+            result =  bindingService.bingdingSn(bingdingDto).toString();
+        }
+        return result;
+
     }
 }

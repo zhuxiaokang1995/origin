@@ -36,4 +36,8 @@ public interface CommonService {
     @WebMethod
     @WebResult(name = "TransportTask", targetNamespace = "")
     public String stationSendsTask(@WebParam(name = "tem") String wms);
+
+    @WebMethod
+    @WebResult(name = "BingdingDto", targetNamespace = "")
+    public String bingdingSn(@WebParam(name = "tem") String mes);
 }
