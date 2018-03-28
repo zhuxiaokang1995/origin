@@ -95,7 +95,7 @@ public class CommonServiceImp implements CommonService {
     }
 
     @Override
-    public String bingdingSn(String mes) {
+    public String bindingSn(String mes) {
         String result = null;
         //字符转换
         BingdingDto bingdingDto = bindingService.transStringToBingdingDto(mes);

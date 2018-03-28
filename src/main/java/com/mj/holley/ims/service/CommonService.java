@@ -39,5 +39,5 @@ public interface CommonService {
 
     @WebMethod
     @WebResult(name = "BingdingDto", targetNamespace = "")
-    public String bingdingSn(@WebParam(name = "tem") String mes);
+    public String bindingSn(@WebParam(name = "tem") String mes);
 }
