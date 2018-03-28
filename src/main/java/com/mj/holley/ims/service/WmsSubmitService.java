@@ -31,19 +31,19 @@ public class WmsSubmitService {
         if (map.containsKey("TransportTask")) {
             Map<String, Object> transportTask = (Map<String, Object>) map.get("TransportTask");
             TransportTask tt = new TransportTask()
-                .funID(transportTask.get("FunID").toString())
-                .serialID(Integer.parseInt(transportTask.get("SerialID").toString()))
-                .taskID(Integer.parseInt(transportTask.get("TaskID").toString()))
-                .taskType(transportTask.get("TaskType").toString())
-                .taskPrty(transportTask.get("TaskPrty").toString())
-                .taskFlag(transportTask.get("TaskFlag").toString())
+                .funID(transportTask.get("FUN_ID").toString())
+                .serialID(Integer.parseInt(transportTask.get("SERIAL_ID").toString()))
+                .taskID(Integer.parseInt(transportTask.get("TASK_ID").toString()))
+                .taskType(transportTask.get("TASK_TYPE").toString())
+                .taskPrty(transportTask.get("TASK_PRTY").toString())
+                .taskFlag(transportTask.get("TASK_FLAG").toString())
                 .lPN(transportTask.get("LPN").toString())
-                .frmPos(transportTask.get("FrmPos").toString())
-                .frmPosType(transportTask.get("FrmPosType").toString())
-                .toPos(transportTask.get("ToPos").toString())
-                .toPosType(transportTask.get("ToPosType").toString())
-                .opFlag(transportTask.get("OpFlag").toString())
-                .remark(transportTask.get("Remark").toString());
+                .frmPos(transportTask.get("FRM_POS").toString())
+                .frmPosType(transportTask.get("FRM_POS_TYPE").toString())
+                .toPos(transportTask.get("TO_POS").toString())
+                .toPosType(transportTask.get("TO_POS_TYPE").toString())
+                .opFlag(transportTask.get("OP_FLAG").toString())
+                .remark(transportTask.get("REMARK").toString());
             wmsTransportTaskDTO.setTransportTask(tt);
         }
         return wmsTransportTaskDTO;
