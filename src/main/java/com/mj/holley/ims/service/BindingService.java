@@ -4,7 +4,7 @@ import com.mj.holley.ims.domain.ProcessControl;
 import com.mj.holley.ims.domain.Sn;
 import com.mj.holley.ims.repository.ProcessControlRepository;
 import com.mj.holley.ims.repository.SnRepository;
-import com.mj.holley.ims.service.dto.BingdingDto;
+import com.mj.holley.ims.service.dto.BindingDto;
 import com.mj.holley.ims.service.dto.MesReturnDto;
 import com.mj.holley.ims.service.dto.ScanningResgistrationDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,19 +31,22 @@ public class BindingService {
     private SnRepository snRepository;
 
     //字符转Dto
-    public  BingdingDto transStringToBingdingDto(String input){
-        BingdingDto bingdingDto = new BingdingDto();
+    public BindingDto transStringToBindingDto(String input){
+        BindingDto bindingDto = new BindingDto();
         JSONObject jsonObject = JSONObject.fromObject(input);
         Map<String, Object> map = (Map<String, Object>) jsonObject;
-        if (map.containsKey("BingdingDto")) {
-            Map<String, Object> objectMap = (Map<String, Object>) map.get("BingdingDto");
-            bingdingDto.setOpeType(Integer.parseInt(objectMap.get("opeType").toString()));
-            bingdingDto.setSerialNumber(objectMap.get("serialNumber").toString());
-            bingdingDto.setOrderID(objectMap.get("orderID").toString());
-            bingdingDto.setHutID(objectMap.get("orderID").toString());
-            bingdingDto.setStationID(objectMap.get("stationID").toString());
+        Boolean boo = map.containsKey("OpeType") && map.containsKey("SerialNumber")
+            && map.containsKey("OrderID") && map.containsKey("HutID")
+            && map.containsKey("StationID");
+        if(boo){
+            bindingDto.setOpeType(Integer.parseInt(map.get("OpeType").toString()));
+            bindingDto.setSerialNumber(map.get("SerialNumber").toString());
+            bindingDto.setOrderID(map.get("OrderID").toString());
+            bindingDto.setHutID(map.get("HutID").toString());
+            bindingDto.setStationID(map.get("StationID").toString());
         }
-        return  bingdingDto;
+        return bindingDto;
+
     }
 
     /**
@@ -68,26 +70,26 @@ public class BindingService {
 
     /**
      * 绑定解绑
-     * @param bingdingDto
+     * @param bindingDto
      * @return
      */
-    public MesReturnDto bingdingSn(BingdingDto bingdingDto ){
+    public MesReturnDto bingdingSn(BindingDto bindingDto){
         MesReturnDto result = null;
-        if(bingdingDto.getOpeType() == 1){
+        if(bindingDto.getOpeType() == 1){
             Sn sn = new Sn();
-            sn.setSerialNumber(bingdingDto.getSerialNumber());
-            sn.setHutID(bingdingDto.getHutID());
-            sn.setOrderID(bingdingDto.getOrderID());
+            sn.setSerialNumber(bindingDto.getSerialNumber());
+            sn.setHutID(bindingDto.getHutID());
+            sn.setOrderID(bindingDto.getOrderID());
             sn.isBinding(true);
             snRepository.save(sn);
             result =  new MesReturnDto(Boolean.TRUE,"Success","绑定成功");
         }
 
-        if(bingdingDto.getOpeType() == 2){
+        if(bindingDto.getOpeType() == 2){
             Sn sn = new Sn();
-            sn.setSerialNumber(bingdingDto.getSerialNumber());
-            sn.setHutID(bingdingDto.getHutID());
-            sn.setOrderID(bingdingDto.getOrderID());
+            sn.setSerialNumber(bindingDto.getSerialNumber());
+            sn.setHutID(bindingDto.getHutID());
+            sn.setOrderID(bindingDto.getOrderID());
             sn.isBinding(false);
             snRepository.save(sn);
             result = new MesReturnDto(Boolean.TRUE,"Success","解绑成功");

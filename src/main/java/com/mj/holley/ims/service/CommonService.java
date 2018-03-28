@@ -38,6 +38,6 @@ public interface CommonService {
     public String stationSendsTask(@WebParam(name = "tem") String wms);
 
     @WebMethod
-    @WebResult(name = "BingdingDto", targetNamespace = "")
+    @WebResult(name = "BindingDto", targetNamespace = "")
     public String bindingSn(@WebParam(name = "tem") String mes);
 }

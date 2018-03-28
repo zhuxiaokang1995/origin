@@ -3,7 +3,7 @@ package com.mj.holley.ims.service.dto;
 /**
  * Created by vtstar on 2018/3/27.
  */
-public class BingdingDto {
+public class BindingDto {
 
     //操作类型
     private int opeType;

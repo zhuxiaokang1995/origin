@@ -4,7 +4,7 @@ import com.mj.holley.ims.domain.OrderInfo;
 import com.mj.holley.ims.repository.OrderInfoRepository;
 import com.mj.holley.ims.repository.ProcessesRepository;
 import com.mj.holley.ims.repository.StepsRepository;
-import com.mj.holley.ims.service.dto.BingdingDto;
+import com.mj.holley.ims.service.dto.BindingDto;
 import com.mj.holley.ims.service.dto.MesOrderInfoDto;
 import com.mj.holley.ims.service.dto.MesReturnDto;
 import com.mj.holley.ims.service.dto.WmsTransportTaskDTO;
@@ -98,10 +98,11 @@ public class CommonServiceImp implements CommonService {
     public String bindingSn(String mes) {
         String result = null;
         //字符转换
-        BingdingDto bingdingDto = bindingService.transStringToBingdingDto(mes);
+        BindingDto bindingDto = bindingService.transStringToBindingDto(mes);
         // 绑定解绑
-        if (null != bingdingDto){
-            result =  bindingService.bingdingSn(bingdingDto).toString();
+        MesReturnDto mesReturnDto = bindingService.bingdingSn(bindingDto);
+        if (mesReturnDto != null){
+            result =  mesReturnDto.toString();
         }
         return result;
 
