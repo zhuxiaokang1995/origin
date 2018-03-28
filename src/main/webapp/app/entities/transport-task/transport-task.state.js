@@ -117,6 +117,8 @@
                                 toPosType: null,
                                 opFlag: null,
                                 remark: null,
+                                issuedTaskTime: null,
+                                completionTime: null,
                                 id: null
                             };
                         }

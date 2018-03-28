@@ -4,9 +4,9 @@
         .module('holleyImsApp')
         .factory('Sn', Sn);
 
-    Sn.$inject = ['$resource'];
+    Sn.$inject = ['$resource', 'DateUtils'];
 
-    function Sn ($resource) {
+    function Sn ($resource, DateUtils) {
         var resourceUrl =  'api/sns/:id';
 
         return $resource(resourceUrl, {}, {
@@ -16,6 +16,8 @@
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);
+                        data.bindingTime = DateUtils.convertDateTimeFromServer(data.bindingTime);
+                        data.unbundlingTime = DateUtils.convertDateTimeFromServer(data.unbundlingTime);
                     }
                     return data;
                 }

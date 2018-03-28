@@ -1,10 +1,8 @@
 package com.mj.holley.ims.repository;
 
 import com.mj.holley.ims.domain.ProcessControl;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import org.springframework.data.jpa.repository.*;
-
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -13,6 +11,5 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 public interface ProcessControlRepository extends JpaRepository<ProcessControl,Long> {
 
-    Optional<ProcessControl> findOneBySerialNumberAndStationID(String serialNumber,String stationI);
-
+    Optional<ProcessControl> findOneBySerialNumberAndStationID(String serialNumber, String stationI);
 }

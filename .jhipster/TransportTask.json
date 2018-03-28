@@ -53,6 +53,14 @@
         {
             "fieldName": "remark",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "issuedTaskTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "completionTime",
+            "fieldType": "ZonedDateTime"
         }
     ],
     "changelogDate": "20180324015027",

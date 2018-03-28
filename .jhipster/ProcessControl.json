@@ -21,6 +21,10 @@
         {
             "fieldName": "result",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "mountGuardTime",
+            "fieldType": "ZonedDateTime"
         }
     ],
     "changelogDate": "20180324054255",

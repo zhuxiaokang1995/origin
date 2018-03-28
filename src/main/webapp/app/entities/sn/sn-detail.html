@@ -20,6 +20,14 @@
         <dd>
             <span>{{vm.sn.isBinding}}</span>
         </dd>
+        <dt><span data-translate="holleyImsApp.sn.bindingTime">Binding Time</span></dt>
+        <dd>
+            <span>{{vm.sn.bindingTime | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.sn.unbundlingTime">Unbundling Time</span></dt>
+        <dd>
+            <span>{{vm.sn.unbundlingTime | date:'medium'}}</span>
+        </dd>
     </dl>
 
     <button type="submit"

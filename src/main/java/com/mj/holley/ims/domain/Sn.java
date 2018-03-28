@@ -1,10 +1,15 @@
 package com.mj.holley.ims.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.mj.holley.ims.domain.util.ZonedDateTimeDeserializer;
+import com.mj.holley.ims.domain.util.ZonedDateTimeSerializer;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -32,6 +37,16 @@ public class Sn implements Serializable {
 
     @Column(name = "is_binding")
     private Boolean isBinding;
+
+    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
+    @JsonSerialize(using = ZonedDateTimeSerializer.class)
+    @Column(name = "binding_time")
+    private ZonedDateTime bindingTime;
+
+    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
+    @JsonSerialize(using = ZonedDateTimeSerializer.class)
+    @Column(name = "unbundling_time")
+    private ZonedDateTime unbundlingTime;
 
     public Long getId() {
         return id;
@@ -93,6 +108,32 @@ public class Sn implements Serializable {
         this.isBinding = isBinding;
     }
 
+    public ZonedDateTime getBindingTime() {
+        return bindingTime;
+    }
+
+    public Sn bindingTime(ZonedDateTime bindingTime) {
+        this.bindingTime = bindingTime;
+        return this;
+    }
+
+    public void setBindingTime(ZonedDateTime bindingTime) {
+        this.bindingTime = bindingTime;
+    }
+
+    public ZonedDateTime getUnbundlingTime() {
+        return unbundlingTime;
+    }
+
+    public Sn unbundlingTime(ZonedDateTime unbundlingTime) {
+        this.unbundlingTime = unbundlingTime;
+        return this;
+    }
+
+    public void setUnbundlingTime(ZonedDateTime unbundlingTime) {
+        this.unbundlingTime = unbundlingTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -121,6 +162,8 @@ public class Sn implements Serializable {
             ", hutID='" + hutID + "'" +
             ", orderID='" + orderID + "'" +
             ", isBinding='" + isBinding + "'" +
+            ", bindingTime='" + bindingTime + "'" +
+            ", unbundlingTime='" + unbundlingTime + "'" +
             '}';
     }
 }

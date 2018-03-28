@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.time.ZonedDateTime;
 import java.util.Map;
 
 /**
@@ -28,24 +29,23 @@ public class WmsSubmitService {
         TransportTask tasks = new TransportTask();
         JSONObject jsonObject = JSONObject.fromObject(input);
         Map<String, Object> map = (Map<String, Object>) jsonObject;
-        if (map.containsKey("TransportTask")) {
-            Map<String, Object> transportTask = (Map<String, Object>) map.get("TransportTask");
             TransportTask tt = new TransportTask()
-                .funID(transportTask.get("FUN_ID").toString())
-                .serialID(Integer.parseInt(transportTask.get("SERIAL_ID").toString()))
-                .taskID(Integer.parseInt(transportTask.get("TASK_ID").toString()))
-                .taskType(transportTask.get("TASK_TYPE").toString())
-                .taskPrty(transportTask.get("TASK_PRTY").toString())
-                .taskFlag(transportTask.get("TASK_FLAG").toString())
-                .lPN(transportTask.get("LPN").toString())
-                .frmPos(transportTask.get("FRM_POS").toString())
-                .frmPosType(transportTask.get("FRM_POS_TYPE").toString())
-                .toPos(transportTask.get("TO_POS").toString())
-                .toPosType(transportTask.get("TO_POS_TYPE").toString())
-                .opFlag(transportTask.get("OP_FLAG").toString())
-                .remark(transportTask.get("REMARK").toString());
+                .funID(map.get("FUN_ID").toString())
+                .serialID(Integer.parseInt(map.get("SERIAL_ID").toString()))
+                .taskID(Integer.parseInt(map.get("TASK_ID").toString()))
+                .taskType(map.get("TASK_TYPE").toString())
+                .taskPrty(map.get("TASK_PRTY").toString())
+                .taskFlag(map.get("TASK_FLAG").toString())
+                .lPN(map.get("LPN").toString())
+                .frmPos(map.get("FRM_POS").toString())
+                .frmPosType(map.get("FRM_POS_TYPE").toString())
+                .toPos(map.get("TO_POS").toString())
+                .toPosType(map.get("TO_POS_TYPE").toString())
+                .opFlag(map.get("OP_FLAG").toString())
+                .remark(map.get("REMARK").toString())
+                .issuedTaskTime(ZonedDateTime.parse(map.get("ISSUED_TASK_TIME").toString()))
+                .completionTime(ZonedDateTime.parse(map.get("COMPLETION_TIME").toString()));
             wmsTransportTaskDTO.setTransportTask(tt);
-        }
         return wmsTransportTaskDTO;
     }
 

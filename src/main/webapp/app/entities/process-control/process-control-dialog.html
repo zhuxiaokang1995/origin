@@ -43,6 +43,16 @@
                     ng-model="vm.processControl.result"
                     />
         </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.processControl.mountGuardTime" for="field_mountGuardTime">Mount Guard Time</label>
+                <div class="input-group">
+                    <input id="field_mountGuardTime" type="text" class="form-control" name="mountGuardTime" datetime-picker="{{dateformat}}" ng-model="vm.processControl.mountGuardTime" is-open="vm.datePickerOpenStatus.mountGuardTime"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('mountGuardTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
 
     </div>
     <div class="modal-footer">

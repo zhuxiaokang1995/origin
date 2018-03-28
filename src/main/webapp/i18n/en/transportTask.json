@@ -27,7 +27,9 @@
             "toPos": "To Pos",
             "toPosType": "To Pos Type",
             "opFlag": "Op Flag",
-            "remark": "Remark"
+            "remark": "Remark",
+            "issuedTaskTime": "Issued Task Time",
+            "completionTime": "Completion Time"
         }
     }
 }

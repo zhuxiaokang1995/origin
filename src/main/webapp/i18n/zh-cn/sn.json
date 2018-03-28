@@ -18,7 +18,9 @@
             "serialNumber": "Serial Number",
             "hutID": "Hut ID",
             "orderID": "Order ID",
-            "isBinding": "Is Binding"
+            "isBinding": "Is Binding",
+            "bindingTime": "Binding Time",
+            "unbundlingTime": "Unbundling Time"
         }
     }
 }

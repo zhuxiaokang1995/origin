@@ -1,10 +1,8 @@
 package com.mj.holley.ims.repository;
 
 import com.mj.holley.ims.domain.Sn;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import org.springframework.data.jpa.repository.*;
-
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -14,5 +12,4 @@ import java.util.Optional;
 public interface SnRepository extends JpaRepository<Sn,Long> {
 
     Optional<Sn> findFirstByHutIDAndIsBindingTrueOrderByIdDesc(String hutID);
-
 }

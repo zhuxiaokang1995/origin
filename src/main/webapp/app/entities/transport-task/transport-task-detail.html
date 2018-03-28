@@ -56,6 +56,14 @@
         <dd>
             <span>{{vm.transportTask.remark}}</span>
         </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.issuedTaskTime">Issued Task Time</span></dt>
+        <dd>
+            <span>{{vm.transportTask.issuedTaskTime | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.transportTask.completionTime">Completion Time</span></dt>
+        <dd>
+            <span>{{vm.transportTask.completionTime | date:'medium'}}</span>
+        </dd>
     </dl>
 
     <button type="submit"

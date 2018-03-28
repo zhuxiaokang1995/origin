@@ -1,10 +1,15 @@
 package com.mj.holley.ims.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.mj.holley.ims.domain.util.ZonedDateTimeDeserializer;
+import com.mj.holley.ims.domain.util.ZonedDateTimeSerializer;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -59,6 +64,16 @@ public class TransportTask implements Serializable {
 
     @Column(name = "remark")
     private String remark;
+
+    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
+    @JsonSerialize(using = ZonedDateTimeSerializer.class)
+    @Column(name = "issued_task_time")
+    private ZonedDateTime issuedTaskTime;
+
+    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
+    @JsonSerialize(using = ZonedDateTimeSerializer.class)
+    @Column(name = "completion_time")
+    private ZonedDateTime completionTime;
 
     public Long getId() {
         return id;
@@ -237,6 +252,32 @@ public class TransportTask implements Serializable {
         this.remark = remark;
     }
 
+    public ZonedDateTime getIssuedTaskTime() {
+        return issuedTaskTime;
+    }
+
+    public TransportTask issuedTaskTime(ZonedDateTime issuedTaskTime) {
+        this.issuedTaskTime = issuedTaskTime;
+        return this;
+    }
+
+    public void setIssuedTaskTime(ZonedDateTime issuedTaskTime) {
+        this.issuedTaskTime = issuedTaskTime;
+    }
+
+    public ZonedDateTime getCompletionTime() {
+        return completionTime;
+    }
+
+    public TransportTask completionTime(ZonedDateTime completionTime) {
+        this.completionTime = completionTime;
+        return this;
+    }
+
+    public void setCompletionTime(ZonedDateTime completionTime) {
+        this.completionTime = completionTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -274,6 +315,8 @@ public class TransportTask implements Serializable {
             ", toPosType='" + toPosType + "'" +
             ", opFlag='" + opFlag + "'" +
             ", remark='" + remark + "'" +
+            ", issuedTaskTime='" + issuedTaskTime + "'" +
+            ", completionTime='" + completionTime + "'" +
             '}';
     }
 }

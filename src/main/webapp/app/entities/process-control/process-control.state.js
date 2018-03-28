@@ -109,6 +109,7 @@
                                 orderID: null,
                                 stationID: null,
                                 result: null,
+                                mountGuardTime: null,
                                 id: null
                             };
                         }

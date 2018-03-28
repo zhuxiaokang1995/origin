@@ -42,8 +42,13 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="mount_guard_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="process_control" columnName="mount_guard_time" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>

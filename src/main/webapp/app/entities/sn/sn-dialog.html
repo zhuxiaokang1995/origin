@@ -36,6 +36,26 @@
                 <input type="checkbox" name="isBinding" id="field_isBinding"
                           ng-model="vm.sn.isBinding"/>
         </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.sn.bindingTime" for="field_bindingTime">Binding Time</label>
+                <div class="input-group">
+                    <input id="field_bindingTime" type="text" class="form-control" name="bindingTime" datetime-picker="{{dateformat}}" ng-model="vm.sn.bindingTime" is-open="vm.datePickerOpenStatus.bindingTime"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('bindingTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.sn.unbundlingTime" for="field_unbundlingTime">Unbundling Time</label>
+                <div class="input-group">
+                    <input id="field_unbundlingTime" type="text" class="form-control" name="unbundlingTime" datetime-picker="{{dateformat}}" ng-model="vm.sn.unbundlingTime" is-open="vm.datePickerOpenStatus.unbundlingTime"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('unbundlingTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
 
     </div>
     <div class="modal-footer">

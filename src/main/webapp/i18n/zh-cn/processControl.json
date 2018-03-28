@@ -19,7 +19,8 @@
             "hutID": "Hut ID",
             "orderID": "Order ID",
             "stationID": "Station ID",
-            "result": "Result"
+            "result": "Result",
+            "mountGuardTime": "Mount Guard Time"
         }
     }
 }

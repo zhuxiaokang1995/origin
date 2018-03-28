@@ -23,6 +23,8 @@
                     <th><span data-translate="holleyImsApp.sn.hutID">Hut ID</span></th>
                     <th><span data-translate="holleyImsApp.sn.orderID">Order ID</span></th>
                     <th><span data-translate="holleyImsApp.sn.isBinding">Is Binding</span></th>
+                    <th><span data-translate="holleyImsApp.sn.bindingTime">Binding Time</span></th>
+                    <th><span data-translate="holleyImsApp.sn.unbundlingTime">Unbundling Time</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -33,6 +35,8 @@
                     <td>{{sn.hutID}}</td>
                     <td>{{sn.orderID}}</td>
                     <td>{{sn.isBinding}}</td>
+                    <td>{{sn.bindingTime | date:'medium'}}</td>
+                    <td>{{sn.unbundlingTime | date:'medium'}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

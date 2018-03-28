@@ -108,6 +108,8 @@
                                 hutID: null,
                                 orderID: null,
                                 isBinding: null,
+                                bindingTime: null,
+                                unbundlingTime: null,
                                 id: null
                             };
                         }

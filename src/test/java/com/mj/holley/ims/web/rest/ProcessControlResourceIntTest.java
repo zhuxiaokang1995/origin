@@ -21,8 +21,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
+import static com.mj.holley.ims.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -51,6 +56,9 @@ public class ProcessControlResourceIntTest {
 
     private static final String DEFAULT_RESULT = "AAAAAAAAAA";
     private static final String UPDATED_RESULT = "BBBBBBBBBB";
+
+    private static final ZonedDateTime DEFAULT_MOUNT_GUARD_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_MOUNT_GUARD_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     @Autowired
     private ProcessControlRepository processControlRepository;
@@ -93,7 +101,8 @@ public class ProcessControlResourceIntTest {
             .hutID(DEFAULT_HUT_ID)
             .orderID(DEFAULT_ORDER_ID)
             .stationID(DEFAULT_STATION_ID)
-            .result(DEFAULT_RESULT);
+            .result(DEFAULT_RESULT)
+            .mountGuardTime(DEFAULT_MOUNT_GUARD_TIME);
         return processControl;
     }
 
@@ -122,6 +131,7 @@ public class ProcessControlResourceIntTest {
         assertThat(testProcessControl.getOrderID()).isEqualTo(DEFAULT_ORDER_ID);
         assertThat(testProcessControl.getStationID()).isEqualTo(DEFAULT_STATION_ID);
         assertThat(testProcessControl.getResult()).isEqualTo(DEFAULT_RESULT);
+        assertThat(testProcessControl.getMountGuardTime()).isEqualTo(DEFAULT_MOUNT_GUARD_TIME);
     }
 
     @Test
@@ -158,7 +168,8 @@ public class ProcessControlResourceIntTest {
             .andExpect(jsonPath("$.[*].hutID").value(hasItem(DEFAULT_HUT_ID.toString())))
             .andExpect(jsonPath("$.[*].orderID").value(hasItem(DEFAULT_ORDER_ID.toString())))
             .andExpect(jsonPath("$.[*].stationID").value(hasItem(DEFAULT_STATION_ID.toString())))
-            .andExpect(jsonPath("$.[*].result").value(hasItem(DEFAULT_RESULT.toString())));
+            .andExpect(jsonPath("$.[*].result").value(hasItem(DEFAULT_RESULT.toString())))
+            .andExpect(jsonPath("$.[*].mountGuardTime").value(hasItem(sameInstant(DEFAULT_MOUNT_GUARD_TIME))));
     }
 
     @Test
@@ -176,7 +187,8 @@ public class ProcessControlResourceIntTest {
             .andExpect(jsonPath("$.hutID").value(DEFAULT_HUT_ID.toString()))
             .andExpect(jsonPath("$.orderID").value(DEFAULT_ORDER_ID.toString()))
             .andExpect(jsonPath("$.stationID").value(DEFAULT_STATION_ID.toString()))
-            .andExpect(jsonPath("$.result").value(DEFAULT_RESULT.toString()));
+            .andExpect(jsonPath("$.result").value(DEFAULT_RESULT.toString()))
+            .andExpect(jsonPath("$.mountGuardTime").value(sameInstant(DEFAULT_MOUNT_GUARD_TIME)));
     }
 
     @Test
@@ -201,7 +213,8 @@ public class ProcessControlResourceIntTest {
             .hutID(UPDATED_HUT_ID)
             .orderID(UPDATED_ORDER_ID)
             .stationID(UPDATED_STATION_ID)
-            .result(UPDATED_RESULT);
+            .result(UPDATED_RESULT)
+            .mountGuardTime(UPDATED_MOUNT_GUARD_TIME);
 
         restProcessControlMockMvc.perform(put("/api/process-controls")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -217,6 +230,7 @@ public class ProcessControlResourceIntTest {
         assertThat(testProcessControl.getOrderID()).isEqualTo(UPDATED_ORDER_ID);
         assertThat(testProcessControl.getStationID()).isEqualTo(UPDATED_STATION_ID);
         assertThat(testProcessControl.getResult()).isEqualTo(UPDATED_RESULT);
+        assertThat(testProcessControl.getMountGuardTime()).isEqualTo(UPDATED_MOUNT_GUARD_TIME);
     }
 
     @Test

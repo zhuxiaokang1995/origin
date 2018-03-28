@@ -17,6 +17,14 @@
         {
             "fieldName": "isBinding",
             "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "bindingTime",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "unbundlingTime",
+            "fieldType": "ZonedDateTime"
         }
     ],
     "changelogDate": "20180324053707",

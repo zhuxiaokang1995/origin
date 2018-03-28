@@ -21,8 +21,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
+import static com.mj.holley.ims.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -48,6 +53,12 @@ public class SnResourceIntTest {
 
     private static final Boolean DEFAULT_IS_BINDING = false;
     private static final Boolean UPDATED_IS_BINDING = true;
+
+    private static final ZonedDateTime DEFAULT_BINDING_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_BINDING_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+
+    private static final ZonedDateTime DEFAULT_UNBUNDLING_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_UNBUNDLING_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     @Autowired
     private SnRepository snRepository;
@@ -89,7 +100,9 @@ public class SnResourceIntTest {
             .serialNumber(DEFAULT_SERIAL_NUMBER)
             .hutID(DEFAULT_HUT_ID)
             .orderID(DEFAULT_ORDER_ID)
-            .isBinding(DEFAULT_IS_BINDING);
+            .isBinding(DEFAULT_IS_BINDING)
+            .bindingTime(DEFAULT_BINDING_TIME)
+            .unbundlingTime(DEFAULT_UNBUNDLING_TIME);
         return sn;
     }
 
@@ -117,6 +130,8 @@ public class SnResourceIntTest {
         assertThat(testSn.getHutID()).isEqualTo(DEFAULT_HUT_ID);
         assertThat(testSn.getOrderID()).isEqualTo(DEFAULT_ORDER_ID);
         assertThat(testSn.isIsBinding()).isEqualTo(DEFAULT_IS_BINDING);
+        assertThat(testSn.getBindingTime()).isEqualTo(DEFAULT_BINDING_TIME);
+        assertThat(testSn.getUnbundlingTime()).isEqualTo(DEFAULT_UNBUNDLING_TIME);
     }
 
     @Test
@@ -152,7 +167,9 @@ public class SnResourceIntTest {
             .andExpect(jsonPath("$.[*].serialNumber").value(hasItem(DEFAULT_SERIAL_NUMBER.toString())))
             .andExpect(jsonPath("$.[*].hutID").value(hasItem(DEFAULT_HUT_ID.toString())))
             .andExpect(jsonPath("$.[*].orderID").value(hasItem(DEFAULT_ORDER_ID.toString())))
-            .andExpect(jsonPath("$.[*].isBinding").value(hasItem(DEFAULT_IS_BINDING.booleanValue())));
+            .andExpect(jsonPath("$.[*].isBinding").value(hasItem(DEFAULT_IS_BINDING.booleanValue())))
+            .andExpect(jsonPath("$.[*].bindingTime").value(hasItem(sameInstant(DEFAULT_BINDING_TIME))))
+            .andExpect(jsonPath("$.[*].unbundlingTime").value(hasItem(sameInstant(DEFAULT_UNBUNDLING_TIME))));
     }
 
     @Test
@@ -169,7 +186,9 @@ public class SnResourceIntTest {
             .andExpect(jsonPath("$.serialNumber").value(DEFAULT_SERIAL_NUMBER.toString()))
             .andExpect(jsonPath("$.hutID").value(DEFAULT_HUT_ID.toString()))
             .andExpect(jsonPath("$.orderID").value(DEFAULT_ORDER_ID.toString()))
-            .andExpect(jsonPath("$.isBinding").value(DEFAULT_IS_BINDING.booleanValue()));
+            .andExpect(jsonPath("$.isBinding").value(DEFAULT_IS_BINDING.booleanValue()))
+            .andExpect(jsonPath("$.bindingTime").value(sameInstant(DEFAULT_BINDING_TIME)))
+            .andExpect(jsonPath("$.unbundlingTime").value(sameInstant(DEFAULT_UNBUNDLING_TIME)));
     }
 
     @Test
@@ -193,7 +212,9 @@ public class SnResourceIntTest {
             .serialNumber(UPDATED_SERIAL_NUMBER)
             .hutID(UPDATED_HUT_ID)
             .orderID(UPDATED_ORDER_ID)
-            .isBinding(UPDATED_IS_BINDING);
+            .isBinding(UPDATED_IS_BINDING)
+            .bindingTime(UPDATED_BINDING_TIME)
+            .unbundlingTime(UPDATED_UNBUNDLING_TIME);
 
         restSnMockMvc.perform(put("/api/sns")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -208,6 +229,8 @@ public class SnResourceIntTest {
         assertThat(testSn.getHutID()).isEqualTo(UPDATED_HUT_ID);
         assertThat(testSn.getOrderID()).isEqualTo(UPDATED_ORDER_ID);
         assertThat(testSn.isIsBinding()).isEqualTo(UPDATED_IS_BINDING);
+        assertThat(testSn.getBindingTime()).isEqualTo(UPDATED_BINDING_TIME);
+        assertThat(testSn.getUnbundlingTime()).isEqualTo(UPDATED_UNBUNDLING_TIME);
     }
 
     @Test

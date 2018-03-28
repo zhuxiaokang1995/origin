@@ -24,6 +24,7 @@
                     <th><span data-translate="holleyImsApp.processControl.orderID">Order ID</span></th>
                     <th><span data-translate="holleyImsApp.processControl.stationID">Station ID</span></th>
                     <th><span data-translate="holleyImsApp.processControl.result">Result</span></th>
+                    <th><span data-translate="holleyImsApp.processControl.mountGuardTime">Mount Guard Time</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -35,6 +36,7 @@
                     <td>{{processControl.orderID}}</td>
                     <td>{{processControl.stationID}}</td>
                     <td>{{processControl.result}}</td>
+                    <td>{{processControl.mountGuardTime | date:'medium'}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

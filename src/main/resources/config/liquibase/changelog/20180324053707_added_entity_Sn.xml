@@ -38,8 +38,18 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="binding_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="unbundling_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="sn" columnName="binding_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="sn" columnName="unbundling_time" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>

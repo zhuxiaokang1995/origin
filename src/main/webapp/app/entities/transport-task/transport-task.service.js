@@ -4,9 +4,9 @@
         .module('holleyImsApp')
         .factory('TransportTask', TransportTask);
 
-    TransportTask.$inject = ['$resource'];
+    TransportTask.$inject = ['$resource', 'DateUtils'];
 
-    function TransportTask ($resource) {
+    function TransportTask ($resource, DateUtils) {
         var resourceUrl =  'api/transport-tasks/:id';
 
         return $resource(resourceUrl, {}, {
@@ -16,6 +16,8 @@
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);
+                        data.issuedTaskTime = DateUtils.convertDateTimeFromServer(data.issuedTaskTime);
+                        data.completionTime = DateUtils.convertDateTimeFromServer(data.completionTime);
                     }
                     return data;
                 }

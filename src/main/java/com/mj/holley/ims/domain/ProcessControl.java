@@ -1,10 +1,15 @@
 package com.mj.holley.ims.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.mj.holley.ims.domain.util.ZonedDateTimeDeserializer;
+import com.mj.holley.ims.domain.util.ZonedDateTimeSerializer;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -35,6 +40,11 @@ public class ProcessControl implements Serializable {
 
     @Column(name = "result")
     private String result;
+
+    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
+    @JsonSerialize(using = ZonedDateTimeSerializer.class)
+    @Column(name = "mount_guard_time")
+    private ZonedDateTime mountGuardTime;
 
     public Long getId() {
         return id;
@@ -109,6 +119,19 @@ public class ProcessControl implements Serializable {
         this.result = result;
     }
 
+    public ZonedDateTime getMountGuardTime() {
+        return mountGuardTime;
+    }
+
+    public ProcessControl mountGuardTime(ZonedDateTime mountGuardTime) {
+        this.mountGuardTime = mountGuardTime;
+        return this;
+    }
+
+    public void setMountGuardTime(ZonedDateTime mountGuardTime) {
+        this.mountGuardTime = mountGuardTime;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -138,6 +161,7 @@ public class ProcessControl implements Serializable {
             ", orderID='" + orderID + "'" +
             ", stationID='" + stationID + "'" +
             ", result='" + result + "'" +
+            ", mountGuardTime='" + mountGuardTime + "'" +
             '}';
     }
 }

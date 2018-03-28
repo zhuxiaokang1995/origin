@@ -74,8 +74,18 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="issued_task_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="completion_time" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="transport_task" columnName="issued_task_time" columnDataType="datetime"/>
+        <dropDefaultValue tableName="transport_task" columnName="completion_time" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>
