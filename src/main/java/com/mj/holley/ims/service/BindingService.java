@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -45,8 +47,8 @@ public class BindingService {
             bindingDto.setHutID(map.get("HutID").toString());
             bindingDto.setStationID(map.get("StationID").toString());
         }
-        return bindingDto;
 
+        return bindingDto;
     }
 
     /**
@@ -61,7 +63,8 @@ public class BindingService {
                 .hutID(sn.get().getHutID())
                 .orderID(sn.get().getOrderID())
                 .stationID(scanningResgistrationDTO.getStationID())
-                .result("11111111");
+                .result("11111111")
+                .mountGuardTime(ZonedDateTime.now());
             processControlRepository.save(processControl);
         }
 
@@ -75,24 +78,29 @@ public class BindingService {
      */
     public MesReturnDto bingdingSn(BindingDto bindingDto){
         MesReturnDto result = null;
+        List<Sn> snList = snRepository.findByHutIDAndSerialNumberAndIsBindingTrue(bindingDto.getHutID() ,bindingDto.getSerialNumber());
         if(bindingDto.getOpeType() == 1){
             Sn sn = new Sn();
             sn.setSerialNumber(bindingDto.getSerialNumber());
             sn.setHutID(bindingDto.getHutID());
             sn.setOrderID(bindingDto.getOrderID());
-            sn.isBinding(true);
+            sn.isBinding(Boolean.TRUE);
+            sn.setBindingTime(ZonedDateTime.now());
+            sn.setUnbundlingTime(null);
             snRepository.save(sn);
             result =  new MesReturnDto(Boolean.TRUE,"Success","绑定成功");
         }
-
         if(bindingDto.getOpeType() == 2){
-            Sn sn = new Sn();
-            sn.setSerialNumber(bindingDto.getSerialNumber());
-            sn.setHutID(bindingDto.getHutID());
-            sn.setOrderID(bindingDto.getOrderID());
-            sn.isBinding(false);
-            snRepository.save(sn);
-            result = new MesReturnDto(Boolean.TRUE,"Success","解绑成功");
+            if (snList.size() != 0){
+                snRepository.updateIsBindingFalse(Boolean.FALSE ,ZonedDateTime.now() , bindingDto.getHutID() ,bindingDto.getSerialNumber());
+                result = new MesReturnDto(Boolean.TRUE,"Success","解绑成功");
+            }else {
+                result = new MesReturnDto(Boolean.FALSE,"False","解绑失败");
+            }
+
+        }
+        if(bindingDto.getOpeType() != 2 && bindingDto.getOpeType() != 1){
+            result = new MesReturnDto(Boolean.FALSE,"False","");
         }
        return result;
 
