@@ -52,16 +52,14 @@ public class WmsSubmitService {
     public MesReturnDto saveWmsTransportTask(WmsTransportTaskDTO wmsTransportTaskDTO) {
 
         TransportTask id = transportTaskRepository.findByTaskID(wmsTransportTaskDTO.getTransportTask().getTaskID());
-        //String result = "";
         if (id != null) {
             transportTaskRepository.updateTransportTask(wmsTransportTaskDTO.getTransportTask().getFunID(), wmsTransportTaskDTO.getTransportTask().getSerialID(),
                 wmsTransportTaskDTO.getTransportTask().getTaskType(), wmsTransportTaskDTO.getTransportTask().getTaskPrty(), wmsTransportTaskDTO.getTransportTask().getTaskFlag(),
                 wmsTransportTaskDTO.getTransportTask().getlPN(), wmsTransportTaskDTO.getTransportTask().getFrmPos(), wmsTransportTaskDTO.getTransportTask().getFrmPosType(),
                 wmsTransportTaskDTO.getTransportTask().getToPos(), wmsTransportTaskDTO.getTransportTask().getToPosType(), wmsTransportTaskDTO.getTransportTask().getOpFlag(),
-                wmsTransportTaskDTO.getTransportTask().getRemark(), wmsTransportTaskDTO.getTransportTask().getIssuedTaskTime(),
-                wmsTransportTaskDTO.getTransportTask().getTaskID());
+                wmsTransportTaskDTO.getTransportTask().getRemark(), wmsTransportTaskDTO.getTransportTask().getIssuedTaskTime(), wmsTransportTaskDTO.getTransportTask().getTaskID());
         } else {
-            TransportTask result = transportTaskRepository.save(wmsTransportTaskDTO.getTransportTask());
+            transportTaskRepository.save(wmsTransportTaskDTO.getTransportTask());
         }
         return new MesReturnDto(Boolean.TRUE, "Success", "");
     }
