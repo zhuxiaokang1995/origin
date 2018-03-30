@@ -118,9 +118,12 @@ public class ScanSignalListener implements MonitoredDataItemListener {
                     havingStation = Boolean.TRUE;
                 }
             }
-            if (havingStation){                                                                      //该工位有工艺，再结合是否是重复工位及重复工位是否入过站
-                havingStation = havingStation && (!isProcessRepeatStation(sn.getSerialNumber(),stationId));
-            }
+            /**
+             * 暂时将工位重复判定功能交PLC处理
+             */
+//            if (havingStation){                                                                      //该工位有工艺，再结合是否是重复工位及重复工位是否入过站
+//                havingStation = havingStation && (!isProcessRepeatStation(sn.getSerialNumber(),stationId));
+//            }
         }
         if (isFault) {
             writeToPlc = isFault && ConstantValue.REPAIRED_STATION_LIST.contains(stationId);
@@ -133,9 +136,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         } catch (OpcUaClientException e) {
             log.error("opc ua exception when write brineCheck model" + e.getMessage());
         }
-        // TODO: 2018/3/27 保存过站信息
-        bindingService.saveProcessControlInfo(snOptional,dto);
-
+        if (writeToPlc) bindingService.saveProcessControlInfo(snOptional,dto);
     }
 
     /**
