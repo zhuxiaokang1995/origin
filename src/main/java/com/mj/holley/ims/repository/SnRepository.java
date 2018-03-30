@@ -17,6 +17,15 @@ import java.util.Optional;
 @Transactional
 public interface SnRepository extends JpaRepository<Sn,Long> {
 
+    //根据序列号查找
+    Optional<Sn> findOneBySerialNumber(String serialNumber);
+
+    //根据序列号更新Sn
+    @Modifying
+    @Query(value = "update Sn s set s.isBinding = ?1 ,s.unbundlingTime = ?2 ,s.hutID = ?3 ,s.orderID = ?4 ,s.bindingTime = " +
+        "?5  where s.serialNumber = ?6  ")
+    int updateSn(Boolean isBinding , ZonedDateTime unbundlingTime , String hutID , String orderID ,ZonedDateTime bindingTime , String serialNumber);
+
     //根据序列号、工装板号更新绑定状态
     @Modifying
     @Query(value = "update Sn s set s.isBinding = ?1 ,s.unbundlingTime = ?2 where s.hutID = ?3 and s.serialNumber = ?4  ")

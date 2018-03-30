@@ -79,17 +79,24 @@ public class BindingService {
     public MesReturnDto bingdingSn(BindingDto bindingDto){
         MesReturnDto result = null;
         List<Sn> snList = snRepository.findByHutIDAndSerialNumberAndIsBindingTrue(bindingDto.getHutID() ,bindingDto.getSerialNumber());
+        Optional<Sn> snOptional = snRepository.findOneBySerialNumber(bindingDto.getSerialNumber());
+        //等于1 绑定
         if(bindingDto.getOpeType() == 1){
-            Sn sn = new Sn();
-            sn.setSerialNumber(bindingDto.getSerialNumber());
-            sn.setHutID(bindingDto.getHutID());
-            sn.setOrderID(bindingDto.getOrderID());
-            sn.isBinding(Boolean.TRUE);
-            sn.setBindingTime(ZonedDateTime.now());
-            sn.setUnbundlingTime(null);
-            snRepository.save(sn);
+            if (snOptional.isPresent()){
+                snRepository.updateSn(Boolean.TRUE ,null , bindingDto.getHutID() ,bindingDto.getOrderID() ,ZonedDateTime.now() ,bindingDto.getSerialNumber());
+            }else {
+                Sn sn = new Sn();
+                sn.setSerialNumber(bindingDto.getSerialNumber());
+                sn.setHutID(bindingDto.getHutID());
+                sn.setOrderID(bindingDto.getOrderID());
+                sn.isBinding(Boolean.TRUE);
+                sn.setBindingTime(ZonedDateTime.now());
+                sn.setUnbundlingTime(null);
+                snRepository.save(sn);
+            }
             result =  new MesReturnDto(Boolean.TRUE,"Success","绑定成功");
         }
+        //等于2 解绑
         if(bindingDto.getOpeType() == 2){
             if (snList.size() != 0){
                 snRepository.updateIsBindingFalse(Boolean.FALSE ,ZonedDateTime.now() , bindingDto.getHutID() ,bindingDto.getSerialNumber());
@@ -99,6 +106,7 @@ public class BindingService {
             }
 
         }
+        //其他情况发送错误信息
         if(bindingDto.getOpeType() != 2 && bindingDto.getOpeType() != 1){
             result = new MesReturnDto(Boolean.FALSE,"False","");
         }
