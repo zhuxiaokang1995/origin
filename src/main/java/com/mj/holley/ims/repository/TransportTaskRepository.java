@@ -24,6 +24,6 @@ public interface TransportTaskRepository extends JpaRepository<TransportTask,Lon
                             String frmPos , String frmPosType , String toPos , String toPosType , String opFlag , String remark ,
                             ZonedDateTime issuedTaskTime , Integer taskId);
 
-    Optional<TransportTask> findFirstByLpnAndCompletionTimeIsNullOrderByIdDesc(String lpn);
+    Optional<TransportTask> findFirstBylPNAndCompletionTimeIsNullOrderByIdDesc(String lpn);
 
 }

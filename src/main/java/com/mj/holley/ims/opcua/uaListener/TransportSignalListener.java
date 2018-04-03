@@ -61,7 +61,7 @@ public class TransportSignalListener implements MonitoredDataItemListener {
     private void handleBarcode(String barcodeAddress, String barcode) {
         // TODO: 2018/4/3 根据条码规则对条码校验符合规则进行处理
         String posId = barcodeAddress.substring(barcodeAddress.indexOf("****") + 6, barcodeAddress.indexOf("code"));//****.工位.point 截取工位
-        Optional<TransportTask> transportTaskOptional = transportTaskRepository.findFirstByLpnAndCompletionTimeIsNullOrderByIdDesc(barcode);
+        Optional<TransportTask> transportTaskOptional = transportTaskRepository.findFirstBylPNAndCompletionTimeIsNullOrderByIdDesc(barcode);
         String toPos;
         if(ConstantValue.TRANSPORT_START_POINT_LIST.contains(posId)){      //读码点为任务交接点时下发PLC该任务目标位置
             if(transportTaskOptional.isPresent()){
