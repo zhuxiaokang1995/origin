@@ -54,15 +54,15 @@ public class BindingService {
     /**
      * 保存过站信息
      * @param sn
-     * @param scanningResgistrationDTO
+     * @param stationId
      */
-    public void saveProcessControlInfo(Optional<Sn> sn , ScanningResgistrationDTO scanningResgistrationDTO){
-        if(sn != null && scanningResgistrationDTO!= null){
+    public void saveProcessControlInfo(Optional<Sn> sn , String stationId){
+        if(sn != null && stationId!= null){
             ProcessControl processControl = new ProcessControl()
                 .serialNumber(sn.get().getSerialNumber())
                 .hutID(sn.get().getHutID())
                 .orderID(sn.get().getOrderID())
-                .stationID(scanningResgistrationDTO.getStationID())
+                .stationID(stationId)
                 .result("11111111")
                 .mountGuardTime(ZonedDateTime.now());
             processControlRepository.save(processControl);

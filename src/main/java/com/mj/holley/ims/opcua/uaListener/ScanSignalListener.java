@@ -99,14 +99,15 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         boolean isFault = Boolean.FALSE;             //是否存在缺陷
         boolean havingStation = Boolean.FALSE;       //是否有工艺流程
         boolean writeToPlc;
-        ScanningResgistrationDTO dto = new ScanningResgistrationDTO(Integer.parseInt(redisService.readAndInc(RedisKey.PROCESS_PK).toString()),
-            barCode, stationId, "1", "", "OK", "");
-        if (mesSubmitService.submitScanningRegistration(dto).get("resultValue").toString().contains("-1")) {  //MES 接口返回-1则该产品存在缺陷
-            isFault = Boolean.TRUE;
-        }
+
         Optional<Sn> snOptional = snRepository.findFirstByHutIDAndIsBindingTrueOrderByIdDesc(barCode);
         if (snOptional.isPresent()) {
             Sn sn = snOptional.get();
+            ScanningResgistrationDTO dto = new ScanningResgistrationDTO(Integer.parseInt(redisService.readAndInc(RedisKey.PROCESS_PK).toString()),
+                barCode, stationId, "1", "", "OK", "");
+            if (mesSubmitService.submitScanningRegistration(dto).get("resultValue").toString().contains("-1")) {  //MES 接口返回-1则该产品存在缺陷
+                isFault = Boolean.TRUE;
+            }
             if (redisService.hasKey(sn.getOrderID())) {                                           //redis中是否存在该订单的工艺流程
                 if (redisService.readList(sn.getOrderID()).contains(stationId)) {                 //存在则从redis中取该订单的工艺流程
                     havingStation = Boolean.TRUE;
@@ -136,7 +137,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         } catch (OpcUaClientException e) {
             log.error("opc ua exception when write brineCheck model" + e.getMessage());
         }
-        if (writeToPlc) bindingService.saveProcessControlInfo(snOptional,dto);
+        if (writeToPlc) bindingService.saveProcessControlInfo(snOptional,stationId);
     }
 
     /**
