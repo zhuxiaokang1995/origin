@@ -33,6 +33,8 @@ public class UaConnectionListener implements OpcUaClientConnectionListener {
     @Inject
     private ScanSignalListener scanSignalListener;
 
+    private TransportSignalListener transportSignalListener;
+
     public OpcUaClientTemplate getOpcUaClientTemplate() {
         return opcUaClientTemplate;
     }
@@ -57,6 +59,9 @@ public class UaConnectionListener implements OpcUaClientConnectionListener {
 //        packingBoxService.readProductNoFromPlc();
 
         subscribeNodesValue(opcUaSubscribeNodes.getScanSignalSubscribeNodes(), scanSignalListener);
+
+        subscribeNodesValue(opcUaSubscribeNodes.getTransportSignalSubscribeNodes(), transportSignalListener);
+
 
 
     }

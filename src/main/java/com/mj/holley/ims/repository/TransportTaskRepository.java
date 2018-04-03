@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.ZonedDateTime;
+import java.util.Optional;
 
 /**
  * Spring Data JPA repository for the TransportTask entity.
@@ -22,5 +23,7 @@ public interface TransportTaskRepository extends JpaRepository<TransportTask,Lon
     int updateTransportTask(String funId , Integer serialId , String taskType , String taskPrty , String taskFlag , String lpn ,
                             String frmPos , String frmPosType , String toPos , String toPosType , String opFlag , String remark ,
                             ZonedDateTime issuedTaskTime , Integer taskId);
+
+    Optional<TransportTask> findFirstByLpnAndCompletionTimeIsNullOrderByIdDesc(String lpn);
 
 }
