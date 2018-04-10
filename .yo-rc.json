@@ -1,6 +1,6 @@
 {
   "generator-jhipster": {
-    "jhipsterVersion": "4.0.3",
+    "jhipsterVersion": "4.1.0",
     "baseName": "holley_ims",
     "packageName": "com.mj.holley.ims",
     "packageFolder": "com/mj/holley/ims",

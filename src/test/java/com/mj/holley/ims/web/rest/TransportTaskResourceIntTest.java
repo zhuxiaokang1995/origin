@@ -87,6 +87,9 @@ public class TransportTaskResourceIntTest {
     private static final ZonedDateTime DEFAULT_COMPLETION_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_COMPLETION_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
+    private static final String DEFAULT_STORE_TYPE = "AAAAAAAAAA";
+    private static final String UPDATED_STORE_TYPE = "BBBBBBBBBB";
+
     @Autowired
     private TransportTaskRepository transportTaskRepository;
 
@@ -138,7 +141,8 @@ public class TransportTaskResourceIntTest {
             .opFlag(DEFAULT_OP_FLAG)
             .remark(DEFAULT_REMARK)
             .issuedTaskTime(DEFAULT_ISSUED_TASK_TIME)
-            .completionTime(DEFAULT_COMPLETION_TIME);
+            .completionTime(DEFAULT_COMPLETION_TIME)
+            .storeType(DEFAULT_STORE_TYPE);
         return transportTask;
     }
 
@@ -177,6 +181,7 @@ public class TransportTaskResourceIntTest {
         assertThat(testTransportTask.getRemark()).isEqualTo(DEFAULT_REMARK);
         assertThat(testTransportTask.getIssuedTaskTime()).isEqualTo(DEFAULT_ISSUED_TASK_TIME);
         assertThat(testTransportTask.getCompletionTime()).isEqualTo(DEFAULT_COMPLETION_TIME);
+        assertThat(testTransportTask.getStoreType()).isEqualTo(DEFAULT_STORE_TYPE);
     }
 
     @Test
@@ -223,7 +228,8 @@ public class TransportTaskResourceIntTest {
             .andExpect(jsonPath("$.[*].opFlag").value(hasItem(DEFAULT_OP_FLAG.toString())))
             .andExpect(jsonPath("$.[*].remark").value(hasItem(DEFAULT_REMARK.toString())))
             .andExpect(jsonPath("$.[*].issuedTaskTime").value(hasItem(sameInstant(DEFAULT_ISSUED_TASK_TIME))))
-            .andExpect(jsonPath("$.[*].completionTime").value(hasItem(sameInstant(DEFAULT_COMPLETION_TIME))));
+            .andExpect(jsonPath("$.[*].completionTime").value(hasItem(sameInstant(DEFAULT_COMPLETION_TIME))))
+            .andExpect(jsonPath("$.[*].storeType").value(hasItem(DEFAULT_STORE_TYPE.toString())));
     }
 
     @Test
@@ -251,7 +257,8 @@ public class TransportTaskResourceIntTest {
             .andExpect(jsonPath("$.opFlag").value(DEFAULT_OP_FLAG.toString()))
             .andExpect(jsonPath("$.remark").value(DEFAULT_REMARK.toString()))
             .andExpect(jsonPath("$.issuedTaskTime").value(sameInstant(DEFAULT_ISSUED_TASK_TIME)))
-            .andExpect(jsonPath("$.completionTime").value(sameInstant(DEFAULT_COMPLETION_TIME)));
+            .andExpect(jsonPath("$.completionTime").value(sameInstant(DEFAULT_COMPLETION_TIME)))
+            .andExpect(jsonPath("$.storeType").value(DEFAULT_STORE_TYPE.toString()));
     }
 
     @Test
@@ -286,7 +293,8 @@ public class TransportTaskResourceIntTest {
             .opFlag(UPDATED_OP_FLAG)
             .remark(UPDATED_REMARK)
             .issuedTaskTime(UPDATED_ISSUED_TASK_TIME)
-            .completionTime(UPDATED_COMPLETION_TIME);
+            .completionTime(UPDATED_COMPLETION_TIME)
+            .storeType(UPDATED_STORE_TYPE);
 
         restTransportTaskMockMvc.perform(put("/api/transport-tasks")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -312,6 +320,7 @@ public class TransportTaskResourceIntTest {
         assertThat(testTransportTask.getRemark()).isEqualTo(UPDATED_REMARK);
         assertThat(testTransportTask.getIssuedTaskTime()).isEqualTo(UPDATED_ISSUED_TASK_TIME);
         assertThat(testTransportTask.getCompletionTime()).isEqualTo(UPDATED_COMPLETION_TIME);
+        assertThat(testTransportTask.getStoreType()).isEqualTo(UPDATED_STORE_TYPE);
     }
 
     @Test

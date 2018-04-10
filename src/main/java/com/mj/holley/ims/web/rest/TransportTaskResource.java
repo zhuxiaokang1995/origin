@@ -2,12 +2,9 @@ package com.mj.holley.ims.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mj.holley.ims.domain.TransportTask;
-
 import com.mj.holley.ims.repository.TransportTaskRepository;
-import com.mj.holley.ims.service.dto.WmsTransportTaskDTO;
 import com.mj.holley.ims.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
-import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -120,31 +115,4 @@ public class TransportTaskResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
-
-    @PostMapping("/transport-tasks/input")
-    @Timed
-    public  WmsTransportTaskDTO transportTaskToDTO(@PathVariable String input) {
-        WmsTransportTaskDTO wmsTransportTaskDTO = new WmsTransportTaskDTO();
-        TransportTask tasks = new TransportTask();
-        JSONObject jsonObject = JSONObject.fromObject(input);
-        Map<String, Object> map = (Map<String, Object>) jsonObject;
-        TransportTask tt = new TransportTask()
-            .funID(map.get("FUN_ID").toString())
-            .serialID(Integer.parseInt(map.get("SERIAL_ID").toString()))
-            .taskID(Integer.parseInt(map.get("TASK_ID").toString()))
-            .taskType(map.get("TASK_TYPE").toString())
-            .taskPrty(map.get("TASK_PRTY").toString())
-            .taskFlag(map.get("TASK_FLAG").toString())
-            .lPN(map.get("LPN").toString())
-            .frmPos(map.get("FRM_POS").toString())
-            .frmPosType(map.get("FRM_POS_TYPE").toString())
-            .toPos(map.get("TO_POS").toString())
-            .toPosType(map.get("TO_POS_TYPE").toString())
-            .opFlag(map.get("OP_FLAG").toString())
-            .remark(map.get("REMARK").toString())
-            .issuedTaskTime(ZonedDateTime.parse(map.get("ISSUED_TASK_TIME").toString()))
-            .completionTime(ZonedDateTime.parse(map.get("COMPLETION_TIME").toString()));
-        wmsTransportTaskDTO.setTransportTask(tt);
-        return wmsTransportTaskDTO;
-    }
 }

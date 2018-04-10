@@ -61,6 +61,10 @@
         {
             "fieldName": "completionTime",
             "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "storeType",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20180324015027",

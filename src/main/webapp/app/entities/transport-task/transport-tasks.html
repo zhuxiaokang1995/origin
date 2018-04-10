@@ -34,6 +34,7 @@
                     <th><span data-translate="holleyImsApp.transportTask.remark">Remark</span></th>
                     <th><span data-translate="holleyImsApp.transportTask.issuedTaskTime">Issued Task Time</span></th>
                     <th><span data-translate="holleyImsApp.transportTask.completionTime">Completion Time</span></th>
+                    <th><span data-translate="holleyImsApp.transportTask.storeType">Store Type</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -55,6 +56,7 @@
                     <td>{{transportTask.remark}}</td>
                     <td>{{transportTask.issuedTaskTime | date:'medium'}}</td>
                     <td>{{transportTask.completionTime | date:'medium'}}</td>
+                    <td>{{transportTask.storeType}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

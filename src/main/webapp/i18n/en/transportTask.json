@@ -29,7 +29,8 @@
             "opFlag": "Op Flag",
             "remark": "Remark",
             "issuedTaskTime": "Issued Task Time",
-            "completionTime": "Completion Time"
+            "completionTime": "Completion Time",
+            "storeType": "Store Type"
         }
     }
 }

@@ -119,6 +119,7 @@
                                 remark: null,
                                 issuedTaskTime: null,
                                 completionTime: null,
+                                storeType: null,
                                 id: null
                             };
                         }

@@ -1,9 +1,5 @@
 package com.mj.holley.ims.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.mj.holley.ims.domain.util.ZonedDateTimeDeserializer;
-import com.mj.holley.ims.domain.util.ZonedDateTimeSerializer;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -65,15 +61,14 @@ public class TransportTask implements Serializable {
     @Column(name = "remark")
     private String remark;
 
-    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
-    @JsonSerialize(using = ZonedDateTimeSerializer.class)
     @Column(name = "issued_task_time")
     private ZonedDateTime issuedTaskTime;
 
-    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
-    @JsonSerialize(using = ZonedDateTimeSerializer.class)
     @Column(name = "completion_time")
     private ZonedDateTime completionTime;
+
+    @Column(name = "store_type")
+    private String storeType;
 
     public Long getId() {
         return id;
@@ -278,6 +273,19 @@ public class TransportTask implements Serializable {
         this.completionTime = completionTime;
     }
 
+    public String getStoreType() {
+        return storeType;
+    }
+
+    public TransportTask storeType(String storeType) {
+        this.storeType = storeType;
+        return this;
+    }
+
+    public void setStoreType(String storeType) {
+        this.storeType = storeType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -317,6 +325,7 @@ public class TransportTask implements Serializable {
             ", remark='" + remark + "'" +
             ", issuedTaskTime='" + issuedTaskTime + "'" +
             ", completionTime='" + completionTime + "'" +
+            ", storeType='" + storeType + "'" +
             '}';
     }
 }
