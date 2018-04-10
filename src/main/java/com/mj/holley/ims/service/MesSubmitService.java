@@ -76,8 +76,8 @@ public class MesSubmitService {
                 .orderType(OrderInfo.get("OrderType").toString())
                 .pcbaQuantity(Integer.parseInt(OrderInfo.get("PcbaQuantity").toString()))
                 .orderSequence(OrderInfo.get("OrderSequence").toString())
-                .planStartDate(ZonedDateTime.parse(OrderInfo.get("PlanStartDate").toString()))
-                .planEndDate(ZonedDateTime.parse(OrderInfo.get("PlanEndDate").toString()))
+                .planStartDate(ZonedDateTime.now(TimeZone.ASIA_SHANGHAI.getId()))
+                //.planEndDate(ZonedDateTime.parse(OrderInfo.get("PlanEndDate").toString()))
                 .pCBProgramID(OrderInfo.get("PCBProgramID").toString())
                 .quantity(Integer.parseInt(OrderInfo.get("Quantity").toString()));
             mesOrderInfoDto.setOrderInfo(ol);
