@@ -22,7 +22,13 @@
             "bOPID": "B OPID",
             "pPRName": "P PR Name",
             "departID": "Depart ID",
-            "quantity": "Quantity"
+            "quantity": "Quantity",
+            "orderType": "Order Type",
+            "pcbaQuantity": "Pcba Quantity",
+            "orderSequence": "Order Sequence",
+            "planStartDate": "Plan Start Date",
+            "planEndDate": "Plan End Date",
+            "pCBProgramID": "P CB Program ID"
         }
     }
 }

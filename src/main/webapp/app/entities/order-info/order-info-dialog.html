@@ -61,6 +61,50 @@
                     ng-model="vm.orderInfo.quantity"
                     />
         </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.orderInfo.orderType" for="field_orderType">Order Type</label>
+            <input type="text" class="form-control" name="orderType" id="field_orderType"
+                    ng-model="vm.orderInfo.orderType"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.orderInfo.pcbaQuantity" for="field_pcbaQuantity">Pcba Quantity</label>
+            <input type="number" class="form-control" name="pcbaQuantity" id="field_pcbaQuantity"
+                    ng-model="vm.orderInfo.pcbaQuantity"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.orderInfo.orderSequence" for="field_orderSequence">Order Sequence</label>
+            <input type="text" class="form-control" name="orderSequence" id="field_orderSequence"
+                    ng-model="vm.orderInfo.orderSequence"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.orderInfo.planStartDate" for="field_planStartDate">Plan Start Date</label>
+                <div class="input-group">
+                    <input id="field_planStartDate" type="text" class="form-control" name="planStartDate" datetime-picker="{{dateformat}}" ng-model="vm.orderInfo.planStartDate" is-open="vm.datePickerOpenStatus.planStartDate"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('planStartDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.orderInfo.planEndDate" for="field_planEndDate">Plan End Date</label>
+                <div class="input-group">
+                    <input id="field_planEndDate" type="text" class="form-control" name="planEndDate" datetime-picker="{{dateformat}}" ng-model="vm.orderInfo.planEndDate" is-open="vm.datePickerOpenStatus.planEndDate"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('planEndDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.orderInfo.pCBProgramID" for="field_pCBProgramID">P CB Program ID</label>
+            <input type="text" class="form-control" name="pCBProgramID" id="field_pCBProgramID"
+                    ng-model="vm.orderInfo.pCBProgramID"
+                    />
+        </div>
 
     </div>
     <div class="modal-footer">

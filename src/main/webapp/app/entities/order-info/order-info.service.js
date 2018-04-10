@@ -4,9 +4,9 @@
         .module('holleyImsApp')
         .factory('OrderInfo', OrderInfo);
 
-    OrderInfo.$inject = ['$resource'];
+    OrderInfo.$inject = ['$resource', 'DateUtils'];
 
-    function OrderInfo ($resource) {
+    function OrderInfo ($resource, DateUtils) {
         var resourceUrl =  'api/order-infos/:id';
 
         return $resource(resourceUrl, {}, {
@@ -16,6 +16,8 @@
                 transformResponse: function (data) {
                     if (data) {
                         data = angular.fromJson(data);
+                        data.planStartDate = DateUtils.convertDateTimeFromServer(data.planStartDate);
+                        data.planEndDate = DateUtils.convertDateTimeFromServer(data.planEndDate);
                     }
                     return data;
                 }

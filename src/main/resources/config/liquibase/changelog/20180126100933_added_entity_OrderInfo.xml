@@ -54,8 +54,34 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="order_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="pcba_quantity" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="order_sequence" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="plan_start_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="plan_end_date" type="timestamp">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="p_cb_program_id" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
+        <dropDefaultValue tableName="order_info" columnName="plan_start_date" columnDataType="datetime"/>
+        <dropDefaultValue tableName="order_info" columnName="plan_end_date" columnDataType="datetime"/>
         
     </changeSet>
 </databaseChangeLog>
