@@ -5,6 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -44,6 +45,24 @@ public class OrderInfo implements Serializable {
 
     @Column(name = "quantity")
     private Integer quantity;
+
+    @Column(name = "order_type")
+    private String orderType;
+
+    @Column(name = "pcba_quantity")
+    private Integer pcbaQuantity;
+
+    @Column(name = "order_sequence")
+    private String orderSequence;
+
+    @Column(name = "plan_start_date")
+    private ZonedDateTime planStartDate;
+
+    @Column(name = "plan_end_date")
+    private ZonedDateTime planEndDate;
+
+    @Column(name = "p_cb_program_id")
+    private String pCBProgramID;
 
     public Long getId() {
         return id;
@@ -157,6 +176,84 @@ public class OrderInfo implements Serializable {
         this.quantity = quantity;
     }
 
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public OrderInfo orderType(String orderType) {
+        this.orderType = orderType;
+        return this;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
+
+    public Integer getPcbaQuantity() {
+        return pcbaQuantity;
+    }
+
+    public OrderInfo pcbaQuantity(Integer pcbaQuantity) {
+        this.pcbaQuantity = pcbaQuantity;
+        return this;
+    }
+
+    public void setPcbaQuantity(Integer pcbaQuantity) {
+        this.pcbaQuantity = pcbaQuantity;
+    }
+
+    public String getOrderSequence() {
+        return orderSequence;
+    }
+
+    public OrderInfo orderSequence(String orderSequence) {
+        this.orderSequence = orderSequence;
+        return this;
+    }
+
+    public void setOrderSequence(String orderSequence) {
+        this.orderSequence = orderSequence;
+    }
+
+    public ZonedDateTime getPlanStartDate() {
+        return planStartDate;
+    }
+
+    public OrderInfo planStartDate(ZonedDateTime planStartDate) {
+        this.planStartDate = planStartDate;
+        return this;
+    }
+
+    public void setPlanStartDate(ZonedDateTime planStartDate) {
+        this.planStartDate = planStartDate;
+    }
+
+    public ZonedDateTime getPlanEndDate() {
+        return planEndDate;
+    }
+
+    public OrderInfo planEndDate(ZonedDateTime planEndDate) {
+        this.planEndDate = planEndDate;
+        return this;
+    }
+
+    public void setPlanEndDate(ZonedDateTime planEndDate) {
+        this.planEndDate = planEndDate;
+    }
+
+    public String getpCBProgramID() {
+        return pCBProgramID;
+    }
+
+    public OrderInfo pCBProgramID(String pCBProgramID) {
+        this.pCBProgramID = pCBProgramID;
+        return this;
+    }
+
+    public void setpCBProgramID(String pCBProgramID) {
+        this.pCBProgramID = pCBProgramID;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -189,6 +286,12 @@ public class OrderInfo implements Serializable {
             ", pPRName='" + pPRName + "'" +
             ", departID='" + departID + "'" +
             ", quantity='" + quantity + "'" +
+            ", orderType='" + orderType + "'" +
+            ", pcbaQuantity='" + pcbaQuantity + "'" +
+            ", orderSequence='" + orderSequence + "'" +
+            ", planStartDate='" + planStartDate + "'" +
+            ", planEndDate='" + planEndDate + "'" +
+            ", pCBProgramID='" + pCBProgramID + "'" +
             '}';
     }
 }

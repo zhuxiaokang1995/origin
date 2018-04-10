@@ -6,6 +6,8 @@ import com.mj.holley.ims.domain.OrderInfo;
 import com.mj.holley.ims.domain.Processes;
 import com.mj.holley.ims.domain.Sn;
 import com.mj.holley.ims.domain.Steps;
+import com.mj.holley.ims.domain.util.*;
+import com.mj.holley.ims.domain.util.TimeZone;
 import com.mj.holley.ims.repository.OrderInfoRepository;
 import com.mj.holley.ims.repository.ProcessesRepository;
 import com.mj.holley.ims.repository.StepsRepository;
@@ -28,6 +30,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 /**
@@ -68,8 +71,14 @@ public class MesSubmitService {
                 .defDescript(OrderInfo.get("DefDescript").toString())
                 .lineID(OrderInfo.get("LineID").toString())
                 .bOPID(OrderInfo.get("BOPID").toString())
-                .pPRName(OrderInfo.get("PPRName").toString())
+                .pPRName(OrderInfo.get("PprName").toString())
                 .departID(OrderInfo.get("DepartID").toString())
+                .orderType(OrderInfo.get("OrderType").toString())
+                .pcbaQuantity(Integer.parseInt(OrderInfo.get("PcbaQuantity").toString()))
+                .orderSequence(OrderInfo.get("OrderSequence").toString())
+                .planStartDate(ZonedDateTime.parse(OrderInfo.get("PlanStartDate").toString()))
+                .planEndDate(ZonedDateTime.parse(OrderInfo.get("PlanEndDate").toString()))
+                .pCBProgramID(OrderInfo.get("PCBProgramID").toString())
                 .quantity(Integer.parseInt(OrderInfo.get("Quantity").toString()));
             mesOrderInfoDto.setOrderInfo(ol);
 
@@ -111,6 +120,24 @@ public class MesSubmitService {
                 mesOrderInfoDto.setProcesses(processesList);
             }
         }
+
+
+        if (map.containsKey("SerialNumbers")) {
+            Object serialNumbers = map.get("SerialNumbers");
+            if (serialNumbers instanceof JSONArray) {
+                ArrayList<SerialNumbers> serialNumbersList = new ArrayList<>();
+                JSONArray family = jsonObject.getJSONArray("SerialNumbers");
+                for (int i = 0; i < family.size(); i++) {
+                    Map<String, Object> o = (Map<String, Object>) family.get(i);
+                    SerialNumbers sn = new SerialNumbers();
+                        sn.setHutID(o.get("HutID").toString());
+                        sn.setNamePlate(o.get("NamePlate").toString());
+                    serialNumbersList.add(sn);
+                }
+                mesOrderInfoDto.setSerialNumbers(serialNumbersList);
+            }
+        }
+
 
         if (map.containsKey("SnDetails")) {
             Object obj = map.get("SnDetails");

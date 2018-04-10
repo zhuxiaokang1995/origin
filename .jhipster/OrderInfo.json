@@ -33,6 +33,30 @@
         {
             "fieldName": "quantity",
             "fieldType": "Integer"
+        },
+        {
+            "fieldName": "orderType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "pcbaQuantity",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "orderSequence",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "planStartDate",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "planEndDate",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "pCBProgramID",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20180126100933",

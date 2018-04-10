@@ -21,6 +21,16 @@ public class MesOrderInfoDto {
 
     private List<String> SnDetails;
 
+    private List<SerialNumbers> SerialNumbers;
+
+    public List<SerialNumbers> getSerialNumbers() {
+        return SerialNumbers;
+    }
+
+    public void setSerialNumbers(List<SerialNumbers> serialNumbers) {
+        SerialNumbers = serialNumbers;
+    }
+
     public List<String> getSnDetails() {
         return SnDetails;
     }

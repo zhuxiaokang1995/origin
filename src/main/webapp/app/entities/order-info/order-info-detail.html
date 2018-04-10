@@ -3,7 +3,7 @@
     <h2><span data-translate="holleyImsApp.orderInfo.detail.title">Order Info</span> {{vm.orderInfo.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row jh-entity-details">
+    <dl class="dl-horizontal jh-entity-details">
         <dt><span data-translate="holleyImsApp.orderInfo.orderID">Order ID</span></dt>
         <dd>
             <span>{{vm.orderInfo.orderID}}</span>
@@ -35,6 +35,30 @@
         <dt><span data-translate="holleyImsApp.orderInfo.quantity">Quantity</span></dt>
         <dd>
             <span>{{vm.orderInfo.quantity}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.orderInfo.orderType">Order Type</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.orderType}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.orderInfo.pcbaQuantity">Pcba Quantity</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.pcbaQuantity}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.orderInfo.orderSequence">Order Sequence</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.orderSequence}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.orderInfo.planStartDate">Plan Start Date</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.planStartDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.orderInfo.planEndDate">Plan End Date</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.planEndDate | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.orderInfo.pCBProgramID">P CB Program ID</span></dt>
+        <dd>
+            <span>{{vm.orderInfo.pCBProgramID}}</span>
         </dd>
     </dl>
 

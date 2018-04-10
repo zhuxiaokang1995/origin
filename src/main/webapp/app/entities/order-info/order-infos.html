@@ -27,6 +27,12 @@
                     <th><span data-translate="holleyImsApp.orderInfo.pPRName">P PR Name</span></th>
                     <th><span data-translate="holleyImsApp.orderInfo.departID">Depart ID</span></th>
                     <th><span data-translate="holleyImsApp.orderInfo.quantity">Quantity</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.orderType">Order Type</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.pcbaQuantity">Pcba Quantity</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.orderSequence">Order Sequence</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.planStartDate">Plan Start Date</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.planEndDate">Plan End Date</span></th>
+                    <th><span data-translate="holleyImsApp.orderInfo.pCBProgramID">P CB Program ID</span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -41,6 +47,12 @@
                     <td>{{orderInfo.pPRName}}</td>
                     <td>{{orderInfo.departID}}</td>
                     <td>{{orderInfo.quantity}}</td>
+                    <td>{{orderInfo.orderType}}</td>
+                    <td>{{orderInfo.pcbaQuantity}}</td>
+                    <td>{{orderInfo.orderSequence}}</td>
+                    <td>{{orderInfo.planStartDate | date:'medium'}}</td>
+                    <td>{{orderInfo.planEndDate | date:'medium'}}</td>
+                    <td>{{orderInfo.pCBProgramID}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

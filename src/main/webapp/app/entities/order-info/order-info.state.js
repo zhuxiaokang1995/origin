@@ -112,6 +112,12 @@
                                 pPRName: null,
                                 departID: null,
                                 quantity: null,
+                                orderType: null,
+                                pcbaQuantity: null,
+                                orderSequence: null,
+                                planStartDate: null,
+                                planEndDate: null,
+                                pCBProgramID: null,
                                 id: null
                             };
                         }
