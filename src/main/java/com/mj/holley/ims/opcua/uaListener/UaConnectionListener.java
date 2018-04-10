@@ -33,6 +33,7 @@ public class UaConnectionListener implements OpcUaClientConnectionListener {
     @Inject
     private ScanSignalListener scanSignalListener;
 
+    @Inject
     private TransportSignalListener transportSignalListener;
 
     public OpcUaClientTemplate getOpcUaClientTemplate() {
