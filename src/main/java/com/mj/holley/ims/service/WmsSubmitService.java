@@ -33,15 +33,14 @@ public class WmsSubmitService {
         if (m.containsKey("MSG")) {
             Map<String, Object> map = (Map<String, Object>) m.get("MSG");
             JSONObject json = JSONObject.fromObject(m.get("MSG").toString());
-            if (map.containsKey("HEAD")) {
-                Map<String, Object> a = (Map<String, Object>) map.get("HEAD");
-                String sa = a.get("FUN_ID").toString();
-                String sb = a.get("USER_ID").toString();
-                ZonedDateTime sc = (ZonedDateTime.now(TimeZone.ASIA_SHANGHAI.getId()));
-                wmsTransportTaskDTO.setFunId(sa);
-                wmsTransportTaskDTO.setUserId(sb);
-                wmsTransportTaskDTO.setCreateDate(sc);
-            }
+
+            Map<String, Object> a = (Map<String, Object>) map.get("HEAD");
+            String sa = a.get("FUN_ID").toString();
+            String sb = a.get("USER_ID").toString();
+            ZonedDateTime sc = (ZonedDateTime.now(TimeZone.ASIA_SHANGHAI.getId()));
+            wmsTransportTaskDTO.setFunId(sa);
+            wmsTransportTaskDTO.setUserId(sb);
+            wmsTransportTaskDTO.setCreateDate(sc);
 
             if (map.containsKey("BODY")) {
                 Object steps = map.get("BODY");
@@ -51,7 +50,7 @@ public class WmsSubmitService {
                     for (int i = 0; i < family.size(); i++) {
                         Map<String, Object> o = (Map<String, Object>) family.get(i);
                         TransportTask tt = new TransportTask()
-                            .funID(o.get("FUN_ID").toString())
+                            .funID(a.get("FUN_ID").toString())
                             .serialID(Integer.parseInt(o.get("SERIAL_ID").toString()))
                             .taskID(Integer.parseInt(o.get("TASK_ID").toString()))
                             .taskType(o.get("TASK_TYPE").toString())
@@ -63,7 +62,7 @@ public class WmsSubmitService {
                             .toPos(o.get("TO_POS").toString())
                             .toPosType(o.get("TO_POS_TYPE").toString())
                             .opFlag(o.get("OP_FLAG").toString())
-                            .remark(o.get("REMARK").toString())
+//                            .remark(o.get("REMARK").toString())
                             .issuedTaskTime(ZonedDateTime.now(TimeZone.ASIA_SHANGHAI.getId()))
                             .storeType(o.get("STORE_TYPE").toString());
                         transportTaskList.add(tt);
