@@ -26,14 +26,6 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="serial_id" type="integer">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="task_id" type="integer">
-                <constraints nullable="true" />
-            </column>
-
             <column name="task_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -83,6 +75,14 @@
             </column>
 
             <column name="store_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="serial_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="task_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

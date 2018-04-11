@@ -16,8 +16,6 @@
                 "title": "Transport Task"
             },
             "funID": "Fun ID",
-            "serialID": "Serial ID",
-            "taskID": "Task ID",
             "taskType": "Task Type",
             "taskPrty": "Task Prty",
             "taskFlag": "Task Flag",
@@ -30,7 +28,9 @@
             "remark": "Remark",
             "issuedTaskTime": "Issued Task Time",
             "completionTime": "Completion Time",
-            "storeType": "Store Type"
+            "storeType": "Store Type",
+            "serialID": "Serial ID",
+            "taskID": "Task ID"
         }
     }
 }

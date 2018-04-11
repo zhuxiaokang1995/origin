@@ -45,12 +45,6 @@ public class TransportTaskResourceIntTest {
     private static final String DEFAULT_FUN_ID = "AAAAAAAAAA";
     private static final String UPDATED_FUN_ID = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_SERIAL_ID = 1;
-    private static final Integer UPDATED_SERIAL_ID = 2;
-
-    private static final Integer DEFAULT_TASK_ID = 1;
-    private static final Integer UPDATED_TASK_ID = 2;
-
     private static final String DEFAULT_TASK_TYPE = "AAAAAAAAAA";
     private static final String UPDATED_TASK_TYPE = "BBBBBBBBBB";
 
@@ -90,6 +84,12 @@ public class TransportTaskResourceIntTest {
     private static final String DEFAULT_STORE_TYPE = "AAAAAAAAAA";
     private static final String UPDATED_STORE_TYPE = "BBBBBBBBBB";
 
+    private static final Long DEFAULT_SERIAL_ID = 1L;
+    private static final Long UPDATED_SERIAL_ID = 2L;
+
+    private static final Long DEFAULT_TASK_ID = 1L;
+    private static final Long UPDATED_TASK_ID = 2L;
+
     @Autowired
     private TransportTaskRepository transportTaskRepository;
 
@@ -112,7 +112,7 @@ public class TransportTaskResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        TransportTaskResource transportTaskResource = new TransportTaskResource(transportTaskRepository);
+            TransportTaskResource transportTaskResource = new TransportTaskResource(transportTaskRepository);
         this.restTransportTaskMockMvc = MockMvcBuilders.standaloneSetup(transportTaskResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -127,22 +127,22 @@ public class TransportTaskResourceIntTest {
      */
     public static TransportTask createEntity(EntityManager em) {
         TransportTask transportTask = new TransportTask()
-            .funID(DEFAULT_FUN_ID)
-            .serialID(DEFAULT_SERIAL_ID)
-            .taskID(DEFAULT_TASK_ID)
-            .taskType(DEFAULT_TASK_TYPE)
-            .taskPrty(DEFAULT_TASK_PRTY)
-            .taskFlag(DEFAULT_TASK_FLAG)
-            .lPN(DEFAULT_L_PN)
-            .frmPos(DEFAULT_FRM_POS)
-            .frmPosType(DEFAULT_FRM_POS_TYPE)
-            .toPos(DEFAULT_TO_POS)
-            .toPosType(DEFAULT_TO_POS_TYPE)
-            .opFlag(DEFAULT_OP_FLAG)
-            .remark(DEFAULT_REMARK)
-            .issuedTaskTime(DEFAULT_ISSUED_TASK_TIME)
-            .completionTime(DEFAULT_COMPLETION_TIME)
-            .storeType(DEFAULT_STORE_TYPE);
+                .funID(DEFAULT_FUN_ID)
+                .taskType(DEFAULT_TASK_TYPE)
+                .taskPrty(DEFAULT_TASK_PRTY)
+                .taskFlag(DEFAULT_TASK_FLAG)
+                .lPN(DEFAULT_L_PN)
+                .frmPos(DEFAULT_FRM_POS)
+                .frmPosType(DEFAULT_FRM_POS_TYPE)
+                .toPos(DEFAULT_TO_POS)
+                .toPosType(DEFAULT_TO_POS_TYPE)
+                .opFlag(DEFAULT_OP_FLAG)
+                .remark(DEFAULT_REMARK)
+                .issuedTaskTime(DEFAULT_ISSUED_TASK_TIME)
+                .completionTime(DEFAULT_COMPLETION_TIME)
+                .storeType(DEFAULT_STORE_TYPE)
+                .serialID(DEFAULT_SERIAL_ID)
+                .taskID(DEFAULT_TASK_ID);
         return transportTask;
     }
 
@@ -157,6 +157,7 @@ public class TransportTaskResourceIntTest {
         int databaseSizeBeforeCreate = transportTaskRepository.findAll().size();
 
         // Create the TransportTask
+
         restTransportTaskMockMvc.perform(post("/api/transport-tasks")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(transportTask)))
@@ -167,8 +168,6 @@ public class TransportTaskResourceIntTest {
         assertThat(transportTaskList).hasSize(databaseSizeBeforeCreate + 1);
         TransportTask testTransportTask = transportTaskList.get(transportTaskList.size() - 1);
         assertThat(testTransportTask.getFunID()).isEqualTo(DEFAULT_FUN_ID);
-        assertThat(testTransportTask.getSerialID()).isEqualTo(DEFAULT_SERIAL_ID);
-        assertThat(testTransportTask.getTaskID()).isEqualTo(DEFAULT_TASK_ID);
         assertThat(testTransportTask.getTaskType()).isEqualTo(DEFAULT_TASK_TYPE);
         assertThat(testTransportTask.getTaskPrty()).isEqualTo(DEFAULT_TASK_PRTY);
         assertThat(testTransportTask.getTaskFlag()).isEqualTo(DEFAULT_TASK_FLAG);
@@ -182,6 +181,8 @@ public class TransportTaskResourceIntTest {
         assertThat(testTransportTask.getIssuedTaskTime()).isEqualTo(DEFAULT_ISSUED_TASK_TIME);
         assertThat(testTransportTask.getCompletionTime()).isEqualTo(DEFAULT_COMPLETION_TIME);
         assertThat(testTransportTask.getStoreType()).isEqualTo(DEFAULT_STORE_TYPE);
+        assertThat(testTransportTask.getSerialID()).isEqualTo(DEFAULT_SERIAL_ID);
+        assertThat(testTransportTask.getTaskID()).isEqualTo(DEFAULT_TASK_ID);
     }
 
     @Test
@@ -190,12 +191,13 @@ public class TransportTaskResourceIntTest {
         int databaseSizeBeforeCreate = transportTaskRepository.findAll().size();
 
         // Create the TransportTask with an existing ID
-        transportTask.setId(1L);
+        TransportTask existingTransportTask = new TransportTask();
+        existingTransportTask.setId(1L);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restTransportTaskMockMvc.perform(post("/api/transport-tasks")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(transportTask)))
+            .content(TestUtil.convertObjectToJsonBytes(existingTransportTask)))
             .andExpect(status().isBadRequest());
 
         // Validate the Alice in the database
@@ -215,8 +217,6 @@ public class TransportTaskResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(transportTask.getId().intValue())))
             .andExpect(jsonPath("$.[*].funID").value(hasItem(DEFAULT_FUN_ID.toString())))
-            .andExpect(jsonPath("$.[*].serialID").value(hasItem(DEFAULT_SERIAL_ID)))
-            .andExpect(jsonPath("$.[*].taskID").value(hasItem(DEFAULT_TASK_ID)))
             .andExpect(jsonPath("$.[*].taskType").value(hasItem(DEFAULT_TASK_TYPE.toString())))
             .andExpect(jsonPath("$.[*].taskPrty").value(hasItem(DEFAULT_TASK_PRTY.toString())))
             .andExpect(jsonPath("$.[*].taskFlag").value(hasItem(DEFAULT_TASK_FLAG.toString())))
@@ -229,7 +229,9 @@ public class TransportTaskResourceIntTest {
             .andExpect(jsonPath("$.[*].remark").value(hasItem(DEFAULT_REMARK.toString())))
             .andExpect(jsonPath("$.[*].issuedTaskTime").value(hasItem(sameInstant(DEFAULT_ISSUED_TASK_TIME))))
             .andExpect(jsonPath("$.[*].completionTime").value(hasItem(sameInstant(DEFAULT_COMPLETION_TIME))))
-            .andExpect(jsonPath("$.[*].storeType").value(hasItem(DEFAULT_STORE_TYPE.toString())));
+            .andExpect(jsonPath("$.[*].storeType").value(hasItem(DEFAULT_STORE_TYPE.toString())))
+            .andExpect(jsonPath("$.[*].serialID").value(hasItem(DEFAULT_SERIAL_ID.intValue())))
+            .andExpect(jsonPath("$.[*].taskID").value(hasItem(DEFAULT_TASK_ID.intValue())));
     }
 
     @Test
@@ -244,8 +246,6 @@ public class TransportTaskResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(transportTask.getId().intValue()))
             .andExpect(jsonPath("$.funID").value(DEFAULT_FUN_ID.toString()))
-            .andExpect(jsonPath("$.serialID").value(DEFAULT_SERIAL_ID))
-            .andExpect(jsonPath("$.taskID").value(DEFAULT_TASK_ID))
             .andExpect(jsonPath("$.taskType").value(DEFAULT_TASK_TYPE.toString()))
             .andExpect(jsonPath("$.taskPrty").value(DEFAULT_TASK_PRTY.toString()))
             .andExpect(jsonPath("$.taskFlag").value(DEFAULT_TASK_FLAG.toString()))
@@ -258,7 +258,9 @@ public class TransportTaskResourceIntTest {
             .andExpect(jsonPath("$.remark").value(DEFAULT_REMARK.toString()))
             .andExpect(jsonPath("$.issuedTaskTime").value(sameInstant(DEFAULT_ISSUED_TASK_TIME)))
             .andExpect(jsonPath("$.completionTime").value(sameInstant(DEFAULT_COMPLETION_TIME)))
-            .andExpect(jsonPath("$.storeType").value(DEFAULT_STORE_TYPE.toString()));
+            .andExpect(jsonPath("$.storeType").value(DEFAULT_STORE_TYPE.toString()))
+            .andExpect(jsonPath("$.serialID").value(DEFAULT_SERIAL_ID.intValue()))
+            .andExpect(jsonPath("$.taskID").value(DEFAULT_TASK_ID.intValue()));
     }
 
     @Test
@@ -279,22 +281,22 @@ public class TransportTaskResourceIntTest {
         // Update the transportTask
         TransportTask updatedTransportTask = transportTaskRepository.findOne(transportTask.getId());
         updatedTransportTask
-            .funID(UPDATED_FUN_ID)
-            .serialID(UPDATED_SERIAL_ID)
-            .taskID(UPDATED_TASK_ID)
-            .taskType(UPDATED_TASK_TYPE)
-            .taskPrty(UPDATED_TASK_PRTY)
-            .taskFlag(UPDATED_TASK_FLAG)
-            .lPN(UPDATED_L_PN)
-            .frmPos(UPDATED_FRM_POS)
-            .frmPosType(UPDATED_FRM_POS_TYPE)
-            .toPos(UPDATED_TO_POS)
-            .toPosType(UPDATED_TO_POS_TYPE)
-            .opFlag(UPDATED_OP_FLAG)
-            .remark(UPDATED_REMARK)
-            .issuedTaskTime(UPDATED_ISSUED_TASK_TIME)
-            .completionTime(UPDATED_COMPLETION_TIME)
-            .storeType(UPDATED_STORE_TYPE);
+                .funID(UPDATED_FUN_ID)
+                .taskType(UPDATED_TASK_TYPE)
+                .taskPrty(UPDATED_TASK_PRTY)
+                .taskFlag(UPDATED_TASK_FLAG)
+                .lPN(UPDATED_L_PN)
+                .frmPos(UPDATED_FRM_POS)
+                .frmPosType(UPDATED_FRM_POS_TYPE)
+                .toPos(UPDATED_TO_POS)
+                .toPosType(UPDATED_TO_POS_TYPE)
+                .opFlag(UPDATED_OP_FLAG)
+                .remark(UPDATED_REMARK)
+                .issuedTaskTime(UPDATED_ISSUED_TASK_TIME)
+                .completionTime(UPDATED_COMPLETION_TIME)
+                .storeType(UPDATED_STORE_TYPE)
+                .serialID(UPDATED_SERIAL_ID)
+                .taskID(UPDATED_TASK_ID);
 
         restTransportTaskMockMvc.perform(put("/api/transport-tasks")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -306,8 +308,6 @@ public class TransportTaskResourceIntTest {
         assertThat(transportTaskList).hasSize(databaseSizeBeforeUpdate);
         TransportTask testTransportTask = transportTaskList.get(transportTaskList.size() - 1);
         assertThat(testTransportTask.getFunID()).isEqualTo(UPDATED_FUN_ID);
-        assertThat(testTransportTask.getSerialID()).isEqualTo(UPDATED_SERIAL_ID);
-        assertThat(testTransportTask.getTaskID()).isEqualTo(UPDATED_TASK_ID);
         assertThat(testTransportTask.getTaskType()).isEqualTo(UPDATED_TASK_TYPE);
         assertThat(testTransportTask.getTaskPrty()).isEqualTo(UPDATED_TASK_PRTY);
         assertThat(testTransportTask.getTaskFlag()).isEqualTo(UPDATED_TASK_FLAG);
@@ -321,6 +321,8 @@ public class TransportTaskResourceIntTest {
         assertThat(testTransportTask.getIssuedTaskTime()).isEqualTo(UPDATED_ISSUED_TASK_TIME);
         assertThat(testTransportTask.getCompletionTime()).isEqualTo(UPDATED_COMPLETION_TIME);
         assertThat(testTransportTask.getStoreType()).isEqualTo(UPDATED_STORE_TYPE);
+        assertThat(testTransportTask.getSerialID()).isEqualTo(UPDATED_SERIAL_ID);
+        assertThat(testTransportTask.getTaskID()).isEqualTo(UPDATED_TASK_ID);
     }
 
     @Test
@@ -359,7 +361,6 @@ public class TransportTaskResourceIntTest {
     }
 
     @Test
-    @Transactional
     public void equalsVerifier() throws Exception {
         TestUtil.equalsVerifier(TransportTask.class);
     }

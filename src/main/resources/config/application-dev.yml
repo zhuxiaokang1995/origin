@@ -35,7 +35,8 @@ spring:
         url: jdbc:mysql://localhost:3306/holley_ims?useUnicode=true&characterEncoding=utf8&useSSL=false
         name:
         username: root
-        password: root
+        password: mj888888
+#        password: root
 
         hikari:
             data-source-properties:

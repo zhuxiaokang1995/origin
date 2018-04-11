@@ -7,14 +7,6 @@
             "fieldType": "String"
         },
         {
-            "fieldName": "serialID",
-            "fieldType": "Integer"
-        },
-        {
-            "fieldName": "taskID",
-            "fieldType": "Integer"
-        },
-        {
             "fieldName": "taskType",
             "fieldType": "String"
         },
@@ -65,6 +57,14 @@
         {
             "fieldName": "storeType",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "serialID",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "taskID",
+            "fieldType": "Long"
         }
     ],
     "changelogDate": "20180324015027",

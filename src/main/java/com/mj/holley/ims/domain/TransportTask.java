@@ -1,9 +1,5 @@
 package com.mj.holley.ims.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.mj.holley.ims.domain.util.ZonedDateTimeDeserializer;
-import com.mj.holley.ims.domain.util.ZonedDateTimeSerializer;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -28,12 +24,6 @@ public class TransportTask implements Serializable {
 
     @Column(name = "fun_id")
     private String funID;
-
-    @Column(name = "serial_id")
-    private Integer serialID;
-
-    @Column(name = "task_id")
-    private Integer taskID;
 
     @Column(name = "task_type")
     private String taskType;
@@ -65,18 +55,20 @@ public class TransportTask implements Serializable {
     @Column(name = "remark")
     private String remark;
 
-    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
-    @JsonSerialize(using = ZonedDateTimeSerializer.class)
     @Column(name = "issued_task_time")
     private ZonedDateTime issuedTaskTime;
 
-    @JsonDeserialize(using = ZonedDateTimeDeserializer.class)
-    @JsonSerialize(using = ZonedDateTimeSerializer.class)
     @Column(name = "completion_time")
     private ZonedDateTime completionTime;
 
     @Column(name = "store_type")
     private String storeType;
+
+    @Column(name = "serial_id")
+    private Long serialID;
+
+    @Column(name = "task_id")
+    private Long taskID;
 
     public Long getId() {
         return id;
@@ -97,32 +89,6 @@ public class TransportTask implements Serializable {
 
     public void setFunID(String funID) {
         this.funID = funID;
-    }
-
-    public Integer getSerialID() {
-        return serialID;
-    }
-
-    public TransportTask serialID(Integer serialID) {
-        this.serialID = serialID;
-        return this;
-    }
-
-    public void setSerialID(Integer serialID) {
-        this.serialID = serialID;
-    }
-
-    public Integer getTaskID() {
-        return taskID;
-    }
-
-    public TransportTask taskID(Integer taskID) {
-        this.taskID = taskID;
-        return this;
-    }
-
-    public void setTaskID(Integer taskID) {
-        this.taskID = taskID;
     }
 
     public String getTaskType() {
@@ -294,6 +260,32 @@ public class TransportTask implements Serializable {
         this.storeType = storeType;
     }
 
+    public Long getSerialID() {
+        return serialID;
+    }
+
+    public TransportTask serialID(Long serialID) {
+        this.serialID = serialID;
+        return this;
+    }
+
+    public void setSerialID(Long serialID) {
+        this.serialID = serialID;
+    }
+
+    public Long getTaskID() {
+        return taskID;
+    }
+
+    public TransportTask taskID(Long taskID) {
+        this.taskID = taskID;
+        return this;
+    }
+
+    public void setTaskID(Long taskID) {
+        this.taskID = taskID;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -319,8 +311,6 @@ public class TransportTask implements Serializable {
         return "TransportTask{" +
             "id=" + id +
             ", funID='" + funID + "'" +
-            ", serialID='" + serialID + "'" +
-            ", taskID='" + taskID + "'" +
             ", taskType='" + taskType + "'" +
             ", taskPrty='" + taskPrty + "'" +
             ", taskFlag='" + taskFlag + "'" +
@@ -334,6 +324,8 @@ public class TransportTask implements Serializable {
             ", issuedTaskTime='" + issuedTaskTime + "'" +
             ", completionTime='" + completionTime + "'" +
             ", storeType='" + storeType + "'" +
+            ", serialID='" + serialID + "'" +
+            ", taskID='" + taskID + "'" +
             '}';
     }
 }

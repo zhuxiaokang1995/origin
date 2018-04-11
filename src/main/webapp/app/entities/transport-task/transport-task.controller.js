@@ -8,7 +8,6 @@
     TransportTaskController.$inject = ['TransportTask'];
 
     function TransportTaskController(TransportTask) {
-
         var vm = this;
 
         vm.transportTasks = [];

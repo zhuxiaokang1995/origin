@@ -51,8 +51,8 @@ public class WmsSubmitService {
                         Map<String, Object> o = (Map<String, Object>) family.get(i);
                         TransportTask tt = new TransportTask()
                             .funID(a.get("FUN_ID").toString())
-                            .serialID(Integer.parseInt(o.get("SERIAL_ID").toString()))
-                            .taskID(Integer.parseInt(o.get("TASK_ID").toString()))
+                            .serialID(Long.parseLong(o.get("SERIAL_ID").toString()))
+                            .taskID(Long.parseLong(o.get("TASK_ID").toString()))
                             .taskType(o.get("TASK_TYPE").toString())
                             .taskPrty(o.get("TASK_PRTY").toString())
                             .taskFlag(o.get("TASK_FLAG").toString())

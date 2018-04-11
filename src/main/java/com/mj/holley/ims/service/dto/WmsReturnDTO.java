@@ -5,7 +5,7 @@ package com.mj.holley.ims.service.dto;
  */
 public class WmsReturnDTO {
 
-    private Integer taskId;
+    private Long taskId;
 
     private String flag;
 
@@ -15,17 +15,17 @@ public class WmsReturnDTO {
 
     }
 
-    public WmsReturnDTO(Integer taskId, String flag, String dec) {
+    public WmsReturnDTO(Long taskId, String flag, String dec) {
         this.taskId = taskId;
         this.flag = flag;
         this.dec = dec;
     }
 
-    public Integer getTaskId() {
+    public Long getTaskId() {
         return taskId;
     }
 
-    public void setTaskId(Integer taskId) {
+    public void setTaskId(Long taskId) {
         this.taskId = taskId;
     }
 

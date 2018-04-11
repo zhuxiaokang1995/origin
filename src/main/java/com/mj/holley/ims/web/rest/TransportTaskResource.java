@@ -2,6 +2,7 @@ package com.mj.holley.ims.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mj.holley.ims.domain.TransportTask;
+
 import com.mj.holley.ims.repository.TransportTaskRepository;
 import com.mj.holley.ims.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -25,7 +26,7 @@ public class TransportTaskResource {
     private final Logger log = LoggerFactory.getLogger(TransportTaskResource.class);
 
     private static final String ENTITY_NAME = "transportTask";
-
+        
     private final TransportTaskRepository transportTaskRepository;
 
     public TransportTaskResource(TransportTaskRepository transportTaskRepository) {

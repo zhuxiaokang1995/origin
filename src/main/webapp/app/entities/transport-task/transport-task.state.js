@@ -105,8 +105,6 @@
                         entity: function () {
                             return {
                                 funID: null,
-                                serialID: null,
-                                taskID: null,
                                 taskType: null,
                                 taskPrty: null,
                                 taskFlag: null,
@@ -120,6 +118,8 @@
                                 issuedTaskTime: null,
                                 completionTime: null,
                                 storeType: null,
+                                serialID: null,
+                                taskID: null,
                                 id: null
                             };
                         }

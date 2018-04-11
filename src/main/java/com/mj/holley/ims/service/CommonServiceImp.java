@@ -51,23 +51,6 @@ public class CommonServiceImp implements CommonService {
     @Inject
     private StepsRepository stepsRepository;
 
-	@Override
-	public String sayHello(String name) {
-        redisService.saveValue(WebRestConstants.MES_LINE_STOP, name);
-		return "Hello 99999," + name;
-	}
-
-	@Override
-	public String sayHelloLove(String name){
-		return "LOVE Hello 8888," + name;
-	}
-
-    @Override
-    public String testMesOrder(MesOrderInfoDto mesOrderInfoDto){
-
-        return mesSubmitService.saveMesOrder(mesOrderInfoDto).toString();
-    }
-
     @Override
     public String receiveMesOrders(String mes){
         //soap webservice接收的String类型解析成对应的json对象
