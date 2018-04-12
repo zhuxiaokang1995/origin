@@ -3,6 +3,7 @@ package com.mj.holley.ims.service;
 import com.mj.holley.ims.domain.TransportTask;
 import com.mj.holley.ims.domain.util.TimeZone;
 import com.mj.holley.ims.repository.TransportTaskRepository;
+import com.mj.holley.ims.service.dto.MesReturnDto;
 import com.mj.holley.ims.service.dto.WmsResultsReportedDTO;
 import com.mj.holley.ims.service.dto.WmsReturnDTO;
 import com.mj.holley.ims.service.dto.WmsTransportTaskDTO;
@@ -86,7 +87,8 @@ public class WmsSubmitService {
     public String saveWmsTransportTask(WmsTransportTaskDTO wmsTransportTaskDTO){
         ArrayList<WmsReturnDTO> list = new ArrayList<>();
         for (int i = 0; i < wmsTransportTaskDTO.getTransportTask().size(); i++){
-            transportTaskRepository.save(wmsTransportTaskDTO.getTransportTask().get(i));
+            saveTransportTask(wmsTransportTaskDTO.getTransportTask().get(i));
+            //transportTaskRepository.save(wmsTransportTaskDTO.getTransportTask().get(i));
             WmsReturnDTO wmsReturnDTO = new WmsReturnDTO(wmsTransportTaskDTO.getTransportTask().get(i).getTaskID() , "1" , "SUCCESS");
             list.add(wmsReturnDTO);
         }
@@ -97,20 +99,18 @@ public class WmsSubmitService {
         return js.toString();
     }
 
-//    public MesReturnDto saveWmsTransportTask(WmsTransportTaskDTO wmsTransportTaskDTO) {
-//
-//        TransportTask id = transportTaskRepository.findByTaskID(wmsTransportTaskDTO.getTransportTask().getTaskID());
-//        if (id != null) {
-//            transportTaskRepository.updateTransportTask(wmsTransportTaskDTO.getTransportTask().getFunID(), wmsTransportTaskDTO.getTransportTask().getSerialID(),
-//                wmsTransportTaskDTO.getTransportTask().getTaskType(), wmsTransportTaskDTO.getTransportTask().getTaskPrty(), wmsTransportTaskDTO.getTransportTask().getTaskFlag(),
-//                wmsTransportTaskDTO.getTransportTask().getlPN(), wmsTransportTaskDTO.getTransportTask().getFrmPos(), wmsTransportTaskDTO.getTransportTask().getFrmPosType(),
-//                wmsTransportTaskDTO.getTransportTask().getToPos(), wmsTransportTaskDTO.getTransportTask().getToPosType(), wmsTransportTaskDTO.getTransportTask().getOpFlag(),
-//                wmsTransportTaskDTO.getTransportTask().getRemark(), wmsTransportTaskDTO.getTransportTask().getIssuedTaskTime(), wmsTransportTaskDTO.getTransportTask().getTaskID());
-//        } else {
-//            transportTaskRepository.save(wmsTransportTaskDTO.getTransportTask());
-//        }
-//        return new MesReturnDto(Boolean.TRUE, "Success", "");
-//    }
+    public MesReturnDto saveTransportTask(TransportTask transportTask) {
+        TransportTask id = transportTaskRepository.findByTaskID(transportTask.getTaskID());
+        if (id != null) {
+            transportTaskRepository.updateTransportTask(transportTask.getFunID(), transportTask.getSerialID(), transportTask.getTaskType(),
+                transportTask.getTaskPrty(), transportTask.getTaskFlag(), transportTask.getlPN(), transportTask.getFrmPos(),
+                transportTask.getFrmPosType(), transportTask.getToPos(), transportTask.getToPosType(), transportTask.getOpFlag(),
+                transportTask.getRemark(), transportTask.getIssuedTaskTime(), transportTask.getStoreType(), transportTask.getTaskID());
+        } else {
+            transportTaskRepository.save(transportTask);
+        }
+        return new MesReturnDto(Boolean.TRUE, "Success", "");
+    }
 
 
     public HashMap<Object,Object> requestSoapServices(String body, String contentType) throws IOException {
