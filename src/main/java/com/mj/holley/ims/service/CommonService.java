@@ -23,8 +23,8 @@ public interface CommonService {
     public String receiveMesOrders(@WebParam(name = "tem") String mes);
 
     @WebMethod
-    @WebResult(name = "TransportTask", targetNamespace = "")
-    public String stationSendsTask(@WebParam(name = "tem") String wms);
+    @WebResult(name = "SendData", targetNamespace = "")
+    public String SendData(@WebParam(name = "tem") String wms);
 
     @WebMethod
     @WebResult(name = "BindingDto", targetNamespace = "")
