@@ -3,6 +3,7 @@ package com.mj.holley.ims.service;
 import com.mj.holley.ims.domain.TransportTask;
 import com.mj.holley.ims.domain.util.TimeZone;
 import com.mj.holley.ims.repository.TransportTaskRepository;
+import com.mj.holley.ims.service.dto.WmsResultsReportedDTO;
 import com.mj.holley.ims.service.dto.WmsReturnDTO;
 import com.mj.holley.ims.service.dto.WmsTransportTaskDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +13,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by YXQ on 2018/3/24.
@@ -103,4 +112,70 @@ public class WmsSubmitService {
 //        return new MesReturnDto(Boolean.TRUE, "Success", "");
 //    }
 
+
+    public HashMap<Object,Object> requestSoapServices(String body, String contentType) throws IOException {
+        HashMap<Object,Object> resultMap = new HashMap<Object,Object>();
+        String urlPath = new String("http://139.196.253.114/HZHL_WCSWebservice/Service.asmx");
+        String param = body;
+        //建立连接
+        URL url = new URL(urlPath);
+        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+        //设置参数
+        httpConn.setDoOutput(true); //需要输出
+        httpConn.setDoInput(true); //需要输入
+        httpConn.setUseCaches(false); //不允许缓存
+        httpConn.setRequestMethod("POST"); //设置POST方式连接
+        //设置请求属性
+        httpConn.setRequestProperty("Content-Type", contentType); //"text/xml"
+        httpConn.setRequestProperty("Connection", "Keep-Alive");// 维持长连接
+        httpConn.setRequestProperty("Charset", "UTF-8");
+        //连接,也可以不用明文connect，使用下面的httpConn.getOutputStream()会自动connect
+        httpConn.connect();
+        //建立输入流，向指向的URL传入参数
+        DataOutputStream dos = new DataOutputStream(httpConn.getOutputStream());
+        dos.writeBytes(param);
+        dos.flush();
+        dos.close();
+        //获得响应状态
+        int resultCode = httpConn.getResponseCode();
+        resultMap.put("resultCode",resultCode);
+        if (HttpURLConnection.HTTP_OK == resultCode) {
+            StringBuffer sb = new StringBuffer();
+            String readLine = new String();
+
+            BufferedReader responseReader = new BufferedReader(new InputStreamReader(httpConn.getInputStream(), "UTF-8"));
+            while ((readLine = responseReader.readLine()) != null) {
+                sb.append(readLine).append("\n");
+            }
+            responseReader.close();
+            String bbb = sb.toString();
+            System.out.println(bbb);
+            resultMap.put("resultValue",bbb);
+        }else {
+            resultMap.put("resultValue","Error");
+        }
+        return resultMap;
+
+    }
+
+    public HashMap submitTaskExecutionResult(WmsResultsReportedDTO dto) throws IOException {
+        String param =  "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tem=\"http://tempuri.org/\">\n" +
+            "   <soapenv:Header/>\n" +
+            "   <soapenv:Body>\n" +
+            "      <tem:SendData>\n" +
+            "         <!--Optional:-->\n" +
+            "         <tem:DATA>"+
+            dto.toString()+
+            "</tem:DATA>\n" +
+            "      </tem:SendData>\n" +
+            "   </soapenv:Body>\n" +
+            "</soapenv:Envelope>";
+        HashMap result = requestSoapServices(param, "text/xml");
+        if (!result.get("resultCode").equals(200)){
+            log.error("WmsResultsReportedDTO[{}]{}提交失败，错误信息：{}", dto.getTaskFlag(),dto.getDec());
+        }else{
+            log.info("WmsResultsReportedDTO[{}]{}提交成功", dto.getTaskFlag(),dto.getDec());
+        }
+        return result;
+    }
 }

@@ -2,12 +2,11 @@ package com.mj.holley.ims.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mj.holley.ims.config.httpClient.HttpTemplateMes;
-import com.mj.holley.ims.service.MesSubmitService;
-import com.mj.holley.ims.service.MessagePushService;
-import com.mj.holley.ims.service.OpcuaService;
-import com.mj.holley.ims.service.RedisService;
+import com.mj.holley.ims.service.*;
 import com.mj.holley.ims.service.dto.MesLineStopDto;
 import com.mj.holley.ims.service.dto.ScanningResgistrationDTO;
+import com.mj.holley.ims.service.dto.WmsResultsReportedDTO;
+import com.mj.holley.ims.service.dto.WmsTaskRequestDTO;
 import org.apache.cxf.endpoint.Endpoint;
 import org.apache.cxf.jaxws.endpoint.dynamic.JaxWsDynamicClientFactory;
 import org.apache.cxf.service.model.*;
@@ -39,7 +38,13 @@ public class TestResource {
     private OpcuaService opcuaService;
 
     @Inject
+    private WmsTaskRequestService wmsTaskRequestService;
+
+    @Inject
     private RedisService redisService;
+
+    @Inject
+    private WmsSubmitService wmsSubmitService;
 
     @Inject
     private MesSubmitService mesSubmitService;
@@ -178,6 +183,18 @@ public class TestResource {
     @Timed
     public void mesLineStop(@RequestBody MesLineStopDto dto) throws IOException {
         mesSubmitService.submitLineStop(dto);
+    }
+
+    @PostMapping("/testTaskResult")
+    @Timed
+    public void wmsTaskResult(@RequestBody WmsResultsReportedDTO dto) throws IOException {
+        wmsSubmitService.submitTaskExecutionResult(dto);
+    }
+
+    @PostMapping("/testTaskRequest")
+    @Timed
+    public void wmsTaskRequest(@RequestBody WmsTaskRequestDTO dto) throws IOException {
+        wmsTaskRequestService.taskRequest(dto);
     }
 
     @PostMapping("/testScanningResgistration")
