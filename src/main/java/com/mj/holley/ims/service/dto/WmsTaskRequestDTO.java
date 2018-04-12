@@ -1,73 +1,29 @@
 package com.mj.holley.ims.service.dto;
 
+import java.time.ZonedDateTime;
+import java.util.List;
+
 /**
  * Created by YXQ on 2018/4/12.
  */
 public class WmsTaskRequestDTO {
 
-    private Long serialID;
-
-    private String lPN;
-
-    private String curPos;
-
-    private String curPosType;
-
     private String funID;
 
     private String userID;
 
-    private String reqType;
+    private ZonedDateTime createDate = ZonedDateTime.now();
 
-    private String opFlag;
-
-    private String dec;
+    private List<taskRequestDTO> taskRequestDTO;
 
     public WmsTaskRequestDTO() {
     }
 
-    public WmsTaskRequestDTO(Long serialID, String lPN, String curPos, String curPosType, String funID, String userID, String reqType, String opFlag, String dec) {
-        this.serialID = serialID;
-        this.lPN = lPN;
-        this.curPos = curPos;
-        this.curPosType = curPosType;
+    public WmsTaskRequestDTO(String funID, String userID, ZonedDateTime createDate, List<taskRequestDTO> taskRequestDTO) {
         this.funID = funID;
         this.userID = userID;
-        this.reqType = reqType;
-        this.opFlag = opFlag;
-        this.dec = dec;
-    }
-
-    public Long getSerialID() {
-        return serialID;
-    }
-
-    public void setSerialID(Long serialID) {
-        this.serialID = serialID;
-    }
-
-    public String getlPN() {
-        return lPN;
-    }
-
-    public void setlPN(String lPN) {
-        this.lPN = lPN;
-    }
-
-    public String getCurPos() {
-        return curPos;
-    }
-
-    public void setCurPos(String curPos) {
-        this.curPos = curPos;
-    }
-
-    public String getCurPosType() {
-        return curPosType;
-    }
-
-    public void setCurPosType(String curPosType) {
-        this.curPosType = curPosType;
+        this.createDate = createDate;
+        this.taskRequestDTO = taskRequestDTO;
     }
 
     public String getFunID() {
@@ -86,27 +42,19 @@ public class WmsTaskRequestDTO {
         this.userID = userID;
     }
 
-    public String getReqType() {
-        return reqType;
+    public ZonedDateTime getCreateDate() {
+        return createDate;
     }
 
-    public void setReqType(String reqType) {
-        this.reqType = reqType;
+    public void setCreateDate(ZonedDateTime createDate) {
+        this.createDate = createDate;
     }
 
-    public String getOpFlag() {
-        return opFlag;
+    public List<taskRequestDTO> getTaskRequestDTO() {
+        return taskRequestDTO;
     }
 
-    public void setOpFlag(String opFlag) {
-        this.opFlag = opFlag;
-    }
-
-    public String getDec() {
-        return dec;
-    }
-
-    public void setDec(String dec) {
-        this.dec = dec;
+    public void setTaskRequestDTO(List<taskRequestDTO> taskRequestDTO) {
+        this.taskRequestDTO = taskRequestDTO;
     }
 }

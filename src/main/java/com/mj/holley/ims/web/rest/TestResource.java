@@ -203,6 +203,12 @@ public class TestResource {
         mesSubmitService.submitScanningRegistration(dto);
     }
 
+    @PostMapping("/testDtoToJson")
+    @Timed
+    public void wesDtoToJson(@RequestBody WmsResultsReportedDTO dto){
+        wmsSubmitService.dtoToJson(dto);
+    }
+
     @PostMapping("/test111")
     @Timed
     public void test(@RequestBody ScanningResgistrationDTO sr) {

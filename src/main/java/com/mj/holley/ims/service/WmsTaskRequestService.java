@@ -2,12 +2,15 @@ package com.mj.holley.ims.service;
 
 import com.mj.holley.ims.service.dto.WmsTaskRequestDTO;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by YXQ on 2018/4/12.
@@ -20,6 +23,21 @@ public class WmsTaskRequestService {
     @Inject
     private WmsSubmitService wmsSubmitService;
 
+    public String dtoToJson(WmsTaskRequestDTO dto){
+        JSONObject obj = new JSONObject();
+        obj.accumulate("FUN_ID" , dto.getFunID());
+        obj.accumulate("USER_ID" , dto.getUserID());
+        obj.accumulate("CREATE_DATE" , dto.getCreateDate());
+        Map map = new HashMap();
+        map.put("HEAD" , obj);
+        JSONArray jsonObject = JSONArray.fromObject(dto.getTaskRequestDTO());
+        map.put("BODY" , jsonObject);
+        Map ma = new HashMap();
+        ma.put("MSG", map);
+        JSONObject js = JSONObject.fromObject(ma);
+        return js.toString();
+    }
+
     public HashMap taskRequest(WmsTaskRequestDTO dto) throws IOException {
         String param =  "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:tem=\"http://tempuri.org/\">\n" +
             "   <soapenv:Header/>\n" +
@@ -27,7 +45,7 @@ public class WmsTaskRequestService {
             "      <tem:SendData>\n" +
             "         <!--Optional:-->\n" +
             "         <tem:DATA>"+
-            dto.toString()+
+            dtoToJson(dto)+
             "</tem:DATA>\n" +
             "      </tem:SendData>\n" +
             "   </soapenv:Body>\n" +

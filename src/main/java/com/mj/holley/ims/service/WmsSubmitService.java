@@ -155,7 +155,21 @@ public class WmsSubmitService {
             resultMap.put("resultValue","Error");
         }
         return resultMap;
+    }
 
+    public String dtoToJson(WmsResultsReportedDTO dto){
+        JSONObject obj = new JSONObject();
+        obj.accumulate("FUN_ID" , dto.getFunID());
+        obj.accumulate("USER_ID" , dto.getUserID());
+        obj.accumulate("CREATE_DATE" , dto.getCreateDate());
+        Map map = new HashMap();
+        map.put("HEAD" , obj);
+        JSONArray jsonObject = JSONArray.fromObject(dto.getResultReportedDTO());
+        map.put("BODY" , jsonObject);
+        Map ma = new HashMap();
+        ma.put("MSG", map);
+        JSONObject js = JSONObject.fromObject(ma);
+        return js.toString();
     }
 
     public HashMap submitTaskExecutionResult(WmsResultsReportedDTO dto) throws IOException {
@@ -165,16 +179,16 @@ public class WmsSubmitService {
             "      <tem:SendData>\n" +
             "         <!--Optional:-->\n" +
             "         <tem:DATA>"+
-            dto.toString()+
+            dtoToJson(dto)+
             "</tem:DATA>\n" +
             "      </tem:SendData>\n" +
             "   </soapenv:Body>\n" +
             "</soapenv:Envelope>";
         HashMap result = requestSoapServices(param, "text/xml");
         if (!result.get("resultCode").equals(200)){
-            log.error("WmsResultsReportedDTO[{}]{}提交失败，错误信息：{}", dto.getTaskFlag(),dto.getDec());
+            log.error("WmsResultsReportedDTO[{}]{}提交失败，错误信息：{}", dto);
         }else{
-            log.info("WmsResultsReportedDTO[{}]{}提交成功", dto.getTaskFlag(),dto.getDec());
+            log.info("WmsResultsReportedDTO[{}]{}提交成功", dto);
         }
         return result;
     }
