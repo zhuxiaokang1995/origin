@@ -20,8 +20,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -161,7 +163,10 @@ public class WmsSubmitService {
         JSONObject obj = new JSONObject();
         obj.accumulate("FUN_ID" , dto.getFunID());
         obj.accumulate("USER_ID" , dto.getUserID());
-        obj.accumulate("CREATE_DATE" , dto.getCreateDate());
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        String str = sdf.format(date);
+        obj.accumulate("CREATE_DATE" , str);
         Map map = new HashMap();
         map.put("HEAD" , obj);
         JSONArray jsonObject = JSONArray.fromObject(dto.getResultReportedDTO());

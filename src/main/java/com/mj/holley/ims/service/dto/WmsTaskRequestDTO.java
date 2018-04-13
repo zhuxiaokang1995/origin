@@ -1,6 +1,5 @@
 package com.mj.holley.ims.service.dto;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -12,14 +11,14 @@ public class WmsTaskRequestDTO {
 
     private String userID;
 
-    private ZonedDateTime createDate = ZonedDateTime.now();
+    private String createDate;
 
     private List<taskRequestDTO> taskRequestDTO;
 
     public WmsTaskRequestDTO() {
     }
 
-    public WmsTaskRequestDTO(String funID, String userID, ZonedDateTime createDate, List<taskRequestDTO> taskRequestDTO) {
+    public WmsTaskRequestDTO(String funID, String userID, String createDate, List<taskRequestDTO> taskRequestDTO) {
         this.funID = funID;
         this.userID = userID;
         this.createDate = createDate;
@@ -42,11 +41,11 @@ public class WmsTaskRequestDTO {
         this.userID = userID;
     }
 
-    public ZonedDateTime getCreateDate() {
+    public String getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(ZonedDateTime createDate) {
+    public void setCreateDate(String createDate) {
         this.createDate = createDate;
     }
 
