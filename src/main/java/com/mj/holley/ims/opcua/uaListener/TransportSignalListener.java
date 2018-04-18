@@ -75,8 +75,9 @@ public class TransportSignalListener implements MonitoredDataItemListener {
             } catch (OpcUaClientException e) {
                 log.error("opc ua exception when write brineCheck model" + e.getMessage());
             }
-        }else{
-
+        }else{                //读码点为任务结束时的下货点
+            // TODO: 2018/4/18 上传WMS任务结束；更新本地对应任务为结束状态：正常结束、异常结束。结束时间等
+            submitTaskEndToWms(transportTaskOptional);
         }
 
 
