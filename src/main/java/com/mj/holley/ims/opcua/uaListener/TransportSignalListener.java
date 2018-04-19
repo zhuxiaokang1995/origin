@@ -4,6 +4,12 @@ import com.mj.holley.ims.domain.TransportTask;
 import com.mj.holley.ims.opcua.OpcUaClientException;
 import com.mj.holley.ims.opcua.OpcUaClientTemplate;
 import com.mj.holley.ims.repository.TransportTaskRepository;
+import com.mj.holley.ims.service.WmsSubmitService;
+import com.mj.holley.ims.service.WmsTaskRequestService;
+import com.mj.holley.ims.service.dto.WmsResultsReportedDTO;
+import com.mj.holley.ims.service.dto.WmsTaskRequestDTO;
+import com.mj.holley.ims.service.dto.resultReportedDTO;
+import com.mj.holley.ims.service.dto.taskRequestDTO;
 import com.mj.holley.ims.service.util.ConstantValue;
 import com.prosysopc.ua.client.MonitoredDataItem;
 import com.prosysopc.ua.client.MonitoredDataItemListener;
@@ -13,6 +19,10 @@ import org.opcfoundation.ua.builtintypes.NodeId;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,6 +37,12 @@ public class TransportSignalListener implements MonitoredDataItemListener {
 
     @Inject
     private TransportTaskRepository transportTaskRepository;
+
+    @Inject
+    private WmsTaskRequestService wmsTaskRequestService;
+
+    @Inject
+    private WmsSubmitService wmsSubmitService;
 
     @Override
     public void onDataChange(MonitoredDataItem monitoredDataItem, DataValue dataValuePre, DataValue dataValueNew) {
@@ -90,11 +106,45 @@ public class TransportSignalListener implements MonitoredDataItemListener {
      */
     private String receiveTaskFromWms(String barcode){
         // TODO: 2018/4/3 对接WMS接口返回任务，保存本地数据库。
-        return "0001";
+        taskRequestDTO taskRequest = new taskRequestDTO(null,barcode,"","","","","","");
+        List<taskRequestDTO> list = new ArrayList<>();
+        list.add(taskRequest);
+        WmsTaskRequestDTO dto = new WmsTaskRequestDTO("","","", list);
+        HashMap hashMap = null;
+        try {
+            hashMap = wmsTaskRequestService.taskRequest(dto);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        TransportTask transportTask = new TransportTask()
+            .taskType(hashMap.get("TASK_TYPE").toString())
+            .taskPrty(hashMap.get("TASK_PRTY").toString())
+            .taskFlag(hashMap.get("TASK_FLAG").toString())
+            .lPN(hashMap.get("LPN").toString())
+            .frmPos(hashMap.get("FRM_POS").toString())
+            .frmPosType(hashMap.get("FRM_POS_TYPE").toString())
+            .toPos(hashMap.get("TO_POS").toString())
+            .toPosType(hashMap.get("TO_POS_TYPE").toString())
+            .remark(hashMap.get("DEC").toString())
+            .storeType(hashMap.get("STORE_TYPE").toString())
+            .taskID(Long.parseLong(hashMap.get("TASK_ID").toString()));
+        transportTaskRepository .saveAndFlush(transportTask);
+        return hashMap.get("TO_POS").toString();
     }
 
 
     private void submitTaskEndToWms(Optional<TransportTask> transportTaskOptional){
         // TODO: 2018/4/3 对接WMS接口文档第三个接口上传WMS任务完成 并且修改本地存储的对应任务的状态及完成时间
+        resultReportedDTO resultReported = new resultReportedDTO(transportTaskOptional.get().getSerialID(),transportTaskOptional.get().getTaskID(),
+            transportTaskOptional.get().getTaskFlag(),transportTaskOptional.get().getlPN(),"","","",transportTaskOptional.get().getRemark());
+        List<resultReportedDTO> list = new ArrayList<>();
+        list.add(resultReported);
+        WmsResultsReportedDTO dto = new WmsResultsReportedDTO(transportTaskOptional.get().getFunID(),"","", list);
+        try {
+            wmsSubmitService.submitTaskExecutionResult(dto);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        transportTaskRepository.updateTransportTaskByTaskId(transportTaskOptional.get().getCompletionTime() , transportTaskOptional.get().getTaskFlag() , transportTaskOptional.get().getTaskID());
     }
 }

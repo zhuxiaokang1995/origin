@@ -27,4 +27,8 @@ public interface TransportTaskRepository extends JpaRepository<TransportTask,Lon
                             ZonedDateTime issuedTaskTime , String storeType , Long taskId );
 
     Optional<TransportTask> findFirstBylPNAndCompletionTimeIsNullOrderByIdDesc(String lpn);
+
+    @Modifying
+    @Query(value = "update transport_task t set t.completion_time = ?1 , t.task_flag = ?2 where t.task_id = ?3", nativeQuery = true)
+    int updateTransportTaskByTaskId(ZonedDateTime completionTime , String taskFlag , Long taskId);
 }
