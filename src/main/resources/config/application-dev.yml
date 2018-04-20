@@ -194,6 +194,10 @@ opcua:
           - CartonSpace.CartonSpace_A7.grab
           - CartonSpace.CartonSpace_A8.grab
 
+    transportSignalSubscribeNodes:
+    - NodeBase# AutomationLine.AutomationLineRobotStatus
+            - SubsribeNode# 001robotStatus, 002robotStatus, 003robotStatus, 004robotStatus, 005robotStatus, 006robotStatus,
+                              007robotStatus, 008robotStatus, 009robotStatus, 010robotStatus, 011robotStatus, 012robotStatus,
 
 # ===================================================================
 # Application specific properties
