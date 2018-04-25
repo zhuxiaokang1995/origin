@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.opcfoundation.ua.builtintypes.NodeId;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.List;
 
@@ -31,12 +32,12 @@ public class OpcuaService {
 ////    private UaConnectionListener uaConnectionListener;
 //
 //
-////    @PostConstruct
-//    public void opcuaClientConnect() {
-//        opcUaClientTemplate.addConnectionListener(uaConnectionListener);
-//        opcUaClientTemplate.connectAlwaysInBackend();
-//    }
-//
+    @PostConstruct
+    public void opcuaClientConnect() {
+        opcUaClientTemplate.addConnectionListener(uaConnectionListener);
+        opcUaClientTemplate.connectAlwaysInBackend();
+    }
+
 //    //亮绿灯
 //    public void writeGreenData (List<String> data){
 //        String greenArea = "S7-1200 station_1.PLC_2.state."+"qinzaiqu"+"Green";
