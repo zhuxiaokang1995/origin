@@ -74,7 +74,7 @@ public class UaConnectionListener implements OpcUaClientConnectionListener {
                     return;
                 }
                 log.debug("add listener:{}", nodeIdStr + ":" + listener.getClass().toString());
-                opcUaClientTemplate.subscribeNodeValue(new NodeId(2, nodeIdStr), listener);
+                opcUaClientTemplate.subscribeNodeValue(new NodeId(6, nodeIdStr), listener);
                 LISTENER_MAP.put(nodeIdStr + ":" + listener.getClass().toString(), listener);
             }
         } catch (OpcUaClientException e) {
