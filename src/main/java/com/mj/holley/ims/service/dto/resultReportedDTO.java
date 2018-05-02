@@ -5,97 +5,97 @@ package com.mj.holley.ims.service.dto;
  */
 public class resultReportedDTO {
 
-    private Long serialID;
+    private Long SERIAL_ID;
 
-    private Long taskID;
+    private Long TASK_ID;
 
-    private String taskFlag;
+    private String TASK_FLAG;
 
-    private String lPN;
+    private String LPN;
 
-    private String curPos;
+    private String CUR_POS;
 
-    private String curPosType;
+    private String CUR_POS_TYPE;
 
-    private String errCode;
+    private String ERR_CODE;
 
-    private String dec;
+    private String DEC;
 
     public resultReportedDTO() {
     }
 
-    public resultReportedDTO(Long serialID, Long taskID, String taskFlag, String lPN, String curPos, String curPosType, String errCode, String dec) {
-        this.serialID = serialID;
-        this.taskID = taskID;
-        this.taskFlag = taskFlag;
-        this.lPN = lPN;
-        this.curPos = curPos;
-        this.curPosType = curPosType;
-        this.errCode = errCode;
-        this.dec = dec;
+    public resultReportedDTO(Long SERIAL_ID, Long TASK_ID, String TASK_FLAG, String LPN, String CUR_POS, String CUR_POS_TYPE, String ERR_CODE, String DEC) {
+        this.SERIAL_ID = SERIAL_ID;
+        this.TASK_ID = TASK_ID;
+        this.TASK_FLAG = TASK_FLAG;
+        this.LPN = LPN;
+        this.CUR_POS = CUR_POS;
+        this.CUR_POS_TYPE = CUR_POS_TYPE;
+        this.ERR_CODE = ERR_CODE;
+        this.DEC = DEC;
     }
 
-    public Long getSerialID() {
-        return serialID;
+    public Long getSERIAL_ID() {
+        return SERIAL_ID;
     }
 
-    public void setSerialID(Long serialID) {
-        this.serialID = serialID;
+    public void setSERIAL_ID(Long SERIAL_ID) {
+        this.SERIAL_ID = SERIAL_ID;
     }
 
-    public Long getTaskID() {
-        return taskID;
+    public Long getTASK_ID() {
+        return TASK_ID;
     }
 
-    public void setTaskID(Long taskID) {
-        this.taskID = taskID;
+    public void setTASK_ID(Long TASK_ID) {
+        this.TASK_ID = TASK_ID;
     }
 
-    public String getTaskFlag() {
-        return taskFlag;
+    public String getTASK_FLAG() {
+        return TASK_FLAG;
     }
 
-    public void setTaskFlag(String taskFlag) {
-        this.taskFlag = taskFlag;
+    public void setTASK_FLAG(String TASK_FLAG) {
+        this.TASK_FLAG = TASK_FLAG;
     }
 
-    public String getlPN() {
-        return lPN;
+    public String getLPN() {
+        return LPN;
     }
 
-    public void setlPN(String lPN) {
-        this.lPN = lPN;
+    public void setLPN(String LPN) {
+        this.LPN = LPN;
     }
 
-    public String getCurPos() {
-        return curPos;
+    public String getCUR_POS() {
+        return CUR_POS;
     }
 
-    public void setCurPos(String curPos) {
-        this.curPos = curPos;
+    public void setCUR_POS(String curPos) {
+        this.CUR_POS = curPos;
     }
 
-    public String getCurPosType() {
-        return curPosType;
+    public String getCUR_POS_TYPE() {
+        return CUR_POS_TYPE;
     }
 
-    public void setCurPosType(String curPosType) {
-        this.curPosType = curPosType;
+    public void setCUR_POS_TYPE(String CUR_POS_TYPE) {
+        this.CUR_POS_TYPE = CUR_POS_TYPE;
     }
 
-    public String getErrCode() {
-        return errCode;
+    public String getERR_CODE() {
+        return ERR_CODE;
     }
 
-    public void setErrCode(String errCode) {
-        this.errCode = errCode;
+    public void setERR_CODE(String ERR_CODE) {
+        this.ERR_CODE = ERR_CODE;
     }
 
-    public String getDec() {
-        return dec;
+    public String getDEC() {
+        return DEC;
     }
 
-    public void setDec(String dec) {
-        this.dec = dec;
+    public void setDEC(String DEC) {
+        this.DEC = DEC;
     }
 }

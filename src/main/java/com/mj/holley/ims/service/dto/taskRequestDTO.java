@@ -5,97 +5,99 @@ package com.mj.holley.ims.service.dto;
  */
 public class taskRequestDTO {
 
-    private Long serialID;
+    private Long SERIAL_ID;
 
-    private String lPN;
+    private String LPN;
 
-    private String curPos;
+    private String CUR_POS;
 
-    private String curPosType;
+    private String CUR_POS_TYPE;
 
-    private String reqType;
+    private String REQ_TYPE;
 
-    private String trayType;
+    private String TRAY_TYPE;
 
-    private String opFlag;
+    private String OP_FLAG;
 
-    private String dec;
+    private String DEC;
+
+    public Long getSERIAL_ID() {
+        return SERIAL_ID;
+    }
+
+    public void setSERIAL_ID(Long SERIAL_ID) {
+        this.SERIAL_ID = SERIAL_ID;
+    }
+
+    public String getLPN() {
+        return LPN;
+    }
+
+    public void setLPN(String LPN) {
+        this.LPN = LPN;
+    }
+
+    public String getCUR_POS() {
+        return CUR_POS;
+    }
+
+    public void setCUR_POS(String CUR_POS) {
+        this.CUR_POS = CUR_POS;
+    }
+
+    public String getCUR_POS_TYPE() {
+        return CUR_POS_TYPE;
+    }
+
+    public void setCUR_POS_TYPE(String CUR_POS_TYPE) {
+        this.CUR_POS_TYPE = CUR_POS_TYPE;
+    }
+
+    public String getREQ_TYPE() {
+        return REQ_TYPE;
+    }
+
+    public void setREQ_TYPE(String REQ_TYPE) {
+        this.REQ_TYPE = REQ_TYPE;
+    }
+
+    public String getTRAY_TYPE() {
+        return TRAY_TYPE;
+    }
+
+    public void setTRAY_TYPE(String TRAY_TYPE) {
+        this.TRAY_TYPE = TRAY_TYPE;
+    }
+
+    public String getOP_FLAG() {
+        return OP_FLAG;
+    }
+
+    public void setOP_FLAG(String OP_FLAG) {
+        this.OP_FLAG = OP_FLAG;
+    }
+
+    public String getDEC() {
+        return DEC;
+    }
+
+    public void setDEC(String DEC) {
+        this.DEC = DEC;
+    }
+
+    public taskRequestDTO(Long SERIAL_ID, String LPN, String CUR_POS, String CUR_POS_TYPE, String REQ_TYPE, String TRAY_TYPE, String OP_FLAG, String DEC) {
+        this.SERIAL_ID = SERIAL_ID;
+        this.LPN = LPN;
+        this.CUR_POS = CUR_POS;
+        this.CUR_POS_TYPE = CUR_POS_TYPE;
+        this.REQ_TYPE = REQ_TYPE;
+        this.TRAY_TYPE = TRAY_TYPE;
+        this.OP_FLAG = OP_FLAG;
+        this.DEC = DEC;
+    }
 
     public taskRequestDTO() {
     }
 
-    public taskRequestDTO(Long serialID, String lPN, String curPos, String curPosType, String reqType, String trayType, String opFlag, String dec) {
-        this.serialID = serialID;
-        this.lPN = lPN;
-        this.curPos = curPos;
-        this.curPosType = curPosType;
-        this.reqType = reqType;
-        this.trayType = trayType;
-        this.opFlag = opFlag;
-        this.dec = dec;
-    }
 
-    public Long getSerialID() {
-        return serialID;
-    }
-
-    public void setSerialID(Long serialID) {
-        this.serialID = serialID;
-    }
-
-    public String getlPN() {
-        return lPN;
-    }
-
-    public void setlPN(String lPN) {
-        this.lPN = lPN;
-    }
-
-    public String getCurPos() {
-        return curPos;
-    }
-
-    public void setCurPos(String curPos) {
-        this.curPos = curPos;
-    }
-
-    public String getCurPosType() {
-        return curPosType;
-    }
-
-    public void setCurPosType(String curPosType) {
-        this.curPosType = curPosType;
-    }
-
-    public String getReqType() {
-        return reqType;
-    }
-
-    public void setReqType(String reqType) {
-        this.reqType = reqType;
-    }
-
-    public String getTrayType() {
-        return trayType;
-    }
-
-    public void setTrayType(String trayType) {
-        this.trayType = trayType;
-    }
-
-    public String getOpFlag() {
-        return opFlag;
-    }
-
-    public void setOpFlag(String opFlag) {
-        this.opFlag = opFlag;
-    }
-
-    public String getDec() {
-        return dec;
-    }
-
-    public void setDec(String dec) {
-        this.dec = dec;
-    }
 }
