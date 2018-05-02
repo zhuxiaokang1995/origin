@@ -17,7 +17,6 @@ import com.mj.holley.ims.service.util.ConstantValue;
 import com.mj.holley.ims.service.util.RedisKey;
 import com.prosysopc.ua.client.MonitoredDataItem;
 import com.prosysopc.ua.client.MonitoredDataItemListener;
-import com.sun.xml.bind.v2.TODO;
 import lombok.extern.slf4j.Slf4j;
 import org.opcfoundation.ua.builtintypes.DataValue;
 import org.opcfoundation.ua.builtintypes.NodeId;
@@ -62,6 +61,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
     @Inject
     private ProcessControlRepository processControlRepository;
 
+
     @Override
     public void onDataChange(MonitoredDataItem monitoredDataItem, DataValue dataValuePre, DataValue dataValueNew) {
 
@@ -74,8 +74,10 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         }
         if (dataValueNew.getValue().intValue() == 1) {          //订阅到读码信号
             try {
-                String barCodeAddress = monitoredDataItem.toString().replace("signal", "code"); //将每个工位的读码信号地址、读码地址规则化 eg:****.工位.signal; ****.工位.code;
-                String barcode = opcUaClientTemplate.readNodeVariant(new NodeId(2, barCodeAddress)).getValue().toString(); //读对应工位条码
+                NodeId nodeId = monitoredDataItem.getNodeId();
+                String var = nodeId.toString().substring(nodeId.toString().lastIndexOf("=") + 1).trim();
+                String barCodeAddress = var.replace("Signal", "Code"); //将每个工位的读码信号地址、读码地址规则化 eg:****.工位.signal; ****.工位.code;
+                String barcode = opcUaClientTemplate.readNodeVariant(new NodeId(6, barCodeAddress)).getValue().toString(); //读对应工位条码
 
                 handleBarcode(barCodeAddress, barcode);
 
@@ -95,7 +97,9 @@ public class ScanSignalListener implements MonitoredDataItemListener {
      */
     private void handleBarcode(String barcodeAddress, String barCode) throws IOException {
         // TODO: 2018/3/26 根据条码规则对条码校验符合规则进行处理
-        String stationId = barcodeAddress.substring(barcodeAddress.indexOf("****") + 6, barcodeAddress.indexOf("code"));//****.工位.code 截取工位
+//        String stationId = barcodeAddress.substring(barcodeAddress.indexOf("****") + 6, barcodeAddress.indexOf("Code"));//****.工位.code 截取工位
+        String stationId = barcodeAddress.substring(barcodeAddress.indexOf("opc.") + 4, barcodeAddress.indexOf(".Code"));//****.工位.code 截取工位
+
         boolean isFault = Boolean.FALSE;             //是否存在缺陷
         boolean havingStation = Boolean.FALSE;       //是否有工艺流程
         boolean writeToPlc;
@@ -105,9 +109,9 @@ public class ScanSignalListener implements MonitoredDataItemListener {
             Sn sn = snOptional.get();
             ScanningResgistrationDTO dto = new ScanningResgistrationDTO(Integer.parseInt(redisService.readAndInc(RedisKey.PROCESS_PK).toString()),
                 barCode, stationId, "1", "", "OK", "");
-            if (mesSubmitService.submitScanningRegistration(dto).get("resultValue").toString().contains("-1")) {  //MES 接口返回-1则该产品存在缺陷
-                isFault = Boolean.TRUE;
-            }
+//            if (mesSubmitService.submitScanningRegistration(dto).get("resultValue").toString().contains("-1")) {  //MES 接口返回-1则该产品存在缺陷
+//                isFault = Boolean.TRUE;
+//            }
             if (redisService.hasKey(sn.getOrderID())) {                                           //redis中是否存在该订单的工艺流程
                 if (redisService.readList(sn.getOrderID()).contains(stationId)) {                 //存在则从redis中取该订单的工艺流程
                     havingStation = Boolean.TRUE;
@@ -132,8 +136,8 @@ public class ScanSignalListener implements MonitoredDataItemListener {
             writeToPlc = havingStation;
         }
         try {
-            opcUaClientTemplate.writeNodeValue(new NodeId(2, barcodeAddress.replace("code", "signal")), 0);
-            opcUaClientTemplate.writeNodeValue(new NodeId(2, barcodeAddress.replace("code", "run")), writeToPlc);
+//            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "Signal")), 0);
+            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "Result")), (writeToPlc)?1:2);
         } catch (OpcUaClientException e) {
             log.error("opc ua exception when write brineCheck model" + e.getMessage());
         }

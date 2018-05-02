@@ -1,12 +1,9 @@
 package com.mj.holley.ims.service;
 
 import com.mj.holley.ims.config.httpClient.HttpTemplateMes;
-import com.mj.holley.ims.config.httpClient.MesApiAccessResult;
 import com.mj.holley.ims.domain.OrderInfo;
 import com.mj.holley.ims.domain.Processes;
-import com.mj.holley.ims.domain.Sn;
 import com.mj.holley.ims.domain.Steps;
-import com.mj.holley.ims.domain.util.*;
 import com.mj.holley.ims.domain.util.TimeZone;
 import com.mj.holley.ims.repository.OrderInfoRepository;
 import com.mj.holley.ims.repository.ProcessesRepository;
@@ -15,10 +12,6 @@ import com.mj.holley.ims.service.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
-import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,10 +21,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.ZonedDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Wanghui on 2018/1/19.
@@ -179,7 +173,7 @@ public class MesSubmitService {
 
     public HashMap<Object,Object> requestSoapService(String body, String contentType) throws IOException {
         HashMap<Object,Object> resultMap = new HashMap<Object,Object>();
-        String urlPath = new String("http://60.191.107.133:38080/scadaservice/ScadaService.asmx");
+        String urlPath = new String("http://172.16.6.155/ScadaService/ScadaService.asmx");
         //String urlPath = new String("http://localhost:8080/Test1/HelloWorld?name=丁丁".getBytes("UTF-8"));
         String param = body;
         //建立连接
