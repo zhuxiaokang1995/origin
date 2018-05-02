@@ -180,24 +180,33 @@ httpclient:
 # 3、也可以单独配置单一节点
 # ======================================================================================
 opcua:
-    address: opc.tcp://172.16.31.23:55105
+    address: opc.tcp://172.30.4.200:55105
 #    address: opc.tcp://10.152.101.161:52520/OPCUA/HaierOPCUAServer
 #
 #   监听仓位纸箱数量
     scanSignalSubscribeNodes:
-          - Channel_1.Device_1.Tag_3
-          - CartonSpace.CartonSpace_A2.grab
-          - CartonSpace.CartonSpace_A3.grab
-          - CartonSpace.CartonSpace_A4.grab
-          - CartonSpace.CartonSpace_A5.grab
-          - CartonSpace.CartonSpace_A6.grab
-          - CartonSpace.CartonSpace_A7.grab
-          - CartonSpace.CartonSpace_A8.grab
-
+          - S71500ET200MP station_1.PLC_1.opc.01.shangdike.Signal
+          - S71500ET200MP station_1.PLC_1.opc.02.hanxian1.Signal
+          - S71500ET200MP station_1.PLC_1.opc.03.hanxian2.Signal
+          - S71500ET200MP station_1.PLC_1.opc.04.hanxian3.Signal
+          - S71500ET200MP station_1.PLC_1.opc.05.hanxian4.Signal
+          - S71500ET200MP station_1.PLC_1.opc.06.hanxian5.Signal
+          - S71500ET200MP station_1.PLC_1.opc.07.hanxian6.Signal
+          - S71500ET200MP station_1.PLC_1.opc.08.hanxian7.Signal
+          - S71500ET200MP station_1.PLC_1.opc.09.hanxian8.Signal
+          - S71500ET200MP station_1.PLC_1.opc.10.hanjian.Signal
+          - S71500ET200MP station_1.PLC_1.opc.11.zhuangshangduan.Signal
+          - S71500ET200MP station_1.PLC_1.opc.12.gudingmokuai.Signal
+          - S71500ET200MP station_1.PLC_1.opc.13.hanshangduan.Signal
+          - S71500ET200MP station_1.PLC_1.opc.14.simo.Signal
+          - S71500ET200MP station_1.PLC_1.opc.15.zhuangmingpai.Signal
+          - S71500ET200MP station_1.PLC_1.opc.16.koubiaoga.Signal
+          - S71500ET200MP station_1.PLC_1.opc.17.suoluosi.Signal
+          - S71500ET200MP station_1.PLC_1.opc.18.zhuangzaibo.Signal
     transportSignalSubscribeNodes:
-    - NodeBase# AutomationLine.AutomationLineRobotStatus
-            - SubsribeNode# 001robotStatus, 002robotStatus, 003robotStatus, 004robotStatus, 005robotStatus, 006robotStatus,
-                              007robotStatus, 008robotStatus, 009robotStatus, 010robotStatus, 011robotStatus, 012robotStatus,
+    - NodeBase# S71500ET200MP station_1.PLC_1.opc
+            - SubsribeNode# 02.hanxian1.Signal,
+
 
 # ===================================================================
 # Application specific properties

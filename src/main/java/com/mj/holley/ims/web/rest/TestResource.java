@@ -200,6 +200,7 @@ public class TestResource {
     @PostMapping("/testScanningResgistration")
     @Timed
     public void mesScanningResgistration(@RequestBody ScanningResgistrationDTO dto) throws IOException {
+
         mesSubmitService.submitScanningRegistration(dto);
     }
 
