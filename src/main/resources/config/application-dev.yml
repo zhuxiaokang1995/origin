@@ -185,29 +185,27 @@ opcua:
 #
 #   监听仓位纸箱数量
     scanSignalSubscribeNodes:
-          - S71500ET200MP station_1.PLC_1.opc.01.shangdike.Signal
-          - S71500ET200MP station_1.PLC_1.opc.02.hanxian1.Signal
-          - S71500ET200MP station_1.PLC_1.opc.03.hanxian2.Signal
-          - S71500ET200MP station_1.PLC_1.opc.04.hanxian3.Signal
-          - S71500ET200MP station_1.PLC_1.opc.05.hanxian4.Signal
-          - S71500ET200MP station_1.PLC_1.opc.06.hanxian5.Signal
-          - S71500ET200MP station_1.PLC_1.opc.07.hanxian6.Signal
-          - S71500ET200MP station_1.PLC_1.opc.08.hanxian7.Signal
-          - S71500ET200MP station_1.PLC_1.opc.09.hanxian8.Signal
-          - S71500ET200MP station_1.PLC_1.opc.10.hanjian.Signal
-          - S71500ET200MP station_1.PLC_1.opc.11.zhuangshangduan.Signal
-          - S71500ET200MP station_1.PLC_1.opc.12.gudingmokuai.Signal
-          - S71500ET200MP station_1.PLC_1.opc.13.hanshangduan.Signal
-          - S71500ET200MP station_1.PLC_1.opc.14.simo.Signal
-          - S71500ET200MP station_1.PLC_1.opc.15.zhuangmingpai.Signal
-          - S71500ET200MP station_1.PLC_1.opc.16.koubiaoga.Signal
-          - S71500ET200MP station_1.PLC_1.opc.17.suoluosi.Signal
-          - S71500ET200MP station_1.PLC_1.opc.18.zhuangzaibo.Signal
-    transportSignalSubscribeNodes:
-    - NodeBase# S71500ET200MP station_1.PLC_1.opc
-            - SubsribeNode# 02.hanxian1.Signal,
-
-
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP01-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP02-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP03-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP04-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP05-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP06-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP07-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP08-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP09-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP10-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP11-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP12-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP13-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP14-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP15-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP16-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP17-Signal
+         - S71500ET200MP station_1.PLC_1.opc.Q13ZP09-ZP18-Signal
+#    transportSignalSubscribeNodes:
+#    - NodeBase# S71500ET200MP station_1.PLC_1.opc
+#            - SubsribeNode# 02.hanxian1.Signal,
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

@@ -98,8 +98,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
     private void handleBarcode(String barcodeAddress, String barCode) throws IOException {
         // TODO: 2018/3/26 根据条码规则对条码校验符合规则进行处理
 //        String stationId = barcodeAddress.substring(barcodeAddress.indexOf("****") + 6, barcodeAddress.indexOf("Code"));//****.工位.code 截取工位
-        String stationId = barcodeAddress.substring(barcodeAddress.indexOf("opc.") + 4, barcodeAddress.indexOf(".Code"));//****.工位.code 截取工位
-
+        String stationId = barcodeAddress.substring(barcodeAddress.indexOf("opc.") + 4, barcodeAddress.indexOf("-Code")).toLowerCase();//****.工位.code 截取工位
         boolean isFault = Boolean.FALSE;             //是否存在缺陷
         boolean havingStation = Boolean.FALSE;       //是否有工艺流程
         boolean writeToPlc;
@@ -137,6 +136,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         }
         try {
 //            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "Signal")), 0);
+            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress), 0);
             opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "Result")), (writeToPlc)?1:2);
         } catch (OpcUaClientException e) {
             log.error("opc ua exception when write brineCheck model" + e.getMessage());
@@ -152,7 +152,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
      */
     private List saveRedisStepsByOrder(String orderId, List<Steps> stepsList) {
         List<String> easyStepsList = stepsList.stream()
-            .filter(steps -> steps.getStepAttrID() == "1")       //过滤StepAttrID为1的才是有效的
+            .filter(steps -> steps.getStepAttrID().equals("true"))       //过滤StepAttrID为1的才是有效的
             .map(steps -> steps.getStationID())
             .collect(Collectors.toList());
         redisService.saveList(orderId, easyStepsList);
