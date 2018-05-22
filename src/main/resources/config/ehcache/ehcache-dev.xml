@@ -28,5 +28,7 @@
 
     <cache alias="com.mj.holley.ims.domain.TransportTask" uses-template="simple"/>
 
+    <cache alias="com.mj.holley.ims.domain.RepeatProcess" uses-template="simple"/>
+
     <!-- jhipster-needle-ehcache-add-entry -->
 </config>

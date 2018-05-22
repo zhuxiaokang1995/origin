@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="holleyImsApp.repeatProcess.detail.title">Repeat Process</span> {{vm.repeatProcess.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="holleyImsApp.repeatProcess.processNum">Process Num</span></dt>
+        <dd>
+            <span>{{vm.repeatProcess.processNum}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.repeatProcess.processName">Process Name</span></dt>
+        <dd>
+            <span>{{vm.repeatProcess.processName}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.repeatProcess.descriple">Descriple</span></dt>
+        <dd>
+            <span>{{vm.repeatProcess.descriple}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.repeatProcess.orderInfo">Order Info</span></dt>
+        <dd>
+            <a ui-sref="order-info-detail({id:vm.repeatProcess.orderInfo.id})">{{vm.repeatProcess.orderInfo.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="repeat-process-detail.edit({id:vm.repeatProcess.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

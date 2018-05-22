@@ -11,10 +11,12 @@
     <include file="classpath:config/liquibase/changelog/20180324015027_added_entity_TransportTask.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20180324053707_added_entity_Sn.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20180324054255_added_entity_ProcessControl.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20180521082433_added_entity_RepeatProcess.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
 
     <!--<include file="classpath:config/liquibase/changelog/20180126095906_added_entity_constraints_Processes.xml" relativeToChangelogFile="false"/>-->
     <!--<include file="classpath:config/liquibase/changelog/20180126095727_added_entity_constraints_Steps.xml" relativeToChangelogFile="false"/>-->
 
+    <include file="classpath:config/liquibase/changelog/20180521082433_added_entity_constraints_RepeatProcess.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

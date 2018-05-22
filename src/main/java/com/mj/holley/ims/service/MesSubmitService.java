@@ -3,12 +3,16 @@ package com.mj.holley.ims.service;
 import com.mj.holley.ims.config.httpClient.HttpTemplateMes;
 import com.mj.holley.ims.domain.OrderInfo;
 import com.mj.holley.ims.domain.Processes;
+import com.mj.holley.ims.domain.RepeatProcess;
 import com.mj.holley.ims.domain.Steps;
 import com.mj.holley.ims.domain.util.TimeZone;
 import com.mj.holley.ims.repository.OrderInfoRepository;
 import com.mj.holley.ims.repository.ProcessesRepository;
+import com.mj.holley.ims.repository.RepeatProcessRepository;
 import com.mj.holley.ims.repository.StepsRepository;
 import com.mj.holley.ims.service.dto.*;
+import com.mj.holley.ims.service.util.ConstantValue;
+import com.mj.holley.ims.service.util.SortListUtil;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -23,9 +27,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Wanghui on 2018/1/19.
@@ -51,6 +54,9 @@ public class MesSubmitService {
 
     @Inject
     private ProcessesRepository processesRepository;
+
+    @Inject
+    private RepeatProcessRepository repeatProcessRepository;
 
 //    @SuppressWarnings("unchecked")
     public static MesOrderInfoDto transStringToDto(String input) {
@@ -160,6 +166,13 @@ public class MesSubmitService {
                 steps.setOrderInfo(result);
             }
             stepsRepository.save(mesOrderInfoDto.getSteps());
+            String re = processedSteps(mesOrderInfoDto.getSteps());
+            RepeatProcess repeatProcess = new RepeatProcess()
+                .processName(re)
+                .descriple(re)
+                .processNum(re)
+                .orderInfo(result);
+            repeatProcessRepository.save(repeatProcess);
         }
 
         if(mesOrderInfoDto.getProcesses()!=null) {
@@ -169,6 +182,42 @@ public class MesSubmitService {
             processesRepository.save(mesOrderInfoDto.getProcesses());
         }
         return new MesReturnDto(Boolean.TRUE,"Success","");
+    }
+
+    /**
+     * 按MES给的工艺路径解析出来PLC需要的路径格式 如11223344
+     * @param Steps
+     * @return
+     */
+    public String processedSteps(List<Steps> Steps) {
+        List<Steps> list1 = new ArrayList<>();
+        list1 = Steps.stream().filter(s -> ConstantValue.REPEAT_STATION_NINE_LIST.contains(s.getStationID())).collect(Collectors.toList());
+        SortListUtil.sort(list1, "stationID", SortListUtil.ASC);
+        Map<String, Integer> typeMap = new HashMap<String, Integer>();
+        Integer num = 1;
+        for( int i= 0;i<list1.size();i++){
+            if (i==0){
+                typeMap.put(list1.get(i).getStationID(),num);
+                continue;
+            }
+            if(list1.get(i).getStepID().equals(list1.get(i-1).getStepID())){
+                typeMap.put(list1.get(i).getStationID(),num);
+            }else {
+                num = num + 1;
+                typeMap.put(list1.get(i).getStationID(),num);
+
+            }
+        }
+        String result = new String();
+        for(String station:ConstantValue.REPEAT_STATION_NINE_LIST){
+            if (typeMap.containsKey(station)){
+                result = result + typeMap.get(station);
+            }else {
+                result = result + "0";
+            }
+        }
+        return result;
+
     }
 
     public HashMap<Object,Object> requestSoapService(String body, String contentType) throws IOException {

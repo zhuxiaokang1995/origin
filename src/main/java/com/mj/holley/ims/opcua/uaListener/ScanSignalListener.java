@@ -1,14 +1,9 @@
 package com.mj.holley.ims.opcua.uaListener;
 
-import com.mj.holley.ims.domain.OrderInfo;
-import com.mj.holley.ims.domain.Sn;
-import com.mj.holley.ims.domain.Steps;
+import com.mj.holley.ims.domain.*;
 import com.mj.holley.ims.opcua.OpcUaClientException;
 import com.mj.holley.ims.opcua.OpcUaClientTemplate;
-import com.mj.holley.ims.repository.OrderInfoRepository;
-import com.mj.holley.ims.repository.ProcessControlRepository;
-import com.mj.holley.ims.repository.SnRepository;
-import com.mj.holley.ims.repository.StepsRepository;
+import com.mj.holley.ims.repository.*;
 import com.mj.holley.ims.service.BindingService;
 import com.mj.holley.ims.service.MesSubmitService;
 import com.mj.holley.ims.service.RedisService;
@@ -24,6 +19,7 @@ import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -61,32 +57,35 @@ public class ScanSignalListener implements MonitoredDataItemListener {
     @Inject
     private ProcessControlRepository processControlRepository;
 
+    @Inject
+    private RepeatProcessRepository repeatProcessRepository;
 
     @Override
     public void onDataChange(MonitoredDataItem monitoredDataItem, DataValue dataValuePre, DataValue dataValueNew) {
 
-
-        log.info(monitoredDataItem + "111111");
-        log.info(dataValueNew.getValue().intValue() + " ---222222");
-        log.info(dataValuePre.getValue().intValue() + " +++3333333");
-        if (dataValueNew.getValue().intValue() == 0) {
+        if (dataValueNew.getValue().intValue() <= 0) {
             return;
         }
-        if (dataValueNew.getValue().intValue() == 1) {          //订阅到读码信号
-            try {
-                NodeId nodeId = monitoredDataItem.getNodeId();
-                String var = nodeId.toString().substring(nodeId.toString().lastIndexOf("=") + 1).trim();
-                String barCodeAddress = var.replace("Signal", "Code"); //将每个工位的读码信号地址、读码地址规则化 eg:****.工位.signal; ****.工位.code;
-                String barcode = opcUaClientTemplate.readNodeVariant(new NodeId(6, barCodeAddress)).getValue().toString(); //读对应工位条码
 
+        try {
+            NodeId nodeId = monitoredDataItem.getNodeId();
+            String var = nodeId.toString().substring(nodeId.toString().lastIndexOf("=") + 1).trim();
+            String barCodeAddress = var.replace("Signal", "Code"); //将每个工位的读码信号地址、读码地址规则化 eg:****.工位.signal; ****.工位.code;
+            String barcode = opcUaClientTemplate.readNodeVariant(new NodeId(6, barCodeAddress)).getValue().toString(); //读对应工位条码
+            if (dataValueNew.getValue().intValue() == 32767) {          //订阅到读码信号
                 handleBarcode(barCodeAddress, barcode);
-
-            } catch (OpcUaClientException e) {
-                log.error("Labeling machine about | opcua error when read or write value {}", e);
-            } catch (IOException e) {
-                e.printStackTrace();
+            }else {                                                    //订阅到重复工位分配的工位结果
+                receiveRepeatStationResult(dataValueNew.getValue().intValue(),barcode);
+                opcUaClientTemplate.writeNodeValue(nodeId, -3);      //处理完结果之后写-3告诉PLC读取完毕
             }
+
+        } catch (OpcUaClientException e) {
+            log.error("Labeling machine about | opcua error when read or write value {}", e);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
+
     }
 
     /**
@@ -111,17 +110,25 @@ public class ScanSignalListener implements MonitoredDataItemListener {
 //            if (mesSubmitService.submitScanningRegistration(dto).get("resultValue").toString().contains("-1")) {  //MES 接口返回-1则该产品存在缺陷
 //                isFault = Boolean.TRUE;
 //            }
+            OrderInfo orderInfo = orderInfoRepository.findOneByOrderID(sn.getOrderID()).get(); //redis中不存在则从数据库中取工艺流程并存redis
             if (redisService.hasKey(sn.getOrderID())) {                                           //redis中是否存在该订单的工艺流程
                 if (redisService.readList(sn.getOrderID()).contains(stationId)) {                 //存在则从redis中取该订单的工艺流程
                     havingStation = Boolean.TRUE;
                 }
             } else {
-                OrderInfo orderInfo = orderInfoRepository.findOneByOrderID(sn.getOrderID()).get(); //redis中不存在则从数据库中取工艺流程并存redis
                 List<Steps> stepsList = stepsRepository.findByOrderInfo(orderInfo);
                 if (saveRedisStepsByOrder(sn.getOrderID(), stepsList).contains(stationId)) {
                     havingStation = Boolean.TRUE;
                 }
             }
+
+            if(barcodeAddress.equals(ConstantValue.REPEAT_STATION_NINE_LIST.get(0))){             //在第一个重复工位的地方写工艺路径
+                Optional <RepeatProcess> repeatProcess = repeatProcessRepository.findByOrderInfo(orderInfo);
+                if(repeatProcess.isPresent()){
+                    writeStringToInt("StaGrp.ProType1",repeatProcess.get().getProcessNum());      //写的地址视现场情况而定8个地址最好尾数以数字结束或者直接写字符串降低写的次数
+                }
+            }
+
             /**
              * 暂时将工位重复判定功能交PLC处理
              */
@@ -137,11 +144,11 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         try {
 //            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "Signal")), 0);
             opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress), 0);
-            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "Result")), (writeToPlc)?1:2);
+            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "Result")), (writeToPlc)?-1:-2);//写何值停、放行视现场情况定
         } catch (OpcUaClientException e) {
             log.error("opc ua exception when write brineCheck model" + e.getMessage());
         }
-        if (writeToPlc) bindingService.saveProcessControlInfo(snOptional,stationId);
+        if (writeToPlc && (!ConstantValue.REPEAT_STATION_NINE_LIST.contains(stationId))) bindingService.saveProcessControlInfo(snOptional,stationId);//重复工位的入站记录由PLC给
     }
 
     /**
@@ -161,30 +168,55 @@ public class ScanSignalListener implements MonitoredDataItemListener {
     }
 
     /**
+     * PLC 分配完产品进入的工位之后会告诉中控系统，但此时的具体进站时间是不准的
+     * @param resultValue
+     * @param barCode
+     */
+    private void receiveRepeatStationResult(Integer resultValue,String barCode){
+        Optional<Sn> snOptional = snRepository.findFirstByHutIDAndIsBindingTrueOrderByIdDesc(barCode);
+        if (snOptional.isPresent()){
+            Sn sn = snOptional.get();
+            String stationId = "q13zp09-zp0" + String.valueOf(resultValue+1);  //视线体具体工位的规律拼接stationId
+            ProcessControl processControl = new ProcessControl()
+                .serialNumber(sn.getSerialNumber())
+                .hutID(sn.getHutID())
+                .orderID(sn.getOrderID())
+                .stationID(stationId)
+                .result("repeat station")
+                .mountGuardTime(ZonedDateTime.now());
+            processControlRepository.save(processControl);
+        }
+    }
+
+    /**
      *判断当前工位是否是重复工位，是否需要进去
      * @param stationId
      * @return
      */
     private Boolean isProcessRepeatStation(String stationId,String serialNumber){
-        if (ConstantValue.REPEAT_STATION_LIST.contains(stationId)){
+        if (ConstantValue.REPEAT_STATION_NINE_LIST.contains(stationId)){
             if (processControlRepository.findOneBySerialNumberAndStationID(serialNumber,stationId).isPresent()){
                 return Boolean.TRUE;
             }
         }
         return Boolean.FALSE;
     }
-//    private void updateCartonQuantity(String key, int flag) {
-//        List<PackingBoxDTO> packingBoxDTOList = (List<PackingBoxDTO>) redisService.readList(key);
-//        PackingBoxDTO packingBoxDTO = packingBoxDTOList.get(flag - 1);
-//        packingBoxDTO.setStockBalance((packingBoxDTO.getStockBalance() - 1));
-//        packingBoxDTOList.set(flag - 1, packingBoxDTO);
-//        redisService.saveList(key, packingBoxDTOList);
-//        // 推送一体机
-//        messagePushService.pushCartonQuantity(packingBoxDTOList);
-//    }
 
-//    public static void main(String[] args) {
-//        String line ="CartonSpace_A1";
-//        System.out.println(Integer.parseInt(line.substring(line.length()-1)));
-//}
+    /**
+     * 将String类型的值分解成Int写到对应OPCUA地址
+     * @param StartAddress
+     * @param StrValue
+     */
+    private void writeStringToInt(String StartAddress,String StrValue){
+        if(StrValue.length()==8){
+            for(int i=0;i<StrValue.length();i++){
+                try {
+                    opcUaClientTemplate.writeNodeValue(new NodeId(6, StartAddress.replace(StartAddress.charAt(StartAddress.length()-1)+"",String.valueOf(i+1))), Integer.valueOf(StrValue.charAt(i)));
+                } catch (OpcUaClientException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+    }
 }

@@ -1,0 +1,24 @@
+{
+    "holleyImsApp": {
+        "repeatProcess" : {
+            "home": {
+                "title": "Repeat Processes",
+                "createLabel": "Create a new Repeat Process",
+                "createOrEditLabel": "Create or edit a Repeat Process"
+            },
+            "created": "A new Repeat Process is created with identifier {{ param }}",
+            "updated": "A Repeat Process is updated with identifier {{ param }}",
+            "deleted": "A Repeat Process is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Repeat Process {{ id }}?"
+            },
+            "detail": {
+                "title": "Repeat Process"
+            },
+            "processNum": "Process Num",
+            "processName": "Process Name",
+            "descriple": "Descriple",
+            "orderInfo": "Order Info"
+        }
+    }
+}

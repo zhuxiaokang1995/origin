@@ -1,0 +1,50 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myRepeatProcessLabel" data-translate="holleyImsApp.repeatProcess.home.createOrEditLabel">Create or edit a Repeat Process</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.repeatProcess.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.repeatProcess.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.repeatProcess.processNum" for="field_processNum">Process Num</label>
+            <input type="text" class="form-control" name="processNum" id="field_processNum"
+                    ng-model="vm.repeatProcess.processNum"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.repeatProcess.processName" for="field_processName">Process Name</label>
+            <input type="text" class="form-control" name="processName" id="field_processName"
+                    ng-model="vm.repeatProcess.processName"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="holleyImsApp.repeatProcess.descriple" for="field_descriple">Descriple</label>
+            <input type="text" class="form-control" name="descriple" id="field_descriple"
+                    ng-model="vm.repeatProcess.descriple"
+                    />
+        </div>
+
+        <div class="form-group">
+            <label data-translate="holleyImsApp.repeatProcess.orderInfo" for="field_orderInfo">Order Info</label>
+            <select class="form-control" id="field_orderInfo" name="orderInfo" ng-model="vm.repeatProcess.orderInfo" ng-options="orderInfo as orderInfo.id for orderInfo in vm.orderinfos track by orderInfo.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

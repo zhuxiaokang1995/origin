@@ -3,6 +3,7 @@ package com.mj.holley.ims.service;
 import com.mj.holley.ims.domain.OrderInfo;
 import com.mj.holley.ims.repository.OrderInfoRepository;
 import com.mj.holley.ims.repository.ProcessesRepository;
+import com.mj.holley.ims.repository.RepeatProcessRepository;
 import com.mj.holley.ims.repository.StepsRepository;
 import com.mj.holley.ims.service.dto.BindingDto;
 import com.mj.holley.ims.service.dto.MesOrderInfoDto;
@@ -51,6 +52,9 @@ public class CommonServiceImp implements CommonService {
     @Inject
     private StepsRepository stepsRepository;
 
+    @Inject
+    private RepeatProcessRepository repeatProcessRepository;
+
     @Override
     public String receiveMesOrders(String mes){
         //soap webservice接收的String类型解析成对应的json对象
@@ -61,6 +65,7 @@ public class CommonServiceImp implements CommonService {
                 orderInfoList.forEach(order ->{
                     processesRepository.deleteByOrderInfo(order);   //删除之前存在的订单、及订单对应的数据
                     stepsRepository.deleteByOrderInfo(order);       //删除之前存在的订单、及订单对应的数据
+                    repeatProcessRepository.deleteByOrderInfo(order);
                     orderInfoRepository.delete(order);              //删除之前存在的订单、及订单对应的数据
                     }
                     );
