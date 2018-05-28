@@ -76,7 +76,8 @@ public class ScanSignalListener implements MonitoredDataItemListener {
                 handleBarcode(barCodeAddress, barcode);
             }else {                                                    //订阅到重复工位分配的工位结果
                 receiveRepeatStationResult(dataValueNew.getValue().intValue(),barcode);
-                opcUaClientTemplate.writeNodeValue(nodeId, -3);      //处理完结果之后写-3告诉PLC读取完毕
+                String rAddress = var.replace("Signal", "Result");
+                opcUaClientTemplate.writeNodeValue(new NodeId(6, rAddress), -3);      //处理完结果之后写-3告诉PLC读取完毕
             }
 
         } catch (OpcUaClientException e) {
@@ -106,10 +107,10 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         if (snOptional.isPresent()) {
             Sn sn = snOptional.get();
             ScanningResgistrationDTO dto = new ScanningResgistrationDTO(Integer.parseInt(redisService.readAndInc(RedisKey.PROCESS_PK).toString()),
-                barCode, stationId, "1", "", "OK", "");
-//            if (mesSubmitService.submitScanningRegistration(dto).get("resultValue").toString().contains("-1")) {  //MES 接口返回-1则该产品存在缺陷
-//                isFault = Boolean.TRUE;
-//            }
+                sn.getSerialNumber(), stationId, "1", "", "OK", "");
+            if (mesSubmitService.submitScanningRegistration(dto).get("resultValue").toString().contains("-1")) {  //MES 接口返回-1则该产品存在缺陷
+                isFault = Boolean.TRUE;
+            }
             OrderInfo orderInfo = orderInfoRepository.findOneByOrderID(sn.getOrderID()).get(); //redis中不存在则从数据库中取工艺流程并存redis
             if (redisService.hasKey(sn.getOrderID())) {                                           //redis中是否存在该订单的工艺流程
                 if (redisService.readList(sn.getOrderID()).contains(stationId)) {                 //存在则从redis中取该订单的工艺流程
@@ -122,10 +123,10 @@ public class ScanSignalListener implements MonitoredDataItemListener {
                 }
             }
 
-            if(barcodeAddress.equals(ConstantValue.REPEAT_STATION_NINE_LIST.get(0))){             //在第一个重复工位的地方写工艺路径
+            if(barcodeAddress.equals("q13zp01-zp01")){             //在第一个重复工位的地方写工艺路径
                 Optional <RepeatProcess> repeatProcess = repeatProcessRepository.findByOrderInfo(orderInfo);
                 if(repeatProcess.isPresent()){
-                    writeStringToInt("StaGrp.ProType1",repeatProcess.get().getProcessNum());      //写的地址视现场情况而定8个地址最好尾数以数字结束或者直接写字符串降低写的次数
+                    writeStringToInt("S71500ET200MP station_1.PLC_1.opc.StaGrp.ProType1",repeatProcess.get().getProcessNum());      //写的地址视现场情况而定8个地址最好尾数以数字结束或者直接写字符串降低写的次数
                 }
             }
 
@@ -143,8 +144,8 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         }
         try {
 //            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "Signal")), 0);
-            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress), 0);
-            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "Result")), (writeToPlc)?-1:-2);//写何值停、放行视现场情况定
+//            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress), 0);
+            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "Result")), (writeToPlc)?-2:-1);//写何值停、放行视现场情况定
         } catch (OpcUaClientException e) {
             log.error("opc ua exception when write brineCheck model" + e.getMessage());
         }
@@ -176,7 +177,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         Optional<Sn> snOptional = snRepository.findFirstByHutIDAndIsBindingTrueOrderByIdDesc(barCode);
         if (snOptional.isPresent()){
             Sn sn = snOptional.get();
-            String stationId = "q13zp09-zp0" + String.valueOf(resultValue+1);  //视线体具体工位的规律拼接stationId
+            String stationId = "q13zp01-zp0" + String.valueOf(resultValue+1);  //视线体具体工位的规律拼接stationId
             ProcessControl processControl = new ProcessControl()
                 .serialNumber(sn.getSerialNumber())
                 .hutID(sn.getHutID())
@@ -208,10 +209,11 @@ public class ScanSignalListener implements MonitoredDataItemListener {
      * @param StrValue
      */
     private void writeStringToInt(String StartAddress,String StrValue){
+        String subAddress = StartAddress.substring(0,StartAddress.length()-1);
         if(StrValue.length()==8){
             for(int i=0;i<StrValue.length();i++){
                 try {
-                    opcUaClientTemplate.writeNodeValue(new NodeId(6, StartAddress.replace(StartAddress.charAt(StartAddress.length()-1)+"",String.valueOf(i+1))), Integer.valueOf(StrValue.charAt(i)));
+                    opcUaClientTemplate.writeNodeValue(new NodeId(6, subAddress +(i+1)), Integer.valueOf(String.valueOf(StrValue.charAt(i))));
                 } catch (OpcUaClientException e) {
                     e.printStackTrace();
                 }
