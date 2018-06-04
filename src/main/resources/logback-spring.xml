@@ -56,6 +56,10 @@
     <logger name="LiquibaseSchemaResolver" level="INFO"/>
     <logger name="sun.rmi.transport" level="WARN"/>
 
+    <logger name="org.opcfoundation.ua" level="INFO"/>
+    <logger name="com.prosysopc.ua" level="INFO"/>
+    <logger name="com.prosysopc.ua.client.UaClient" level="ERROR"/>
+
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>
     </contextListener>

@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="holleyImsApp.abnormalInformation.detail.title">Abnormal Information</span> {{vm.abnormalInformation.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="holleyImsApp.abnormalInformation.lineStationId">Line Station Id</span></dt>
+        <dd>
+            <span>{{vm.abnormalInformation.lineStationId}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.abnormalInformation.abnormalCause">Abnormal Cause</span></dt>
+        <dd>
+            <span>{{vm.abnormalInformation.abnormalCause}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.abnormalInformation.abnormalTime">Abnormal Time</span></dt>
+        <dd>
+            <span>{{vm.abnormalInformation.abnormalTime | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="holleyImsApp.abnormalInformation.remark">Remark</span></dt>
+        <dd>
+            <span>{{vm.abnormalInformation.remark}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="abnormal-information-detail.edit({id:vm.abnormalInformation.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
