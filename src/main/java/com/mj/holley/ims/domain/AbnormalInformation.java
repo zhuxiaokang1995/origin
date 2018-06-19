@@ -34,12 +34,6 @@ public class AbnormalInformation implements Serializable {
     @Column(name = "remark")
     private String remark;
 
-    public AbnormalInformation() {
-    }
-
-    public AbnormalInformation(String stationId, String s, ZonedDateTime now, String s1) {
-    }
-
     public Long getId() {
         return id;
     }

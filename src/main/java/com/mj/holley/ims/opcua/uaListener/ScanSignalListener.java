@@ -100,7 +100,6 @@ public class ScanSignalListener implements MonitoredDataItemListener {
      */
     private void handleBarcode(String barcodeAddress, String barCode) throws IOException {
         // TODO: 2018/3/26 根据条码规则对条码校验符合规则进行处理
-        String lineStationId = barcodeAddress.substring(barcodeAddress.indexOf("opc."), barcodeAddress.indexOf("-Code")).toLowerCase();//截取线体工位
         String stationId = barcodeAddress.substring(barcodeAddress.indexOf("opc.") + 4, barcodeAddress.indexOf("-Code")).toLowerCase();//****.工位.code 截取工位
         boolean isFault = Boolean.FALSE;             //是否存在缺陷
         boolean havingStation = Boolean.FALSE;       //是否有工艺流程
@@ -140,7 +139,12 @@ public class ScanSignalListener implements MonitoredDataItemListener {
 //                havingStation = havingStation && (!isProcessRepeatStation(sn.getSerialNumber(),stationId));
 //            }
         }else {
-            abnormalInformationRepository.save(new AbnormalInformation(lineStationId,"条码未绑定",ZonedDateTime.now(),""));
+            AbnormalInformation abnormalInformation = new AbnormalInformation()
+                .lineStationId(stationId)
+                .abnormalCause("条码未绑定")
+                .abnormalTime(ZonedDateTime.now())
+                .remark("");
+            abnormalInformationRepository.save(abnormalInformation);
         }
         if (isFault) {
             writeToPlc = isFault && ConstantValue.REPAIRED_STATION_LIST.contains(stationId);
