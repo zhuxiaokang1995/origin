@@ -16,10 +16,10 @@ public class MesReturnDto {
     @Override
     public String toString() {
         return "{" +
-            "Success:" + Success +
-            ", Message:'" + Message + '\'' +
-            ", Result:'" + Result + '\'' +
-            '}';
+            "\"Success\""+":" + Success +
+            "," +"\"Message\""+":" +"\"" + Message +"\"" +
+            ","+"\"Result\""+":" +"\"" + Result + "\"" +
+            "}";
     }
 
     public MesReturnDto(Boolean success, String message, String result) {
