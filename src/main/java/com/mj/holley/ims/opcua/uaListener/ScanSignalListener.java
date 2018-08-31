@@ -110,25 +110,28 @@ public class ScanSignalListener implements MonitoredDataItemListener {
             Sn sn = snOptional.get();
             ScanningResgistrationDTO dto = new ScanningResgistrationDTO(Integer.parseInt(redisService.readAndInc(RedisKey.PROCESS_PK).toString()),
                 sn.getSerialNumber(), stationId, "1", "", "OK", "");
-            if (mesSubmitService.submitScanningRegistration(dto).get("resultValue").toString().contains("-1")) {  //MES 接口返回-1则该产品存在缺陷
+            if (mesSubmitService.submitScanningRegistration(dto).get("resultValue").toString().contains("false")) {  //MES 接口返回-1则该产品存在缺陷
                 isFault = Boolean.TRUE;
             }
-            OrderInfo orderInfo = orderInfoRepository.findOneByOrderID(sn.getOrderID()).get(); //redis中不存在则从数据库中取工艺流程并存redis
-            if (redisService.hasKey(sn.getOrderID())) {                                           //redis中是否存在该订单的工艺流程
-                if (redisService.readList(sn.getOrderID()).contains(stationId)) {                 //存在则从redis中取该订单的工艺流程
-                    havingStation = Boolean.TRUE;
+            Optional<OrderInfo> orderInfoOptional = orderInfoRepository.findOneByOrderID(sn.getOrderID());
+            if (orderInfoOptional.isPresent()){
+                OrderInfo orderInfo = orderInfoOptional.get();                              //redis中不存在则从数据库中取工艺流程并存redis
+                if (redisService.hasKey(sn.getOrderID())) {                               //redis中是否存在该订单的工艺流程
+                    if (redisService.readList(sn.getOrderID()).contains(stationId)) {     //存在则从redis中取该订单的工艺流程
+                        havingStation = Boolean.TRUE;
+                    }
+                } else {
+                    List<Steps> stepsList = stepsRepository.findByOrderInfo(orderInfo);
+                    if (saveRedisStepsByOrder(sn.getOrderID(), stepsList).contains(stationId)) {
+                        havingStation = Boolean.TRUE;
+                    }
                 }
-            } else {
-                List<Steps> stepsList = stepsRepository.findByOrderInfo(orderInfo);
-                if (saveRedisStepsByOrder(sn.getOrderID(), stepsList).contains(stationId)) {
-                    havingStation = Boolean.TRUE;
-                }
-            }
 
-            if(barcodeAddress.equals("q13zp01-zp01")){             //在第一个重复工位的地方写工艺路径
-                Optional <RepeatProcess> repeatProcess = repeatProcessRepository.findByOrderInfo(orderInfo);
-                if(repeatProcess.isPresent()){
-                    writeStringToInt("S71500ET200MP station_1.PLC_1.opc.StaGrp.ProType1",repeatProcess.get().getProcessNum());      //写的地址视现场情况而定8个地址最好尾数以数字结束或者直接写字符串降低写的次数
+                if(stationId.equals("q13zp01-zp01")){             //在第一个重复工位的地方写工艺路径
+                    Optional <RepeatProcess> repeatProcess = repeatProcessRepository.findByOrderInfo(orderInfo);
+                    if(repeatProcess.isPresent()){
+                        writeStringToInt("S71500ET200MP station_1.PLC_1.opc.StaGrp.ProType1",repeatProcess.get().getProcessNum());      //写的地址视现场情况而定8个地址最好尾数以数字结束或者直接写字符串降低写的次数
+                    }
                 }
             }
 
