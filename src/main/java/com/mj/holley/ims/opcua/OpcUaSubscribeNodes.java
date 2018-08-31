@@ -20,6 +20,7 @@ public class OpcUaSubscribeNodes {
 //    private List<String> warningSubscribeNodes;
 //    private List<String> printerExceptionSubscribeNodes;
     private List<String> scanSignalSubscribeNodes;
+    private List<String> scanSignalSubscribeNodes9;
     private List<String> transportSignalSubscribeNodes;
 
     private List<String> getRealSubscribeNodesList(List<String> opcUaPropertiesList) {
@@ -52,6 +53,7 @@ public class OpcUaSubscribeNodes {
 //        this.printerSubscribeNodes = opcUaProperties.getPrinterSubscribeNodes();
 //        this.branchSelectSubscribeNodes = opcUaProperties.getBranchSelectSubscribeNodes();
         this.scanSignalSubscribeNodes = getRealSubscribeNodesList(opcUaProperties.getScanSignalSubscribeNodes());
+        this.scanSignalSubscribeNodes9 = getRealSubscribeNodesList(opcUaProperties.getScanSignalSubscribeNodes9());
         this.transportSignalSubscribeNodes = getRealSubscribeNodesList(opcUaProperties.getTransportSignalSubscribeNodes());
 //        this.fridgeListSubscribeNodes = opcUaProperties.getFridgeListSubscribeNodes();
 //        this.cartonBarcodeSubscribeNodes = opcUaProperties.getCartonBarcodeSubscribeNodes();
