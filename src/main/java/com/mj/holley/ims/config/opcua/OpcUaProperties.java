@@ -35,7 +35,7 @@ public class OpcUaProperties {
 //    private List<String> warningSubscribeNodes;
     private List<String> SubscribeNodesSubscribeNodes;
     private List<String> scanSignalSubscribeNodes;
-    private List<String> scanSignalSubscribeNodes9;
+//    private List<String> scanSignalSubscribeNodes9;
     private List<String> transportSignalSubscribeNodes;
 
     public static class Retry {

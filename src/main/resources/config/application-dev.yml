@@ -185,24 +185,24 @@ opcua:
 #
 #   监听仓位纸箱数量
     scanSignalSubscribeNodes:
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP01-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP02-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP03-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP04-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP05-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP06-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP07-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP08-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP09-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP10-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP11-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP12-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP13-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP14-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP15-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP16-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP17-Signal
-         - S71500ET200MP station_1.PLC_1.opc.Q13ZP01-ZP18-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP01-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP02-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP03-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP04-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP05-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP06-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP07-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP08-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP09-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP10-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP11-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP12-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP13-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP14-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP15-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP16-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP17-Signal
+         - S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-ZP18-Signal
 #    transportSignalSubscribeNodes:
 #    - NodeBase# S71500ET200MP station_1.PLC_1.opc
 #            - SubsribeNode# 02.hanxian1.Signal,

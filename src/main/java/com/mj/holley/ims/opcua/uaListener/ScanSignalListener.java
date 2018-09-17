@@ -100,7 +100,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
      */
     private void handleBarcode(String barcodeAddress, String barCode) throws IOException {
         // TODO: 2018/3/26 根据条码规则对条码校验符合规则进行处理
-        String stationId = barcodeAddress.substring(barcodeAddress.indexOf("opc.") + 4, barcodeAddress.indexOf("-Code")).toLowerCase();//****.工位.code 截取工位
+        String stationId = barcodeAddress.substring(barcodeAddress.indexOf("OPC.") + 4, barcodeAddress.indexOf("-Code")).toLowerCase();//****.工位.code 截取工位
         boolean isFault = Boolean.FALSE;             //是否存在缺陷
         boolean havingStation = Boolean.FALSE;       //是否有工艺流程
         boolean writeToPlc;
@@ -130,7 +130,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
                 if(stationId.equals("q13zp01-zp01")){             //在第一个重复工位的地方写工艺路径
                     Optional <RepeatProcess> repeatProcess = repeatProcessRepository.findByOrderInfo(orderInfo);
                     if(repeatProcess.isPresent()){
-                        writeStringToInt("S71500ET200MP station_1.PLC_1.opc.StaGrp.ProType1",repeatProcess.get().getProcessNum());      //写的地址视现场情况而定8个地址最好尾数以数字结束或者直接写字符串降低写的次数
+                        writeStringToInt("S71500ET200MP station_1.AALinesMJ01.OPC.Q13ZP01-StaGrp.ProType1",repeatProcess.get().getProcessNum());      //写的地址视现场情况而定8个地址最好尾数以数字结束或者直接写字符串降低写的次数
                     }
                 }
             }
