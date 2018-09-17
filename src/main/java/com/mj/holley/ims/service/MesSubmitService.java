@@ -260,8 +260,9 @@ public class MesSubmitService {
 //            String ccc = bbb.substring(bbb.indexOf("resultHeader")+21, bbb.lastIndexOf("</ScadaStoplineResult>"));
             System.out.println(bbb);
             resultMap.put("resultValue",bbb);
+        }else {
+            resultMap.put("resultValue","Error");
         }
-        resultMap.put("resultValue","Error");
         return resultMap;
 
     }
@@ -315,9 +316,9 @@ public class MesSubmitService {
             "</soap:Envelope>";
         HashMap result = requestSoapService(param, "application/soap+xml");
         if (!result.get("resultCode").equals(200)){
-            log.error("MesLineStopDto[{}]{}提交失败，错误信息：{}", scanningResgistrationDTO);
+            log.error("ScanningResgistrationDTO[{}]{}提交失败，错误信息：{}", scanningResgistrationDTO);
         }else{
-            log.info("MesLineStopDto[{}]{}提交成功", scanningResgistrationDTO);}
+            log.info("ScanningResgistrationDTO[{}]{}提交成功", scanningResgistrationDTO);}
         return result;
     }
 
