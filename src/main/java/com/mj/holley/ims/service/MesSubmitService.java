@@ -222,7 +222,7 @@ public class MesSubmitService {
 
     public HashMap<Object,Object> requestSoapService(String body, String contentType) throws IOException {
         HashMap<Object,Object> resultMap = new HashMap<Object,Object>();
-        String urlPath = new String("http://172.16.6.155/ScadaService/ScadaService.asmx");
+        String urlPath = new String("http://172.30.40.100/ScadaService/ScadaService.asmx");
         //String urlPath = new String("http://localhost:8080/Test1/HelloWorld?name=丁丁".getBytes("UTF-8"));
         String param = body;
         //建立连接

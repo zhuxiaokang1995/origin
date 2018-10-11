@@ -67,7 +67,8 @@ public class CommonServiceImp implements CommonService {
                     stepsRepository.deleteByOrderInfo(order);       //删除之前存在的订单、及订单对应的数据
                     repeatProcessRepository.deleteByOrderInfo(order);
                     orderInfoRepository.delete(order);              //删除之前存在的订单、及订单对应的数据
-                    }
+                    redisService.deleteObject(order.getOrderID());
+                }
                     );
             }
             return mesSubmitService.saveMesOrder(mesOrderInfoDto).toString();
