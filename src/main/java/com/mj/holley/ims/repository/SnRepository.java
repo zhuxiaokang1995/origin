@@ -34,4 +34,6 @@ public interface SnRepository extends JpaRepository<Sn,Long> {
     //根据序列号、工装板号查找
     List<Sn> findByHutIDAndSerialNumberAndIsBindingTrue(String hutID , String serialNumber);
     Optional<Sn> findFirstByHutIDAndIsBindingTrueOrderByIdDesc(String hutID);
+
+    Sn findByHutIDAndIsBindingTrue(String hutID);
 }

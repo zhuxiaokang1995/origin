@@ -445,6 +445,11 @@
             <version>1.02.337</version>
         </dependency>
         <dependency>
+            <groupId>com.mj</groupId>
+            <artifactId>zsdk-stack</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.prosysopc</groupId>
             <artifactId>ua-sdk</artifactId>
             <version>2.2.0</version>

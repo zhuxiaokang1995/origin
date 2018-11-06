@@ -76,25 +76,34 @@ public class BindingService {
      * @param bindingDto
      * @return
      */
-    public MesReturnDto bingdingSn(BindingDto bindingDto){
+    public MesReturnDto bingdingSn(BindingDto bindingDto) {
         MesReturnDto result = null;
-        List<Sn> snList = snRepository.findByHutIDAndSerialNumberAndIsBindingTrue(bindingDto.getHutID() ,bindingDto.getSerialNumber());
+        List<Sn> snList = snRepository.findByHutIDAndSerialNumberAndIsBindingTrue(bindingDto.getHutID(), bindingDto.getSerialNumber());
         Optional<Sn> snOptional = snRepository.findOneBySerialNumber(bindingDto.getSerialNumber());
+
+
+
         //等于1 绑定
-        if(bindingDto.getOpeType() == 1){
-            if (snOptional.isPresent()){
-                snRepository.updateSn(Boolean.TRUE ,null , bindingDto.getHutID() ,bindingDto.getOrderID() ,ZonedDateTime.now() ,bindingDto.getSerialNumber());
-            }else {
-                Sn sn = new Sn();
-                sn.setSerialNumber(bindingDto.getSerialNumber());
-                sn.setHutID(bindingDto.getHutID());
-                sn.setOrderID(bindingDto.getOrderID());
-                sn.isBinding(Boolean.TRUE);
-                sn.setBindingTime(ZonedDateTime.now());
-                sn.setUnbundlingTime(null);
-                snRepository.save(sn);
+        if (bindingDto.getOpeType() == 1) {
+            //判断hutId是否已经有绑定
+            Sn sn1 = snRepository.findByHutIDAndIsBindingTrue(bindingDto.getHutID());
+            if (sn1 == null) {
+                if (snOptional.isPresent()) {
+                    snRepository.updateSn(Boolean.TRUE, null, bindingDto.getHutID(), bindingDto.getOrderID(), ZonedDateTime.now(), bindingDto.getSerialNumber());
+                } else {
+                    Sn sn = new Sn();
+                    sn.setSerialNumber(bindingDto.getSerialNumber());
+                    sn.setHutID(bindingDto.getHutID());
+                    sn.setOrderID(bindingDto.getOrderID());
+                    sn.isBinding(Boolean.TRUE);
+                    sn.setBindingTime(ZonedDateTime.now());
+                    sn.setUnbundlingTime(null);
+                    snRepository.save(sn);
+                }
+                result = new MesReturnDto(Boolean.TRUE, "Success", "绑定成功");
+            } else {
+                return new MesReturnDto(Boolean.TRUE,"fail","绑定失败,hutID已经绑定"+bindingDto.getHutID());
             }
-            result =  new MesReturnDto(Boolean.TRUE,"Success","绑定成功");
         }
         //等于2 解绑
         if(bindingDto.getOpeType() == 2){
