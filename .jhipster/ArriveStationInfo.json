@@ -1,0 +1,50 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "serialNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "zp02",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "zp03",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "zp04",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "zp05",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "zp06",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "zp07",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "zp08",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "zp09",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20181109075603",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "serviceClass",
+    "entityTableName": "arrive_station_info",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

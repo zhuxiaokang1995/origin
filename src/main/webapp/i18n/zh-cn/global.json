@@ -15,6 +15,7 @@
                 "processControl": "Process Control",
                 "repeatProcess": "Repeat Process",
                 "abnormalInformation": "Abnormal Information",
+                "arriveStationInfo": "Arrive Station Info",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

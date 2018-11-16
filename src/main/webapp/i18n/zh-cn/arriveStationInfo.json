@@ -1,0 +1,30 @@
+
+{
+    "holleyImsApp": {
+        "arriveStationInfo" : {
+            "home": {
+                "title": "Arrive Station Infos",
+                "createLabel": "创建新 Arrive Station Info",
+                "createOrEditLabel": "创建或编辑 Arrive Station Info"
+            },
+            "created": "Arrive Station Info {{ param }} 创建成功",
+            "updated": "Arrive Station Info {{ param }} 更新成功",
+            "deleted": "Arrive Station Info {{ param }} 删除成功",
+            "delete": {
+                "question": "你确定要删除 Arrive Station Info {{ id }} 吗？"
+            },
+            "detail": {
+                "title": "Arrive Station Info"
+            },
+            "serialNumber": "Serial Number",
+            "zp02": "Zp 02",
+            "zp03": "Zp 03",
+            "zp04": "Zp 04",
+            "zp05": "Zp 05",
+            "zp06": "Zp 06",
+            "zp07": "Zp 07",
+            "zp08": "Zp 08",
+            "zp09": "Zp 09"
+        }
+    }
+}

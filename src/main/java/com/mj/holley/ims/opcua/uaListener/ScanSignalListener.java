@@ -1,6 +1,7 @@
 package com.mj.holley.ims.opcua.uaListener;
 
 import com.mj.holley.ims.domain.*;
+import com.mj.holley.ims.domain.util.GetgetMethodUtil;
 import com.mj.holley.ims.opcua.OpcUaClientException;
 import com.mj.holley.ims.opcua.OpcUaClientTemplate;
 import com.mj.holley.ims.repository.*;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -63,6 +65,9 @@ public class ScanSignalListener implements MonitoredDataItemListener {
     @Inject
     private AbnormalInformationRepository abnormalInformationRepository;
 
+    @Inject
+    private ArriveStationInfoRepository arriveStationInfoRepository;
+
     @Override
     public void onDataChange(MonitoredDataItem monitoredDataItem, DataValue dataValuePre, DataValue dataValueNew) {
 
@@ -103,7 +108,9 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         String stationId = barcodeAddress.substring(barcodeAddress.indexOf("OPC.") + 4, barcodeAddress.indexOf("-Code")).toLowerCase();//****.工位.code 截取工位
         boolean isFault = Boolean.FALSE;             //是否存在缺陷
         boolean havingStation = Boolean.FALSE;       //是否有工艺流程
+        boolean isFinished=Boolean.FALSE;            //是否在相同工艺的工站做过
         boolean writeToPlc;
+
 
         Optional<Sn> snOptional = snRepository.findFirstByHutIDAndIsBindingTrueOrderByIdDesc(barCode);
         if (snOptional.isPresent()) {
@@ -135,6 +142,100 @@ public class ScanSignalListener implements MonitoredDataItemListener {
                 }
             }
 
+            //判断该产品在相同工艺的工站有没有做过
+            ArriveStationInfo arriveStationInfo=arriveStationInfoRepository.findBySerialNumber(sn.getSerialNumber());
+            //查找工艺路径
+            RepeatProcess repeatProcess=repeatProcessRepository.findByOrderInfo(orderInfoOptional.get()).get();
+            String processNum=repeatProcess.getProcessNum();
+            String str2=processNum.substring(0,1);
+            String str3=processNum.substring(1,2);
+            String str4=processNum.substring(2,3);
+            String str5=processNum.substring(3,4);
+            String str6=processNum.substring(4,5);
+            String str7=processNum.substring(5,6);
+            String str8=processNum.substring(6,7);
+            String str9=processNum.substring(7,8);
+
+            List<String> strList=new ArrayList<>();
+            strList.add(str2);
+            strList.add(str3);
+            strList.add(str4);
+            strList.add(str5);
+            strList.add(str6);
+            strList.add(str7);
+            strList.add(str8);
+            strList.add(str9);
+
+            List<String> stationList=new ArrayList<>();
+            stationList.add("q13zp01-zp02");
+            stationList.add("q13zp01-zp03");
+            stationList.add("q13zp01-zp04");
+            stationList.add("q13zp01-zp05");
+            stationList.add("q13zp01-zp06");
+            stationList.add("q13zp01-zp07");
+            stationList.add("q13zp01-zp08");
+            stationList.add("q13zp01-zp09");
+
+            //按照工艺路径将工站进行分组
+            String init=null;
+            List<String> newStr=new ArrayList<>();
+            List<List<String>> listStrList=new ArrayList<>();
+            for (int i = 0; i <strList.size() ; i++) {
+                if (i==0){
+                    newStr.add(stationList.get(i));
+                }else{
+                    if (strList.get(i).equals(strList.get(i-1))){
+                        newStr.add(stationList.get(i));
+                        if (i==strList.size()-1){
+                            listStrList.add(newStr);
+                        }
+                    }else {
+                        listStrList.add(newStr);
+                        newStr=new ArrayList<>();
+                        newStr.add(stationList.get(i));
+                        if (i==strList.size()-1){
+                            listStrList.add(newStr);
+                        }
+                    }
+                }
+            }
+            //匹配当前的stationId属于工艺路径的哪个组
+            for (List<String> strLists:listStrList){
+                for (String str:strLists){
+                    if (stationId.equals(str)){
+                        for (String s:strLists){
+                            try {
+                                Integer value=(Integer) GetgetMethodUtil.getGetMethod(arriveStationInfo,s.substring(8));
+                                if (value==1){
+                                    //则是做过了
+                                   isFinished=true;
+                                }
+                            }catch (Exception e){
+                                log.info(e.getMessage());
+                            }
+                        }
+                        //判断是否是截止站
+                        if (str.equals(strLists.get(strLists.size()-1))){
+                            //写是截止站
+                            try{
+                                opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "LastStation")),1);
+                            }catch (OpcUaClientException o){
+                                log.info(o.getMessage());
+                            }
+                        }else{
+                            //写不是截止站
+                            try{
+                                opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "LastStation")),-1);
+                            }catch (OpcUaClientException o){
+                                log.info(o.getMessage());
+                            }
+                        }
+
+                    }
+                }
+            }
+
+
             /**
              * 暂时将工位重复判定功能交PLC处理
              */
@@ -152,7 +253,7 @@ public class ScanSignalListener implements MonitoredDataItemListener {
         if (isFault) {
             writeToPlc = isFault && ConstantValue.REPAIRED_STATION_LIST.contains(stationId);
         } else {
-            writeToPlc = havingStation;
+            writeToPlc = havingStation&&!isFinished;
         }
         try {
 //            opcUaClientTemplate.writeNodeValue(new NodeId(6, barcodeAddress.replace("Code", "Signal")), 0);

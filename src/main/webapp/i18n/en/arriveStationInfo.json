@@ -1,0 +1,30 @@
+
+{
+    "holleyImsApp": {
+        "arriveStationInfo" : {
+            "home": {
+                "title": "Arrive Station Infos",
+                "createLabel": "Create a new Arrive Station Info",
+                "createOrEditLabel": "Create or edit a Arrive Station Info"
+            },
+            "created": "A new Arrive Station Info is created with identifier {{ param }}",
+            "updated": "A Arrive Station Info is updated with identifier {{ param }}",
+            "deleted": "A Arrive Station Info is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Arrive Station Info {{ id }}?"
+            },
+            "detail": {
+                "title": "Arrive Station Info"
+            },
+            "serialNumber": "Serial Number",
+            "zp02": "Zp 02",
+            "zp03": "Zp 03",
+            "zp04": "Zp 04",
+            "zp05": "Zp 05",
+            "zp06": "Zp 06",
+            "zp07": "Zp 07",
+            "zp08": "Zp 08",
+            "zp09": "Zp 09"
+        }
+    }
+}
